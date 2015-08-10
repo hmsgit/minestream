@@ -1,0 +1,6 @@
+# Project files of common IDEs
+*.bbl
+*.blg
+*.log
+*.gz
+*.aux
