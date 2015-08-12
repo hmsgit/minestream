@@ -1,4 +1,5 @@
 \documentclass[a4paper, 11pt, oneside]{book}
+\usepackage[utf8]{inputenc}
 \usepackage{setspace}
 \usepackage{geometry}
 \newgeometry{left=3.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
@@ -15,6 +16,10 @@
 \usepackage{epstopdf}
 \DeclareGraphicsExtensions{.pdf,.eps,.png,.jpg,.mps}
 \usepackage{placeins} % for \FloatbBarrier
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
 
 \renewcommand\floatpagefraction{.9}
 \renewcommand\topfraction{.9}
@@ -62,11 +67,11 @@ These rules or functions are then used to predict unseen instances where outcome
 
 \subsection{$k$-Nearest Neighbors}
 \begin{figure*}[htbp]
-	\begin{center}
-		\includegraphics[width=3.0in]{figs/knn.jpg}
-		\caption{Concept of $k$-NN.}
-		\label{fig:bg:knn}
-	\end{center}
+    \begin{center}
+        \includegraphics[width=3.0in]{figs/knn.jpg}
+        \caption{Concept of $k$-NN.}
+        \label{fig:bg:knn}
+    \end{center}
 \end{figure*}
 
 \subsection{Na\"ive Bayes}
@@ -94,15 +99,15 @@ The premise of this requirement is two-fold. First, as mentioned above, data wou
 Unlike most data sets or settings of batched approaches, steam mining data sets are often poorly labeled. A large number of experimentations are done with generated data set where the data generation process can easily be controlled to have proper labeling. However, in data set collected from real world are often lack this. For example, to setup a supervised learning experimentation using a data set collected from social media, e.g. Twitter, data needs to be first categorized by human intervention. Manual labeling of such data is often costly, both in terms of resources and time. In practice, only a small fraction of data is labeled by human experts or automated scripts. A stream classification algorithm is thus required to be able to predict after observing a small number of instances, i.e. to be ready to predict anytime.
 
 \begin{figure*}[htbp] 
-	\begin{center}
-		\begin{tabular}{cc}
-			\resizebox{60mm}{!}{\includegraphics{figs/condrift-a.jpg}} &
-			\resizebox{60mm}{!}{\includegraphics{figs/condrift-b.jpg}} \\
-			\scriptsize{(a)\hspace{0mm}} & \scriptsize{(b)}	
-		\end{tabular}
-	\caption{Concept drift in data streams.}
-	\label{fig:bg:condrift}
-	\end{center}
+    \begin{center}
+        \begin{tabular}{cc}
+            \resizebox{60mm}{!}{\includegraphics{figs/condrift-a.jpg}} &
+            \resizebox{60mm}{!}{\includegraphics{figs/condrift-b.jpg}} \\
+            \scriptsize{(a)\hspace{0mm}} & \scriptsize{(b)}    
+        \end{tabular}
+    \caption{Concept drift in data streams.}
+    \label{fig:bg:condrift}
+    \end{center}
 \end{figure*}
 \paragraph{Concept drift:}
 Concept drift is a statistical property of data streams where the target variable drifts away from the model that is trying to predict it. In other words the underlying data distribution is changing over time. As a result accuracy of the classifier model decreases over time. For example, buying pattern of the customers in a store changes over time, mostly due to the seasonality. Electrical and mechanical devices wear off over time, producing shifted result which would cause drift in the observing data. Learning models should adapt to these changes quickly and accurately. Let us consider the example in Figure~\ref{fig:bg:condrift}. As a new chunk arrives (Figure~\ref{fig:bg:condrift}a), a new classifier is learned. The decision boundary is denoted by the straight line. The positive examples are represented by unfilled circles while the negative examples are represented by filled circles. With time the concept of some of the examples may change. As shown in Figure~\ref{fig:bg:condrift}b, due to concept drift some negative examples may have become positive. So, the previous decision boundary has become outdated and a new model has to be learned.
@@ -110,15 +115,15 @@ Concept drift is a statistical property of data streams where the target variabl
 One challenge posed here is to differentiate the noise in data and the actual shift of the concept. Often in streaming environment data contains the both. 
 
 \begin{figure*}[htbp]
-	\begin{center}
-		\begin{tabular}{cc}
-			\resizebox{60mm}{!}{\includegraphics{figs/conevol-a.jpg}} &
-			\resizebox{60mm}{!}{\includegraphics{figs/conevol-b.jpg}} \\
-			\scriptsize{(a)\hspace{0mm}} & \scriptsize{(b)}	
-		\end{tabular}
-		\caption{Concept evolution in data streams.}
-		\label{fig:bg:dataevol}
-	\end{center}
+    \begin{center}
+        \begin{tabular}{cc}
+            \resizebox{60mm}{!}{\includegraphics{figs/conevol-a.jpg}} &
+            \resizebox{60mm}{!}{\includegraphics{figs/conevol-b.jpg}} \\
+            \scriptsize{(a)\hspace{0mm}} & \scriptsize{(b)}    
+        \end{tabular}
+        \caption{Concept evolution in data streams.}
+        \label{fig:bg:dataevol}
+    \end{center}
 \end{figure*}
 \paragraph{Concept evolution:}
 Concept evolution is referred to the emergence of a new class or a set of classes in stream data as the time flows. Twitter stream is an ideal example where concept evolution is very easily identifiable. Twitter reacts, seemingly, very fast upon important news around the globe. Looking into the different hash tag usages in such social media currently trending topics can be identified. To present a clearer picture let's consider following example in Figure~\ref{fig:bg:dataevol}. At certain point of time four classes and their corresponding decision boundaries are shown in the Figure~ (\ref{fig:bg:dataevol}a). With the more incoming data a novel class emerges, and for that decision boundaries need updating. Emergence of new class can affect any number of decision boundary/ rule, from one to all.
@@ -131,16 +136,62 @@ Class recurrence is a special case of concept drift and evolution. A this case, 
 Following sections discuss the potential solutions to these challenges. First, how to address the limited resources and then the change detection schemes.
 
 \subsection{Maintaining Sufficient Statistics}
-In statistical evaluation, a statistic is sufficient for a family of probability distributions if the sample from which it is calculated gives no additional information than does the statistic, as to which of those probability distributions is that of the population from which the sample was taken~\cite{fisher22:suffstat}. Mathematically, given a set  $\mathbf{X}$ of independent identically distributed data conditioned on an unknown parameter $\theta$, a sufficient statistic is a function $T(\mathbf{X})$ whose value contains all the information needed to compute any estimate of the parameter (e.g. a maximum likelihood estimate). Due to the factorization theorem (see below), for a sufficient statistic $T(\mathbf{X})$, the joint distribution can be written as $ p(\mathbf{X}) = h(\mathbf{X}) g(\theta, T(\mathbf{X}))$. From this factorization, it can easily be seen that the maximum likelihood estimate of $\theta$ will interact with $\mathbf{X}$ only through $T(\mathbf{X})$. Typically, the sufficient statistic is a simple function of the data, e.g. the sum of all the data points.
+In statistical evaluation, a statistic is sufficient for a family of probability distributions if the sample from which it is calculated gives no additional information than does the statistic, as to which of those probability distributions is that of the population from which the sample was taken~\cite{fisher22:suffstat}. Mathematically, given a set  $\mathbf{X}$ of independent identically distributed data conditioned on an unknown parameter $\theta$, a sufficient statistic is a function $T(\mathbf{X})$ whose value contains all the information needed to compute any estimate of the parameter (e.g. a maximum likelihood estimate). Due to the factorization theorem (see below), for a sufficient statistic $T(\mathbf{X})$, the joint distribution can be written as $ p(\mathbf{X}) = h(\mathbf{X}) g(\theta, T(\mathbf{X}))$. From this factorization, it can easily be seen that the maximum likelihood estimate of $\theta$ will interact with $\mathbf{X}$ only through $T(\mathbf{X})$. Typically, the sufficient statistic is a set of function or random variables of the data.
 
 \subsubsection{Bounds of Random Variable}
-An estimator is a function of the observable sample data that is used to
-estimate an unknown population parameter. We are particularly interested in interval estimators that compute an interval for the true value of the parameter, associated with a confidence $1 - \delta$. Two types of intervals are:
+A random variable is a variable that can take a set or range of values, each with an associated probability, and are subjected to change due to the alteration or randomness of the data. Random variables are of two types: (i) discrete, and (ii) continuous. Discrete random variable take a set of possible values (e.g. outcome of coin flipping), but a continuous random variable can take any value within a range (e.g. age of people in a randomly sampled group).
 
-\begin{itemize}	
-	\item Absolute approximation: $\bar{X} - \epsilon \le \mu \le \bar{X} + \epsilon$, where $\epsilon$ is the absolute error.
-	\item Relative approximation: $(1 - \delta)\bar{X} \le \mu \le (1 + \delta)\bar{X}$, where  is the relative error.
+A function that is used to estimating a random variable is called an estimator. Estimator function is dependent on the observable sample data, and used for estimating unknown population within an interval with certain degree of confidence. For an interval of the true value of the parameter associates with a confidence of $1 - \delta$, interval can be defined as follows:
+
+\begin{itemize}    
+    \item Absolute approximation: $\bar{X} - \epsilon \le \mu \le \bar{X} + \epsilon$, where $\epsilon$ is the absolute error.
+    \item Relative approximation: $(1 - \delta)\bar{X} \le \mu \le (1 + \delta)\bar{X}$, where  is the relative error.
 \end{itemize}
+
+where $\mu$ and $\bar{X}$ represent actual and estimated mean. There are a number of theorems that provide bounds on the estimation, Chebyshev [!], Chernoff~[!], Hoeffding~\cite{hoeffding63:bound}, etc. are few of them.
+
+\begin{theorem}[Chebyshev]
+\label{(thm:chebyshev)}
+    Let $X$ be a random variable with standard deviation $\sigma$, the probability that the outcome of $X$ is no less than $k\sigma$ away from its mean is no more that $1/k^2$:
+    $$
+        P(|X-\mu| \le k\sigma) \le \frac{1}{k^2}
+    $$
+    In other words, it states that no more that $1/4$ of the values are more than $2$ standard deviation away, no more than $1/9$ are more than $3$ standard deviation away, and so on.
+\end{theorem}
+
+\begin{theorem}[Chernoff Bound]
+\label{(thm:chernoff)}
+    Let $X_1,X_2,\dots, X_n$ be independent random variables from Bernoulli experiments. Assuming that $P(X_i = 1) = p_i$. Let $X_s = P_n \sum_{i=1}{n} X_i$ be a random variable with expected value $\mu_s = P \sum_{i=1} np_i$. Then for any $\delta > 0$:
+    $$
+        P[X_s > (1+\delta) \mu_s] \le (\frac{e^\delta}{(1 + \delta)^{1 +\delta}} )  ^{\mu_s}
+    $$
+    and the absolute error is:
+    $$
+        \epsilon \le \sqrt{\frac{3 \bar{\mu}}{n} \ln (2/\delta)}
+    $$
+\end{theorem}
+
+\begin{theorem}[Hoeffding Bound]
+\label{(thm:hoeffding)}
+    Let $X_1,X_2,\dots, X_n$ be independent random variables. Assuming that each $x_i$ is bounded, that is $P(X_i \in R = [a_i, b_i]) = 1$. Let $S = 1/n \sum_{i=1}{n} X_i$ whose expected value is $E[S]$. Then, for any $\epsilon > 0$:
+    $$
+        P[S - E[S] > \epsilon] \le e^{ \frac{2 n^2 \epsilon^2}{R^2} }
+    $$
+    and the absolute error is:
+    $$
+        \epsilon \le \sqrt{\frac{R^2 \ln(2/\delta)}{2n}}
+    $$
+\end{theorem}
+
+Chernoff and Hoeffding bounds are independent of the underlying distribution of examples. They are more restrictive or conservative, and requires more observations as compared to the distribution dependent bounds. Chernoff bound is multiplicative and Hoeffding is additive. They are expressed as relative and absolute approximation, respectively.
+
+These methods only take a finite number of values or a range. One of the well-known methods supports infinity is Poisson process. A random variable $x$ is Poisson random variable with parameter $\lambda$ if $x$ takes values $0,1,2, \dots, \infty$ with:
+    $$
+        p_k = P(x=k) = e^{-\lambda} \frac{\lambda^k}{k!}
+    $$
+    where, $\lambda$ is both mean and variance, i.e. $E(X) = Var(X) = \lambda$
+    
+\subsubsection{Maintaining Simple Statistics}
 
 \subsection{Change Detection}
 \subsection{Na\"ive Bayes Adaptation}
