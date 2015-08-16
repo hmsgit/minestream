@@ -1,16 +1,22 @@
 \documentclass[a4paper, 11pt, oneside]{book}
 \usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{color}
 \usepackage{setspace}
 \usepackage{geometry}
 \newgeometry{left=3.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
 
+\usepackage{amsmath}
+
 \makeatletter
 \newif\if@restonecol
 \makeatother
+
 \let\algorithm\relax
 \let\endalgorithm\relax
 \usepackage[linesnumbered,ruled,algonl,vlined]{algorithm2e}
-
+\newcommand\mycommentfont[1]{\footnotesize \ttfamily \textcolor{blue}{#1}}
+\SetCommentSty{mycommentfont}
 
 \usepackage{graphicx}
 \usepackage{epstopdf}
@@ -46,13 +52,31 @@ mahmud@in.tum.de
 \date{}
 
 %\maketitle
+%\pagenumbering{roman}
+%\tableofcontents
+%\clearpage
+%
+%\listoftables
+%\addcontentsline{toc}{chapter}{List of Tables}
+%\clearpage
+%
+%\listoffigures
+%\addcontentsline{toc}{chapter}{List of Figures}
+%\clearpage
+%
+%\listofalgorithms
+%\addcontentsline{toc}{chapter}{List of Algorithms}
+%\clearpage
 
 %\normalsize
 \onehalfspacing
+\pagenumbering{arabic}
+\setcounter{page}{1}
 
 \input{literature.tex}
 
 \chapter{Background}
+\label{chp:background}
 This chapter discusses the primitives of data and stream classification. First, a brief overview of traditional data classification methods are presented. Followed by a section on data stream classification where challenges and approaches for stream classification are introduces. Finally, overview of current state-of-the-art ensemble learning methods are discussed. These discussion are lays the foundation of the approach introduced in this thesis.
 
 
@@ -75,7 +99,38 @@ These rules or functions are then used to predict unseen instances where outcome
 \end{figure*}
 
 \subsection{Na\"ive Bayes}
+Naive Bayes classification is based on Bayes rule. Bayes rule says that the probability of event $x$ conditioned on knowing event $y$, i.e. the probability of $x$ given $y$ is defined as
+\[
+    p(x|y) = \frac{p(x,y)}{p(y)} = \frac{p(y|x) p(x)}{p(y)}
+\]
+The naive Bayes classifier~\cite{langley92:nb} assumes that all the explanatory variables are independent. Given a feature set $X = x_1, x_2, \dots, x_n$ of $n$ independent variables, naive Bayes assigns the instances to $k$ possible outcome or classes, $p(C_k | X)$. Using Bayes rule, the conditional probability can be decomposed as
+\[
+    p(C_k |X) = \frac{p(C_k) p(X|C_k)}{p(X)}
+\]
+In other words,
+\[
+    posterior = \frac{prior \times likelihood}{evidence}.
+\]
+Using chain rule repetitively, it can be expressed as follows:
+\[
+    p(C_k |X) = p(C_k) \prod_{i=1}^n p(x_i | C_k)
+\]
+The predicted class is the one which maximizes the conditional probabilities $p(C_k|X)$, that is, classifier assigns the class label $\hat{y} = C_k$ for some $k$ that satisfies:
+\[
+    \hat{y} = \underset{k \in \{1, \dots, K\}}{argmax}  p(C_k) \prod_{i=1}^n p(x_i | C_k)
+\]
+
 \subsection{Decision Tree}
+Decision trees are another popular genre of non-parametric supervised learning algorithms. Trees allow a way to graphically organize a sequential decision process. Decision tree, a directed acyclic graph, contains decision nodes, each with branches for all alternate decisions. Leaf nodes are labeled with respective class label. Each path from root to leaf is a decision rule, consisting of conditional part (unions of all internal nodes' conditions) and a decision (of leaf node).
+
+Decision trees use {\it information gain} to select the splitting attribute that would maximize the total entropy of each of the subtrees resulting from the spit. Entropy is a measurement of purity of an attribute, typically ranged between 0 and 1. A pure attribute, attribute with definitive value-class relationship, would have a low entropy and is easy to predict. On the other hand attribute with highly mixed value-class relationship would yield high entropy. A common entropy function is-
+\[
+    entropy = - \sum_{i=1}^n p_i \lg p_i.
+\]
+where $p_1, p_2, \dots, p_n$ are the distributions of several class attributes and $\sum p_i = 1$. Information gain is the difference between old and new entropy after a split. This is good measurement of relevance of an attribute. However, in cases where an attribute can take on a large number of distinct values, information gain is not ideal. Presence of large set of values could uniquely identify the classes but also reduces chance to generalize unseen instance and should be avoided to be place near root.
+
+Decision tree is, however, computationally feasible. Average cost of constructing a decision tree for $n$ instances with $m$ attributes is $O(mn \lg n)$, and querying time is $O(\lg n)$.
+
 \subsection{Neural Network}
 
 \section{Data Stream Classification}
@@ -110,9 +165,9 @@ Unlike most data sets or settings of batched approaches, steam mining data sets 
     \end{center}
 \end{figure*}
 \paragraph{Concept drift:}
-Concept drift is a statistical property of data streams where the target variable drifts away from the model that is trying to predict it. In other words the underlying data distribution is changing over time. As a result accuracy of the classifier model decreases over time. For example, buying pattern of the customers in a store changes over time, mostly due to the seasonality. Electrical and mechanical devices wear off over time, producing shifted result which would cause drift in the observing data. Learning models should adapt to these changes quickly and accurately. Let us consider the example in Figure~\ref{fig:bg:condrift}. As a new chunk arrives (Figure~\ref{fig:bg:condrift}a), a new classifier is learned. The decision boundary is denoted by the straight line. The positive examples are represented by unfilled circles while the negative examples are represented by filled circles. With time the concept of some of the examples may change. As shown in Figure~\ref{fig:bg:condrift}b, due to concept drift some negative examples may have become positive. So, the previous decision boundary has become outdated and a new model has to be learned.
+Concept drift is a statistical property of data streams where the target variable drifts away from the model that is trying to predict it. In other words the underlying data distribution is changing over time. As a result accuracy of the classifier model decreases over time. For example, buying pattern of the customers in a store changes over time, mostly due to the seasonality. Electrical and mechanical devices wear off over time, producing shifted result which would cause drift in the observing data. Learning models should adapt to these changes quickly and accurately. Let us consider the example in Figure~\ref{fig:bg:condrift}. As a new chunk arrives (Figure~\ref{fig:bg:condrift}a), a new classifier is learned. The decision boundary is denoted by the straight line. The positive examples are represented by unfilled circles while the negative examples are represented by filled circles. With time the concept of some of the examples may change. As shown in Figure~\ref{fig:bg:condrift}b, due to concept drift some negative examples may have become positive. So, the previous decision boundary has become outdated and a new model has to be learned. Formally, concept drift is the change in the joint probability \(P(X, y) = P(y|X) \times P(X)\). Thus, observing the change in $y$ for given $X$, i.e. $P(y|X)$ is the key for detection.
 
-One challenge posed here is to differentiate the noise in data and the actual shift of the concept. Often in streaming environment data contains the both. 
+One challenge posed here is to differentiate the noise in data and the actual shift of the concept. Often in streaming environment data contains the both. Rate of drift is also a factor in detection. Sudden drift, known as {\it concept shift}, is easier to detect than concept drift, which is considered to be gradual.
 
 \begin{figure*}[htbp]
     \begin{center}
@@ -136,7 +191,16 @@ Class recurrence is a special case of concept drift and evolution. A this case, 
 Following sections discuss the potential solutions to these challenges. First, how to address the limited resources and then the change detection schemes.
 
 \subsection{Maintaining Sufficient Statistics}
-In statistical evaluation, a statistic is sufficient for a family of probability distributions if the sample from which it is calculated gives no additional information than does the statistic, as to which of those probability distributions is that of the population from which the sample was taken~\cite{fisher22:suffstat}. Mathematically, given a set  $\mathbf{X}$ of independent identically distributed data conditioned on an unknown parameter $\theta$, a sufficient statistic is a function $T(\mathbf{X})$ whose value contains all the information needed to compute any estimate of the parameter (e.g. a maximum likelihood estimate). Due to the factorization theorem (see below), for a sufficient statistic $T(\mathbf{X})$, the joint distribution can be written as $ p(\mathbf{X}) = h(\mathbf{X}) g(\theta, T(\mathbf{X}))$. From this factorization, it can easily be seen that the maximum likelihood estimate of $\theta$ will interact with $\mathbf{X}$ only through $T(\mathbf{X})$. Typically, the sufficient statistic is a set of function or random variables of the data.
+In statistical evaluation, a statistic is sufficient for a family of probability distributions if the sample from which it is calculated gives no additional information than does the statistic, as to which of those probability distributions is that of the population from which the sample was taken~\cite{fisher22:suffstat}. Mathematically, given a set  $\mathbf{X}$ of independent identically distributed data conditioned on an unknown parameter $\theta$, a sufficient statistic is a function $T(\mathbf{X})$ whose value contains all the information needed to compute any estimate of the parameter (e.g. maximum likelihood estimate). Using the factorization theorem (Theorem~\ref{thm:factor}), for a sufficient statistic $T(\mathbf{X})$, the joint distribution can be written as $ p(\mathbf{X}) = h(\mathbf{X}) g(\theta, T(\mathbf{X}))$. From this factorization, it can easily be seen that the maximum likelihood estimate of $\theta$ will interact with $\mathbf{X}$ only through $T(\mathbf{X})$. Typically, the sufficient statistic is a set of function or random variables of the data.
+
+\begin{theorem}[Factorization Theorem]
+    \label{thm:factor}
+    Let $X_1, X_2, \dots , X_n$ be a random sample with joint density $f(x_1, x_2, \dots , x_n| \theta)$. A statistic $T = r(X_1, X_2, \dots , X_n)$ is sufficient if and only if the joint density can be factored as follows:
+    \[
+    f(x_1, x_2, \dots , x_n| \theta) = u(x_1, x_2, \dots , x_n) v(r(x_1, x_2, \dots , x_n), \theta)
+    \]
+    where $u$ and $v$ are non-negative functions. The function $u$ can depend on the full random sample $x_1, x_2, \dots , x_n$, but not on the unknown parameter $\theta$. The function v can depend on $\theta$, but can depend on the random sample only through the value of $r(x_1, x_2, \dots , x_n)$.
+\end{theorem}
 
 \subsubsection{Bounds of Random Variable}
 A random variable is a variable that can take a set or range of values, each with an associated probability, and are subjected to change due to the alteration or randomness of the data. Random variables are of two types: (i) discrete, and (ii) continuous. Discrete random variable take a set of possible values (e.g. outcome of coin flipping), but a continuous random variable can take any value within a range (e.g. age of people in a randomly sampled group).
@@ -151,51 +215,197 @@ A function that is used to estimating a random variable is called an estimator. 
 where $\mu$ and $\bar{X}$ represent actual and estimated mean. There are a number of theorems that provide bounds on the estimation, Chebyshev [!], Chernoff~[!], Hoeffding~\cite{hoeffding63:bound}, etc. are few of them.
 
 \begin{theorem}[Chebyshev]
-\label{(thm:chebyshev)}
+\label{thm:chebyshev}
     Let $X$ be a random variable with standard deviation $\sigma$, the probability that the outcome of $X$ is no less than $k\sigma$ away from its mean is no more that $1/k^2$:
-    $$
+    \[
         P(|X-\mu| \le k\sigma) \le \frac{1}{k^2}
-    $$
+    \]
     In other words, it states that no more that $1/4$ of the values are more than $2$ standard deviation away, no more than $1/9$ are more than $3$ standard deviation away, and so on.
 \end{theorem}
 
 \begin{theorem}[Chernoff Bound]
-\label{(thm:chernoff)}
+\label{thm:chernoff}
     Let $X_1,X_2,\dots, X_n$ be independent random variables from Bernoulli experiments. Assuming that $P(X_i = 1) = p_i$. Let $X_s = P_n \sum_{i=1}{n} X_i$ be a random variable with expected value $\mu_s = P \sum_{i=1} np_i$. Then for any $\delta > 0$:
-    $$
+    \[
         P[X_s > (1+\delta) \mu_s] \le (\frac{e^\delta}{(1 + \delta)^{1 +\delta}} )  ^{\mu_s}
-    $$
+    \]
     and the absolute error is:
-    $$
+    \[
         \epsilon \le \sqrt{\frac{3 \bar{\mu}}{n} \ln (2/\delta)}
-    $$
+    \]
 \end{theorem}
 
 \begin{theorem}[Hoeffding Bound]
-\label{(thm:hoeffding)}
+\label{thm:hoeffding}
     Let $X_1,X_2,\dots, X_n$ be independent random variables. Assuming that each $x_i$ is bounded, that is $P(X_i \in R = [a_i, b_i]) = 1$. Let $S = 1/n \sum_{i=1}{n} X_i$ whose expected value is $E[S]$. Then, for any $\epsilon > 0$:
-    $$
+    \[
         P[S - E[S] > \epsilon] \le e^{ \frac{2 n^2 \epsilon^2}{R^2} }
-    $$
+    \]
     and the absolute error is:
-    $$
+    \[
         \epsilon \le \sqrt{\frac{R^2 \ln(2/\delta)}{2n}}
-    $$
+    \]
 \end{theorem}
 
 Chernoff and Hoeffding bounds are independent of the underlying distribution of examples. They are more restrictive or conservative, and requires more observations as compared to the distribution dependent bounds. Chernoff bound is multiplicative and Hoeffding is additive. They are expressed as relative and absolute approximation, respectively.
 
 These methods only take a finite number of values or a range. One of the well-known methods supports infinity is Poisson process. A random variable $x$ is Poisson random variable with parameter $\lambda$ if $x$ takes values $0,1,2, \dots, \infty$ with:
-    $$
+    \[
         p_k = P(x=k) = e^{-\lambda} \frac{\lambda^k}{k!}
-    $$
+    \]
     where, $\lambda$ is both mean and variance, i.e. $E(X) = Var(X) = \lambda$
     
-\subsubsection{Maintaining Simple Statistics}
+\subsubsection{Recursive Mean, Variance, and Correlation}
+Fundamental equation of mean, variance, etc. are not usable for streams as past data points are lost as the time passes. However, their recursive version are also known. Equation~\ref{eqn:mean}, \ref{eqn:var}, and \ref{eqn:corr} can be used to recursively compute mean, variance, and correlation respectively.
+
+\begin{equation}
+\label{eqn:mean}
+    \bar{x}_i = \frac{(i-1) \times \bar{x}_{i-1} + x_i}{i}
+\end{equation}
+
+\begin{equation}
+\label{eqn:var}
+    \sigma_i = \sqrt{ \frac{\sum x_i^2 - \frac{ (\sum x_i )^2}{i} }{i-1} }
+\end{equation}
+
+\begin{equation}
+\label{eqn:corr}
+    corr(a, b) = \frac{ \sum(x_i \times y_i) - \frac{\sum x_i \times \sum y_i}{n} }{\sqrt{\sum x_i^2 - \frac{\sum x_i^2}{n}} \sqrt{\sum y_i^2 - \frac{\sum y_i^2}{n}}}
+\end{equation}
+
+As it can be seen from the equations, maintaining (i) number of observations, $n$; (ii) $\sum x_i$, sum of $i$ data points; (iii) $\sum x_i^2$, sum of squares of $i$ data points; and (iv) $\sum (x_i \times y_i)$, sum of cross product of $X$ and $Y$ are enough to recursively compute these statistics.
+
+
+\subsubsection{Windowing}
+Windowing the process of selecting a subset of the observed instances that would be remembered to be used in the computation of statistics. Where the data set is finite and of limited size, all the instances can be remembered. For streams, this is not possible. Furthermore, computing statistics over all the instances of the past, in streaming environment would wrongly introduce information of classes that are not needed in the present. Thus, information of recent past is more important than the entire set. Windowing is categorized in two basic types: (i) sequence based windowing, and (ii) time-stamp based windowing.
+
+In sequence based windowing, sequence is based on the number of observations seen; in time-stamp based approach, it is elapsed time. Landmark windowing and sliding windowing are two most used sequence based windowing system.
+
+\paragraph{Landmark Windowing:} All observations after certain start point are remembered. Batched approaches can be thought of as examples of landmark windowing where every instance is remembered from the very first one. As new observations are seen, size of window increases. Landmark needs updating time to time to ensure recency of the statistics.
+
+\paragraph{Sliding Windowing:} A fixed length window is moved through the observation set. As a new observation is seen, oldest observation is forgotten, i.e., when $j$-th instance is pushed into the window, $(j-w)$-th instance is forgotten, where $w$ is the size of the window. A limitation of sliding windowing is that it requires all elements within the window to be remembered, as it is needed to forget the oldest observation.
+
+Often it is more useful to learn about most recent updates with fine granularity and older ones in a summarized fashion. With this motivation concept of tilted-time windowing was introduced~\cite{chen02:tiltedtime}.
+
+\begin{figure*}[htbp]
+    \begin{center}
+        \includegraphics[width=3.0in]{figs/naturaltime.pdf}
+        \caption{Natural Tilted Time Window}
+        \label{fig:bg:ntime}
+    \end{center}
+\end{figure*}
+\paragraph{Natural Tilted Time Windowing:} In natural tilted time windowing, units of time is distributed non-uniformly. Most recent time gets more units. For example, Figure~\ref{fig:bg:ntime} shows a natural tilted time windowing scheme, where for most recent hour 4 units stores quarterly updates, 24 units of time storing a day, and 31 units storing a months summary. That is, with 59 units of time information, this model stores more than 32 days' information.
+
+\begin{figure*}[htbp]
+    \begin{center}
+        \includegraphics[width=4.0in]{figs/logtime.pdf}
+        \caption{Logarithmic Tilted Time Window}
+        \label{fig:bg:ltime}
+    \end{center}
+\end{figure*}
+\paragraph{Logarithmic Tilted Time Windowing:} Concept for logarithmic tilted time windowing is same as natural tilted time windowing. The only deference here is that time scale grows in logarithmic order. Figure~\ref{fig:bg:ltime} shows an example. 
+
 
 \subsection{Change Detection}
+An assumption of most machine learning methods is that data is generated from a stationary distribution. As discussed in the previous section, this assumption does not hold for streaming scenario. Thus stream mining requires algorithms to facilitate drift detection methods. Differentiating between {\it noise} and {\it change} makes the problem challenging. The difference between a new distribution and noise is {\it persistence}, where new examples consistently follows new distribution rather than old. This section discusses several methods to detect and adapt learning algorithms in presence of concept drift.
+
+\subsubsection{Detection}
+Detection methods can generally be classified into two categories. First approach is to monitoring the evolution of various performance indicators as done in~\cite{klinkenberg98:changedetection, zeira04:changedetection}. Another approach is to maintaining two (or more) distributions varying the window length. Typically one window would summarize past history while the other would summarize most recent information~\cite{kifer04:condrift}.
+
+Most methods follows the first approach. \cite{klinkenberg98:changedetection} monitors three performance indicators (accuracy, recall, and precision) over time, and uses their posterior comparison to a confident interval of standard sample errors for a moving average value for each indicator.
+
+A classical algorithm for change detection is Cumulative Sum (CUSUM)~\cite{page54:cusum}. CUSUM can detect that the mean of the input data is significantly different than zero. The test is as follows:
+\[
+    g_0 = 0 
+\]\[
+    g_t = max (0, g_{t-1} + (r_t - v))
+\]
+if $g_t > \lambda$ CUSUM triggers an alarm and set $g_t = 0$. This detects the changes in the positive direction, to detect the negative change $min$ is used instead of $max$. CUSUM does not require any memory. Its accuracy depends on the choice of $v$ and $\lambda$. Low $v$ results in faster detection with more false alarms.
+
+For latter category, \cite{kifer04:condrift} uses Cherfnoff bound (Theorem~\ref{thm:chernoff}) and examines examples drawn from two probability distribution and decides whether these distributions are different.
+
+\paragraph{ADWIN Algorithm:} As introduced in previous chapter, ADWIN (ADaptive sliding WINdow) is another change detection algorithm of latter type. ADWIN keeps a variable length window of recent items. It ensures the property {\it there has been no change in the average value inside the window} for maximally statistically consistent length. The core idea of ADWIN is that whenever two {\it large enough} sub-windows of $W$ exhibit {\it distinct enough} averages, it is assumed that their corresponding expected values are different, and the older portion of the window is dropped. Essentially, this means that when the difference of means of the two windows is greater than a certain threshold $\epsilon_{cut}$, the older portion should be dropped. Equation to compute $\epsilon_{cut}$ is as follows:
+\[
+    m = \frac{2}{1/|W_0| + 1/|W_1|}
+\]\[
+    \epsilon_{cut} = \sqrt{\frac{1}{2m} \ln \frac{4 |W|}{\delta}}
+\]
+where $\delta \in (0, 1)$ is confidence value, an input.
+
+\begin{algorithm}[htbp]
+    \DontPrintSemicolon
+\label{alg:adwin}
+\caption{ADWIN Algorithm}
+
+    \KwData{Data Stream}
+    \KwResult{Window with most recent concept}
+    \Begin{
+        Initialize window $W$ \\
+        \ForEach{$t > 0$} {
+            $W \leftarrow W \cup \{x_t\}$ \tcp*[f]{add $x_t$ to the head of $W$ }\\
+            \Repeat{$|\mu_{W_0} - \mu_{W_1}| < \epsilon_{cut}$ holds for every split of $W$} {
+                Drop element from the tail of W\\
+            }
+            $W = W_0 . W_1$\\
+        }
+        Output $\mu_W$\\
+    }
+\end{algorithm}
+
+\subsubsection{Adaptation to Change}
+To improve accuracy of the decision model under concept drifting environment, decision model needs adaptation to the change. There are two types of approaches based on when to adapt: 
+\begin{itemize}    
+    \item Blind or Periodic Methods: Models are updated on regular interval whether an changes have actually occurred or not. 
+    \item Informed Methods: Models are only updated when there are sufficient reasons to believe that changes in the concept have occurred.
+\end{itemize}
+It could a good idea to use periodic methods where duration of seasonality is known beforehand. Otherwise, chosen duration could be too large or too small to response to the change. In such cases, an informed decision is more desired. However, informed methods requires more resources (than blind methods) to be able to make such decision.
+
+
 \subsection{Na\"ive Bayes Adaptation}
+Naive Bayes algorithm is essentially a stream classification algorithm. One of the advantages of this classifier in the context of data stream is its low complexity for deployment. It only depends on the number of explanatory variables. Its memory consumption is also low since it requires only one conditional probability density estimation per variable.
+
 \subsection{Very Fast Decision Tree}
+
+\begin{algorithm}[htbp]
+    \DontPrintSemicolon
+\SetKwInOut{Input}{Input} \SetKwInOut{Output}{Output} 
+\label{alg:vfdt}
+\caption{VFDT: The Hoeffding Tree Algorithm}
+
+    \Input{$S$: Stream of examples \\
+           $X$: Set of nominal attributes \\
+           $Y$: Set of class labels $Y = \{y_1, y_2, \dots, y_k\}$ \\
+           $G(.)$: Split evaluation function \\
+           $N_{min}$: Minimum number of examples \\
+           $\delta$: is one minus the desired probability \\
+           $\tau$: Constant to resolve ties
+          } 
+    \Output{$HT$: is a decision tree}
+    
+    \Begin{
+        Let $HT \leftarrow$ Empty Leaf (Root)
+        \ForEach{$example(x, y_k) \in S$} {
+            Traverse the tree $HT$ from root till a leaf $l$ \\
+            
+            \eIf (\tcp*[f]{Missing class label}) {$y_k == ?$ } {
+                Classify with majority class in the leaf $l$
+            } {
+                Update sufficient statistics \\
+                \If{$ Number\;of\;examples\;in\;l > N_{min}$ }{
+                    Compute $G_l(X_i)$ for all attributes \\
+                    Let $X_a$ be the attribute with highest $G_l$ \\
+                    Let $X_b$ be the attribute with second highest $G_l$ \\
+                    Compute $\epsilon = \sqrt{\frac{R^2 \ln(2/\delta)}{2n}}$  \tcp*[f]{Hoeffding bound} \\
+                    
+                    \If{$G(X_a) - G(X_b) > \epsilon\; || \;\epsilon < \tau$} {
+                        Replace $l$ with a splitting test based on attribute $X_a$ \\
+                        Add a new empty leaf for each branch of the split \\
+                    }
+                }
+            }
+        }
+    }
+\end{algorithm}
 
 \section{Ensemble Learning}
 Ensemble learning is a commonly used tool for building prediction models from data streams, due to
