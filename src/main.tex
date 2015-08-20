@@ -1,8 +1,10 @@
 \documentclass[a4paper, 11pt, oneside]{book}
 \usepackage[utf8]{inputenc}
-\usepackage{hyperref}
+\usepackage{hyperref}%\usepackage[hidelinks]{hyperref}
 \usepackage{color}
 \usepackage{setspace}
+\usepackage{caption}
+
 \usepackage{geometry}
 \newgeometry{left=3.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
 
@@ -12,16 +14,31 @@
 \newif\if@restonecol
 \makeatother
 
+%ALGORITHM
 \let\algorithm\relax
 \let\endalgorithm\relax
 \usepackage[linesnumbered,ruled,algonl,vlined]{algorithm2e}
 \newcommand\mycommentfont[1]{\footnotesize \ttfamily \textcolor{blue}{#1}}
 \SetCommentSty{mycommentfont}
+\newcounter{algoline}
 
+%GRAPHICS
 \usepackage{graphicx}
 \usepackage{epstopdf}
 \DeclareGraphicsExtensions{.pdf,.eps,.png,.jpg,.mps}
 \usepackage{placeins} % for \FloatbBarrier
+
+%HEADER FOOTER
+\usepackage{fancyhdr}
+\fancyhf{}
+\fancyhead[LO]{\slshape \rightmark}
+\fancyhead[LE]{\slshape \leftmark}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.0mm}
+\renewcommand{\footrulewidth}{0.0mm}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}{Corollary}[theorem]
@@ -364,32 +381,20 @@ It could a good idea to use periodic methods where duration of seasonality is kn
 \subsection{Na\"ive Bayes Adaptation}
 Naive Bayes algorithm is essentially a stream classification algorithm. One of the advantages of this classifier in the context of data stream is its low complexity for deployment. It only depends on the number of explanatory variables. Its memory consumption is also low since it requires only one conditional probability density estimation per variable.
 
-\subsection{Very Fast Decision Tree}
-Very Fast Decision Tree (VFDT), also known as Hoeffding Tree (HT), is the stream adaptation of decision tree generating from a stationary distribution. It is an anytime-ready algorithm and uses Hoeffding bounds to ensure the performance in terms of accuracy is asysmptotically nearly identical to that of conventional tree algorithms. VFDT runs on constant time and memory per examples and can serve thousands of examples on a typical consumer system.
-
-VFDT constructs the tree by recursively replacing leaves with decission nodes. Each leave stores sufficient statistics that are used to evaluate the merit of split-test and to decide the target class. For incoming instances, the tree is traversed from the root to a leaf (based on the incoming instance's values) and the statistics are updated accordingly. If a unanimous decision cannot reached based on observed instances at that particular leaf node, the node is tested to check the sufficiency for a split. If there is enough statistical support in favor of split, the node is splited on the best attribute and stats are passed to the descendants (new leaves). Number of descendants of this new decision node is equal to the number of possible values of the chosen attribute. Thus, the tree is not necessarily a binary tree.
-
-Deciding on whether to split a node or not is a unique contribution of VFDT. VFDT solves this difficult problem of deciding exacly how many examples are required to be observed by a leaf node before splitting by using Hoeffding bound (Theorem~\ref{thm:hoeffding}). Consider $G(.)$ be the heuristic measure of the attributes. This measure could be information gain as of C4.5 or Gini index of CART. For information gain range $R$ in Hoeffding bound is $\lg (#classes)$. Goal is to find $n$ such that the attribute chosen for split after observing $n$ instances, would, with high probablity, be the same as it would be chosen after observing infinite instances. Assume that $X_a$ is the attribute with the best $G(.)$, and $X_b$ is the second best attribute after observing $n$ instances. Then $\Delta G = G(X_a) - G(X_b)$ be the difference between their observed heuristics. From Hoeffing bound, we know if $\Delta G < \epsilon$, then with probability $1 - \delta$ $X_a$ would be the attribute with highest value in the evaluation function in the universe. Otherwise, if $\Delta G < \epsilon$, then the sample size is not enough to make a stable split decision. As the assumption is that underlying generating distribution is stationary, thus as the sample size increases, $\epsilon$ decreases and heuristic value for most informative attribute goes up.
-
-To fasten up the process, VFDT uses an extra parameter $N_{min}$ to reduce the number of $G(.)$ computation. Computing $G(.)$ when there is too few instances is run-time inefficient. Thus a user parameter $N_{min}$ is used to indicate minimum number of instances needed to be observed before the evalution starts.
-
-When multiple attributes continuously performs similar in heuristic evaluation after observing a large number of examples, $\Delta G$ might never be greater than $\epsilon$. To break such tied cases, another user parameter $tau$ is used, and when $\epsilon$ falls below $\tau$ (i.e. $\Delta G < \epsilon <\tau$), algorithm splits on the best attribute.
-
-
 \begin{algorithm}[htbp]
+    \caption{VFDT: The Hoeffding Tree Algorithm}
+    \label{alg:vfdt}
     \DontPrintSemicolon
-\SetKwInOut{Input}{Input} \SetKwInOut{Output}{Output} 
-\label{alg:vfdt}
-\caption{VFDT: The Hoeffding Tree Algorithm}
-
+    \SetKwInOut{Input}{Input} \SetKwInOut{Output}{Output} 
+    
     \Input{$S$: Stream of examples \\
-           $X$: Set of nominal attributes \\
-           $Y$: Set of class labels $Y = \{y_1, y_2, \dots, y_k\}$ \\
-           $G(.)$: Split evaluation function \\
-           $N_{min}$: Minimum number of examples \\
-           $\delta$: is one minus the desired probability \\
-           $\tau$: Constant to resolve ties
-          } 
+        $X$: Set of nominal attributes \\
+        $Y$: Set of class labels $Y = \{y_1, y_2, \dots, y_k\}$ \\
+        $G(.)$: Split evaluation function \\
+        $N_{min}$: Minimum number of examples \\
+        $\delta$: is one minus the desired probability \\
+        $\tau$: Constant to resolve ties
+    } 
     \Output{$HT$: is a decision tree}
     
     \Begin{
@@ -414,39 +419,176 @@ When multiple attributes continuously performs similar in heuristic evaluation a
                 }
             }
         }
+        Return $HT$
+    }
+
+\end{algorithm}
+
+\subsection{Very Fast Decision Tree}
+Very Fast Decision Tree (VFDT), also known as Hoeffding Tree (HT), is the stream adaptation of decision tree generating from a stationary distribution. It is an anytime-ready algorithm and uses Hoeffding bounds to ensure the performance in terms of accuracy is asymptotically nearly identical to that of conventional tree algorithms. VFDT runs on constant time and memory per examples and can serve thousands of examples on a typical consumer system.
+
+VFDT constructs the tree by recursively replacing leaves with decission nodes. Each leave stores sufficient statistics that are used to evaluate the merit of split-test and to decide the target class. For incoming instances, the tree is traversed from the root to a leaf (based on the incoming instance's values) and the statistics are updated accordingly. If a unanimous decision cannot reached based on observed instances at that particular leaf node, the node is tested to check the sufficiency for a split. If there is enough statistical support in favor of split, the node is splitted on the best attribute and stats are passed to the descendants (new leaves). Number of descendants of this new decision node is equal to the number of possible values of the chosen attribute. Thus, the tree is not necessarily a binary tree.
+
+Deciding on whether to split a node or not is a unique contribution of VFDT. VFDT solves this difficult problem of deciding exactly how many examples are required to be observed by a leaf node before splitting by using Hoeffding bound (Theorem~\ref{thm:hoeffding}). Consider $G(.)$ be the heuristic measure of the attributes. This measure could be information gain as of C4.5 or Gini index of CART. For information gain range $R$ in Hoeffding bound is $\lg (\#classes)$. Goal is to find $n$ such that the attribute chosen for split after observing $n$ instances, would, with high probability, be the same as it would be chosen after observing infinite instances. Assume that $X_a$ is the attribute with the best $G(.)$, and $X_b$ is the second best attribute after observing $n$ instances. Then $\Delta G = G(X_a) - G(X_b)$ be the difference between their observed heuristics. From Hoeffding bound, we know if $\Delta G < \epsilon$, then with probability $1 - \delta$ $X_a$ would be the attribute with highest value in the evaluation function in the universe. Otherwise, if $\Delta G < \epsilon$, then the sample size is not enough to make a stable split decision. As the assumption is that underlying generating distribution is stationary, thus as the sample size increases, $\epsilon$ decreases and heuristic value for most informative attribute goes up.
+
+To fasten up the process, VFDT uses an extra parameter $N_{min}$ to reduce the number of $G(.)$ computation. Computing $G(.)$ when there is too few instances is run-time inefficient. Thus a user parameter $N_{min}$ is used to indicate minimum number of instances needed to be observed before the evalution starts.
+
+When multiple attributes continuously performs similar in heuristic evaluation after observing a large number of examples, $\Delta G$ might never be greater than $\epsilon$. To break such tied cases, another user parameter $tau$ is used, and when $\epsilon$ falls below $\tau$ (i.e. $\Delta G < \epsilon <\tau$), algorithm splits on the best attribute. Algorithm~\ref{alg:vfdt} summarizes the pseudocode of VFDT.
+
+There are some property of VFDT that are different than C4.5. In contrast to the C4.5 algorithm number of examples that support a decision increases in VFDT. Typically VFDT also results a low variance model than that of C4.5. However, there is no mechanism avoid overfitting in VFDT as there is no room for pruning.
+
+\begin{algorithm}[htbp]
+    \DontPrintSemicolon
+    \SetKwInOut{Input}{Input} \SetKwInOut{Output}{Output} 
+    \caption{CVFDT: Concept-adapting VFDT}
+    \label{alg:cvfdt}
+    
+    \Input{$S$: Stream of examples \\
+        $X$: Set of nominal attributes \\
+        $Y$: Set of class labels $Y = \{y_1, y_2, \dots, y_k\}$ \\
+        $G(.)$: Split evaluation function \\
+        %$N_{min}$: Minimum number of examples \\
+        $\delta$: is one minus the desired probability \\
+        $\tau$: Constant to resolve ties \\
+        $w$: Size of the window \\
+        $n_{min}$: Number of examples between checks for growth \\
+        $f$: Number of examples between checks for drift
+    } 
+    \Output{$HT$: is a decision tree}
+    
+    \Begin{
+        Let $HT \leftarrow$ Empty Leaf (Root) $l_0$ \\
+        Let $Alt(l_0) \leftarrow \emptyset$ \tcp*[f]{Alternate trees for $l_0$} \\
+        %Let $G(X_\emptyset)$ be the $G(.)$ obtained by predicting most frequent class \\
+        %Let $X_1 = X \cup \{X_\emptyset\}$ \\
+        
+        \ForEach{class $y_k$} {
+            \ForEach{$x_{ij} \in X_i \in X$} {
+                Set $n_{ijk} = 0$
+            }
+        }
+        \ForEach{$example(x, y) \in S$} {
+            Traverse the tree $HT$ including $Alt(\{n: (x,y)\;passes\;through\;n\;in\;HT\})$ trees root till a set of leaves $L$ \\
+            
+            Set $id = \max(\{L.id\})$ \\
+            Add $((x, y), id)$ to the beginning of $W$ \\
+            \If{$|W| > w$} {
+                Let $((x_w, y_w), id_w)$ be the last element in $W$ \\
+                FORGET($HT, n, (x_w, y_w), id_w)$) \label{algln:cvfdt:forget} \\
+                $W = W - ((x_w, y_w), id_w)$
+            }
+            GROW($HT, n, G, (x,y)$ \\
+            \If{examples seen since last checking $> f$}{
+                VALIDATE\_SPLIT($n$) \label{algln:cvfdt:validatesplit} 
+            }
+        }
+        Return $HT$
+    }
+\end{algorithm}
+\subsection{Concept-adapting Very Fast Decision Tree}
+Concept-adapting Very Fast Decision Tree (CVFDT) is the extension of CFDT that adds the ability to adapt the model by detecting the changes in the underlying distribution that generates the examples. CVFDT does not require the model to be recomputed, instead it updates the sufficient statistics stored in each node that the new instances affects by maintaining a sliding window. It increases the counter of new instances and decreases count of oldest examples which now needs to be forgotten. If the underlying distribution is stationary, this would not have any effect. But in case of a concept drifting distribution, some decision nodes that previously had passed the Hoeffding bound test will no longer pass, rather an alternate attribute would now have higher or similar gain. CVFDT keeps stats to detect such situation and starts maintaining an alternate subtree with the new best attribute as its root. When this alternate subtree becomes more accurate on new data then the old subtree is replaced by the new one. Pseudocode of CVFDT has be shown in Algorithm~\ref{alg:cvfdt}. The sub-routine $GROW$ is essentially the Hoeffding Tree algorithm where instead of only keeping stats in the leave, every node keeps track of the instances it has seen. Two other sub-routines $FORGET$ and $VALIDATE\_SPLIT$ have been shown separately.
+
+\begin{algorithm}[htbp]
+    \ContinuedFloat
+    \DontPrintSemicolon
+    \LinesNumberedHidden
+    \setcounter{algoline}{0}
+    \newcommand\Numberline{\refstepcounter{algoline}\nlset{\thealgoline}}
+    \SetNlSty{textbf}{\ref*{algln:cvfdt:forget}.}{}
+    
+    \SetKwInOut{Input}{Input} \SetKwInOut{Output}{Output} 
+    \SetKwInOut{TitleOfAlgo}{Algorithm}
+    \TitleOfAlgo {FORGET($HT, n, (x_w, y_w), id_w$)}
+    \label{alg:cvfdt:forget}
+    
+    \Begin{
+        \Numberline Sort $(x_w, y_w)$ through $HT$ while it traverses leaves with $id \le id_w$ \\
+        \Numberline Let $P$ is the set of sorted nodes \\
+        
+        \Numberline \ForEach{node $l \in P$} {
+        \Numberline     \ForEach{$x_{ij} \in x : X_i \in X_l$} {
+        \Numberline         Decrement $n_{ijk}(l)$
+            }
+        \Numberline     \ForEach{tree $t_{alt} \in Alt(l)$} {
+        \Numberline         FORGET($t_{alt}, n, (x_w, y_w), id_w$)
+            }
+        }
     }
 \end{algorithm}
 
+$FORGET$ function is used to remove the effect of instances of older concepts. However, this is not straight-forward as HTs go through changes after the instance to be forgotten was initially added. Thus, CVFDT uses monotonically increasing ids for the nodes. When a new instance is added to the window ($W$), the maximum $Id$ of the leaves it reaches in $HT$ and all the alternate trees is recorded with it. To remove the effect of a old instance, counts are decremented at every node the example reaches in $HT$ whose $Id$ is less than the stored $Id$.
+
+\begin{algorithm}[htbp]
+    \ContinuedFloat
+    \DontPrintSemicolon
+    \LinesNumberedHidden
+    \setcounter{algoline}{0}
+    \newcommand\Numberline{\refstepcounter{algoline}\nlset{\thealgoline}}
+    \SetNlSty{textbf}{\ref*{algln:cvfdt:validatesplit}.}{}
+    
+    \SetKwInOut{Input}{Input} \SetKwInOut{Output}{Output} 
+    \SetKwInOut{TitleOfAlgo}{Algorithm}
+    \TitleOfAlgo {VALIDATE\_SPLIT($HT, n, (x_w, y_w), id_w$)}
+    \label{alg:cvfdt:validatesplit}
+    
+    
+    \Begin{
+        \Numberline Let $HT \leftarrow$ Empty Leaf (Root) $l_0$ \\
+        \Numberline Let $Alt(l_0) \leftarrow \emptyset$ \tcp*[f]{Alternate trees for $l_0$} \\
+        
+        \Numberline \ForEach{internal node $l$ in $HT$} {
+        \Numberline     \ForEach{$t_{alt} \in Alt(l)$} {
+        \Numberline         VALIDATE\_SPLIT($t_{alt}, n, (x_w, y_w), id_w$)
+                    }
+        \Numberline     \ForEach{$x_{ij} \in X_i \in X$} {
+        \Numberline         Set $n_{ijk} = 0$
+                        }
+                    }
+        \Numberline Let $X_a$ be the current split attribute \\
+        \Numberline Compute $\Delta(G) = G_l(X_n) - G_l(X_b)$  \tcp*[f]{$X_n, X_b$ two current highest 		attributes} \\
+        
+        \Numberline \If{$\Delta(G) \ge 0 \&\& X_n \not\in \{roots of Alt(l)\}$ } {
+        \Numberline     Compute $\epsilon = \sqrt{\frac{R^2 \ln(2/\delta)}{2n}}$  \tcp*[f]{Hoeffding bound} \\
+        \Numberline     \If{$\Delta(G) > \epsilon\; || \;\epsilon < \tau \&\& \Delta(G) \ge \tau/2$} {
+        \Numberline         Let $l_{new}$ be an internal node that splits on $X_n$ \\
+        \Numberline         $Alt(l) = Alt(l) + l_{new}$ \\
+        \Numberline         \ForEach{branch of the split} {
+        \Numberline             Add a new leaf $l_m$ to $l_new$ \\
+        \Numberline             $X_m = X - {X_n}$ \\
+        \Numberline             $Alt(l_m) = {}$ \\
+                    
+        \Numberline             Compute $G_m(X_\emptyset)$ using most frequent class at $l_m$ \\
+        \Numberline             \ForEach{node $l \in P$} {
+        \Numberline                 \ForEach{$x_{ij} \in x : X_i \in X_l$} {
+        \Numberline                     Decrement $n_{ijk}(l)$
+                        }
+                    }
+                }
+            }
+        }
+    }
+\end{algorithm}
+
+Lastly, there is $VALIDATE\_SPLIT$ sub-routine that periodically checks the internal nodes of $HT$ where current split attribute would no longer have the highest $G(.)$ or $\Delta G$ would be less than $\epsilon$ or $\Delta G$ would be less than $\tau/2$. This is similar condition as to the original one with more restrictive tie condition. The added restriction ensures less alternate tree creation.
+
+Now that related concept of basic learning algorithms and stream mining are discussed, in the next section, the concepts of ensemble learning are presented.
+
 \section{Ensemble Learning}
-Ensemble learning is a commonly used tool for building prediction models from data streams, due to
-its intrinsic merits of handling large volumes stream data. Different from traditional incremental and
-online learning approaches that merely rely on a single model [11, 38], ensemble learning employs a
-divide-and-conquer approach to first split the continuous data streams into small data chunks, and
-then build light-weight base classifiers from the small chunks. At the final stage, all base classifiers are
-combined together for prediction. By doing so, an ensemble model can enjoy a number of advantages,
-such as scaling up to large volumes of stream data, adapting quickly to new concepts, achieving lower
-variances than a single model, and easily to be parallelized.
-Ensemble classifiers on data streams provide a generic framework for handling massive volume data
-streams with concept drifting. The idea of ensemble classifiers is to partition continuous data streams
-into small data chunks, from which a number of base classifiers are built and combined together for
-prediction. Two main motivations for combining classifiers are as follows:
+Ensemble learning, due to its intrinsic merits, focuses to get the best out of a collection of base learners. Ensemble learning can be thought of as a divide-and-conquer approach. However, it may not necessarily divides the tasks rather does more tasks. The motivation behind was presented in the previous chapter. In short, ensemble methods are interesting because of following possibilities:
+\begin{itemize}
+    \item Avoiding worst classifier by averaging several classifier.
+    \item Fusing multiple classifier to improve performance of the best classifier.
+    \item Arranging the better classifiers (might include the best one) in a way to outperform the best one.
+    \item Dividing streams into chunks, learn separate models from each and then combine their results (divide and conquer).
+\end{itemize}
 
-Statistical (or worst case) motivation: It is possible to avoid the worst classifier by averaging
-several classifiers. It was confirmed theoretically by Fumera and Roli in [39]. This simple
-combination was demonstrated to be efficient in many applications. There is no guarantee,however, the combination will perform better than the best classifier.
-
-Representational (or best case) motivation: Under particular situations, fusion of multiple
-classifiers can improve the performance of the best individual classifier. It happens when the
-optimal classifier for a problem is outside of the considered classifier space". There are many
-experimental evidences that it is possible if the classifiers in an ensemble make different errors.
-This assumption has a theoretical support in some cases when linear combination is performed.
-
+A number of methods has been developed in past couple of decades focusing on these motivations. In this section, we present the basic concept of ensembling a collection of classifier. We start with primitive methods such as bagging and boosting. However, we are particularly interested in more sophisticated methods based on decision tree learning methods of stream data such as Adaptive Size Hoeffding Tree (ASHT) and ADaptive WINdow bagging (ADWIN baggin).
 
 
 \subsection{Bagging}
 \subsection{Boosting}
 \subsection{ASHT}
-\subsection{...}
+\subsection{ADWIN Bagging}
 
 \bibliographystyle{apalike}
 \bibliography{ref}
