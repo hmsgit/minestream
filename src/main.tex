@@ -582,10 +582,19 @@ Ensemble learning, due to its intrinsic merits, focuses to get the best out of a
     \item Dividing streams into chunks, learn separate models from each and then combine their results (divide and conquer).
 \end{itemize}
 
-A number of methods has been developed in past couple of decades focusing on these motivations. In this section, we present the basic concept of ensembling a collection of classifier. We start with primitive methods such as bagging and boosting. However, we are particularly interested in more sophisticated methods based on decision tree learning methods of stream data such as Adaptive Size Hoeffding Tree (ASHT) and ADaptive WINdow bagging (ADWIN baggin).
+A number of methods has been developed in past couple of decades focusing on these motivations. They employ different approaches to improve the final classifier. Following is a summary of different approaches of generating ensembles of classifiers.
+\begin{itemize}
+    \item Creating multiple training sets by resampling the original set and feeding those into different learners.
+    \item Using different combination of features to learn multiple classifiers.
+    \item Manipulating class labels. For example, transforming the classes into binary classification problem by partitioning the class labels into disjoint subsets.
+    \item Manipulating the learning algorithms such that they result different outcomes for the same training set. For example, introducing certain randomness into tree growing algorithm.
+\end{itemize}
 
+In this section, we present these basic concepts of ensembling a collection of classifier. We start with primitive methods such as bagging and boosting. However, we are particularly interested in more sophisticated methods based on decision tree learning methods of stream data such as Adaptive Size Hoeffding Tree (ASHT) and ADaptive WINdow bagging (ADWIN bagging).
 
 \subsection{Bagging}
+Bagging, also known as bootstrap aggregating, is a meta algorithm that improves accuracy and reduces variance and chance of over-fitting. Bagging is typically used with tree based learners. Given a training set $D$ of size $n$, bagging generates $m$ new training sets $D_i$ of size $n_{new}$ where $i = \{1, 2, \dots, m\}$ by sampling with replacement. If $n = n_{new}$ approximately two-thirds of the instances of $D_i$ is expected to be unique examples of $D$ while rest being duplicates. These $m$ sets are then used to learn $m$ classifier. Final decision is given by a majority voting scheme over the decision of these $m$ classifiers.
+
 \subsection{Boosting}
 \subsection{ASHT}
 \subsection{ADWIN Bagging}
