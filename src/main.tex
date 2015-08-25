@@ -57,6 +57,8 @@
 
 \frenchspacing \sloppy
 
+\newcommand*{\perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\comb}[2]{{}^{#1}C_{#2}}%
 
 \newcommand{\eat}[1]{}
 \hyphenation{}
@@ -102,7 +104,6 @@ mahmud@in.tum.de
 \label{chp:background}
 This chapter discusses the primitives of data and stream classification. First, a brief overview of traditional data classification methods are presented. Followed by a section on data stream classification where challenges and approaches for stream classification are introduces. Finally, overview of current state-of-the-art ensemble learning methods are discussed. These discussion are lays the foundation of the approach introduced in this thesis.
 
-
 \section{Learning Algorithms}
 The goal of data classification process is to predict a certain outcome based on some give data. In order to do so, data mining algorithms first processes a training set containing a set of attributes and corresponding outcome: a class or value. Algorithms develop hypotheses that best describe the relationship among the attributes and the outcome for the total instance set. 
 Formally, learning are defined as follow: Given a data set of m instances 
@@ -110,17 +111,26 @@ $D \equiv \{ \{\vec{x}_1, y_1\}, \{\vec{x}_2, y_2\}, \{\vec{x}_3, y_3\}, \dots, 
 for $i = \{ 1, 2, 3, \dots, m \}$ and $ \vec{x} = \{x_1, x_2, x_3, \dots, x_n\}$, 
 learning algorithms try to approximate $H \equiv y = f(\vec{x})$. 
 Additional to being typical linear, polynomial, etc. functions, $H$ can also be a set of IF-THEN rules. 
-These rules or functions are then used to predict unseen instances where outcome class is not known. These algorithms are known as learning algorithms, and in last few decades, have widely been researched in the field of machine learning. This section briefly discusses few of the basic algorithms upon which the foundation of ensemble methods and this thesis is laid. 
+These rules or functions are then used to predict unseen instances where outcome class is not known. These algorithms are known as learning algorithms, and in last few decades, have widely been researched in the field of machine learning. This section briefly discusses few of the basic algorithms upon which the foundation of ensemble methods and this thesis are laid. The detailed discussion of these algorithms are out of the scope of this chapter. Thus we discuss only the core concept here.
 
 \subsection{$k$-Nearest Neighbors}
+K nearest neighbor algorithm, in short $k$-NN, is one the simplest learning available. It is a non-parametric instance-based lazy learning algorithm and works for both supervised and unsupervised learning. It uses similarity measure like distance functions to classify unknown instances. The decision is a majority voting of its $k$ neighbors. For example, if $k= 1$ then an unknown is assigned the class label of its nearest neighbor. There are several schemes to find the $k$ nearest neighbours. For continuous data some well-known distance functions are Euclidean distance, Manhattan distance, Minkowski distance, etc.
+\begin{itemize}
+    \item Euclidean distance $D_E = \sqrt{\sum_{\i =1 }^{k} (x_i - y_i)^2}$
+    \item Manhattan distance $D_M = \sum_{\i =1 }^{k} |(x_i - y_i)|$
+    \item Minkowski distance $D_{Min}\sqrt[q]{\sum_{\i =1 }^{k} (|x_i - y_i|)^q}$
+\end{itemize}
+For categorical data, Hamming distance can be used. Hamming distance is defined as $D_H = \sum_{\i =1 }^{k} |(x_i - y_i)|$ where $|x_i - y_i|$ is $0$ if $x=y$, $1$ otherwise.
 
 \begin{figure}[htbp]
     \begin{center}
         \includegraphics[width=3.0in]{figs/knn.jpg}
-        \caption{Concept of $k$-NN.}
+        \caption{Concept of $k$-NN}
         \label{fig:bg:knn}
     \end{center}
 \end{figure}
+
+Choosing an optimal $k$ is the prime challange of $k-NN$ algorithm, which is extremely training data dependent. Changing position of few training points could led to a significant loss in performance. The method is particularly not stable in the class boundary. $k$ should be large enough that $k$-NN could overcome the noises in data, and small enough that instances of other classes are not included. Generally, higher $k$ reduces the overall noise and should be more precise. For most data set a value between $3$-$10$ perfoms much better than $1$-NN. Typically cross-validation is used to determine a good $k$. 
 
 \subsection{Na\"ive Bayes}
 Naive Bayes classification is based on Bayes rule. Bayes rule says that the probability of event $x$ conditioned on knowing event $y$, i.e. the probability of $x$ given $y$ is defined as
@@ -156,6 +166,18 @@ where $p_1, p_2, \dots, p_n$ are the distributions of several class attributes a
 Decision tree is, however, computationally feasible. Average cost of constructing a decision tree for $n$ instances with $m$ attributes is $O(mn \lg n)$, and querying time is $O(\lg n)$.
 
 \subsection{Neural Network}
+The Neural Network (NN) is a learning method inspired by biological neural network. A set of inter-connected nodes (also known as perceptrons and nuerons) mimic biological neural network. Figure~\ref{fig:bg:nnlayer} shows a skeleton of a neural network. A input layer is connected to the output layer via some layers of hidden layers. Decisions are made looking only into the output layer while hidden layer is thought of as a black box to the user. If there is no hidden layer, then neural network becomes a simple regresion problem i.e. output is a direct fuction of inputs. Each connection among these nodes has an associated weight. Given an input data set, these weights are updated accordingly to best fit the classification model. 
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=3.0in]{figs/nnlayers.jpg}
+        \caption{Neural network layers}
+        \label{fig:bg:nnlayer}
+    \end{center}
+\end{figure}
+
+% http://teaching-wiki.sti2.at/uploads/c/c7/13_Intelligent_Systems-NeuralNetworks.pdf
+% http://natureofcode.com/book/chapter-10-neural-networks/
+% 
 
 \section{Data Stream Classification}
 Traditional data mining algorithms work in a memory bounded environment and requires multiple scan of the training data. In stream environment, one of the major assumptions is that new data samples are introduced in the system with such a high rate that repetitive analysis becomes infeasible. Thus, for stream classification, algorithms should be able to look into a instance only once and decide upon that. A bounded memory buffer can be used to facilitate some level of repetition. However, which instances are to remember and which are to forget would then become a decision choice. An alternate choice is to maintain sufficient statistics to have a representation of the data. The process of deletion or summarization of instances, however, means that some information are being lost over the time.
@@ -274,9 +296,10 @@ where $\mu$ and $\bar{X}$ represent actual and estimated mean. There are a numbe
 Chernoff and Hoeffding bounds are independent of the underlying distribution of examples. They are more restrictive or conservative, and requires more observations as compared to the distribution dependent bounds. Chernoff bound is multiplicative and Hoeffding is additive. They are expressed as relative and absolute approximation, respectively.
 
 These methods only take a finite number of values or a range. One of the well-known methods supports infinity is Poisson process. A random variable $x$ is Poisson random variable with parameter $\lambda$ if $x$ takes values $0,1,2, \dots, \infty$ with:
-    \[
+    \begin{equation}
+    \label{eqn:poisson}
         p_k = P(x=k) = e^{-\lambda} \frac{\lambda^k}{k!}
-    \]
+    \end{equation}
     where, $\lambda$ is both mean and variance, i.e. $E(X) = Var(X) = \lambda$
     
 \subsubsection{Recursive Mean, Variance, and Correlation}
@@ -605,7 +628,7 @@ In this section, we present these basic concepts of ensembling a collection of c
 
 \subsection{Bagging}
 \label{sec:bg:bagging}
-Bagging, also known as bootstrap aggregating, is a meta algorithm that improves accuracy and reduces variance and chance of over-fitting. Bagging is typically used with tree based learners. Given a training set $D$ of size $n$, bagging generates $m$ new training sets $D_i$ of size $n_{new}$ where $i = \{1, 2, \dots, m\}$ by sampling with replacement. If $n = n_{new}$ approximately two-thirds of the instances of $D_i$ is expected to be unique examples of $D$ while rest being duplicates. These $m$ sets are then used to learn $m$ classifier. Final decision is given by a majority voting scheme over the decision of these $m$ classifiers. Figure~\ref{fig:bg:bagging} shows an illustrative example of bagging method.
+Bagging, also known as bootstrap aggregating, is a meta algorithm that improves accuracy and reduces variance and chance of over-fitting. Bagging is typically used with tree based learners. Given a training set $D$ of size $n$, bagging generates $m$ new training sets $D_i$ of size $n_{new}$ where $i = \{1, 2, \dots, m\}$ by sampling with replacement. If $n = n_{new}$ approximately two-thirds of the instances of $D_i$ is expected to be unique examples of $D$ while rest being duplicates. If $K$ is the number of examples belonging from the original training set then $P(K=k) = \binom{n}{k} \left( \frac{1}{n}\right)^k \left(1- \frac{1}{n}\right)^{n-k}$. These $m$ sets are then used to learn $m$ classifier. Final decision is given by a majority voting scheme over the decision of these $m$ classifiers. Figure~\ref{fig:bg:bagging} shows an illustrative example of bagging method.
 \begin{figure}[htbp]
     \begin{center}
         \includegraphics[width=10.0cm]{figs/bagging.jpg}
@@ -614,7 +637,8 @@ Bagging, also known as bootstrap aggregating, is a meta algorithm that improves 
     \end{center}
 \end{figure}
 
-%ONLINE BAGGING http://ti.arc.nasa.gov/m/profile/oza/files/ozru01a.pdf
+For online bagging approach $n \rightarrow \infty$, and the Binomial distribution of $P(K=k)$ tends to a Poisson distibution with $P(K=k) = \exp(-1)/k!$. Using this justificaiton, online bagging chooses a $k ~ Poisson(1)$ for each incoming training examples $(x_i, y_i)$, and updates the base learning learning algorithms $k$ times. The classification is done as the same way of batched approach, by unweighted voiting of $m$ base classifers. For similar distribution of training examples, online bagging produces similar approximated base models. If (i) used based learner converges to the same same classifier with increasing training examples, and (ii) base learner produces same classifier given a fixed training set for both batched and online bagging methods; then online bagging will converge to the classifier obtained though batched learning methods.
+
 
 \subsection{Boosting}
 Boosting is another supervised learning algorithm to iteratively improve learning hypothesis. The motivation behind the boosting approach is that a set of weak classifier could create a single strong learner. It forces a weak classifier to update or generate new rules that make less mistakes on previously misclassified records. Initially all records are assigned same weights. At the end of a boosting round, weights might change due to the errors in classification. Weights of the instances are increased or decreased if they are classified wrongly or correctly, respectively. Thus successive classifiers depend upon their predecessors. 
@@ -646,7 +670,7 @@ For each iteration $t= 1, 2, \dots, T$:
 \end{itemize}
 Finally, the output is calculated with the Equation~\ref{eqn:adaboostHypo} given above.
 
-%ONLINE BOOSTING http://ti.arc.nasa.gov/m/profile/oza/files/ozru01a.pdf
+An online variant of AdaBoost uses a similar approach as online bagging method, simulating sampling with replacement using Poisson distribution. However, the Poisson parameter $\lambda$ (Equation~\ref{eqn:poisson}) associated with an example is increased if that particular example is misclassified. In case of correct classification $\lambda$ is decreased. Similar to the AdaBoost, online boosting approach assigns total weights equally to the correctly and misclassified instances, i.e. half of the total weights each. Unlike AdaBoost, in online boosting weights are updated based on only the examples seen thus far rather than the complete training set. This is intuitively probalematic as initial hypotheses are build on too few examples. Even with this limitation, online boosting shows good performance. Online boosting with naive Bayes base learner converges to the model achieved with AdaBoost as the number of training instances tends to infinity.
 
 \subsection{Adaptive-Size Hoeffding Tree (ASHT) Bagging}
 In previous section (Section~\ref{sec:bg:vfdt}), we have introduced Very Fast Decision Tree (VFDT) or Hoeffding Tree (HT). Hoeffding Tree is inspired by the fact that a small sample size could be enough to effectively choose an optimal splitting attribute. An upper bound of the error introduced because of such generalization is given using Hoeffding bound.
