@@ -1,5 +1,10 @@
 \documentclass[a4paper, 11pt, oneside]{book}
+
 \usepackage[utf8]{inputenc}
+\usepackage[english]{babel}   % Babel, replace with your language
+\usepackage[T1]{fontenc}      % Font encoding
+\usepackage{lmodern,cmap}     % lmodern font, correctly copyable characters in pdf
+
 \usepackage{hyperref}%\usepackage[hidelinks]{hyperref}
 \usepackage{color}
 \usepackage{setspace}
@@ -9,6 +14,7 @@
 \newgeometry{left=3.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
 
 \usepackage{amsmath}
+\usepackage{amsfonts}
 
 \makeatletter
 \newif\if@restonecol
@@ -107,13 +113,14 @@ Additional to being typical linear, polynomial, etc. functions, $H$ can also be 
 These rules or functions are then used to predict unseen instances where outcome class is not known. These algorithms are known as learning algorithms, and in last few decades, have widely been researched in the field of machine learning. This section briefly discusses few of the basic algorithms upon which the foundation of ensemble methods and this thesis is laid. 
 
 \subsection{$k$-Nearest Neighbors}
-\begin{figure*}[htbp]
+
+\begin{figure}[htbp]
     \begin{center}
         \includegraphics[width=3.0in]{figs/knn.jpg}
         \caption{Concept of $k$-NN.}
         \label{fig:bg:knn}
     \end{center}
-\end{figure*}
+\end{figure}
 
 \subsection{Na\"ive Bayes}
 Naive Bayes classification is based on Bayes rule. Bayes rule says that the probability of event $x$ conditioned on knowing event $y$, i.e. the probability of $x$ given $y$ is defined as
@@ -170,7 +177,7 @@ The premise of this requirement is two-fold. First, as mentioned above, data wou
 \paragraph{Lack of labeled data:}
 Unlike most data sets or settings of batched approaches, steam mining data sets are often poorly labeled. A large number of experimentations are done with generated data set where the data generation process can easily be controlled to have proper labeling. However, in data set collected from real world are often lack this. For example, to setup a supervised learning experimentation using a data set collected from social media, e.g. Twitter, data needs to be first categorized by human intervention. Manual labeling of such data is often costly, both in terms of resources and time. In practice, only a small fraction of data is labeled by human experts or automated scripts. A stream classification algorithm is thus required to be able to predict after observing a small number of instances, i.e. to be ready to predict anytime.
 
-\begin{figure*}[htbp] 
+\begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
             \resizebox{60mm}{!}{\includegraphics{figs/condrift-a.jpg}} &
@@ -180,13 +187,13 @@ Unlike most data sets or settings of batched approaches, steam mining data sets 
     \caption{Concept drift in data streams.}
     \label{fig:bg:condrift}
     \end{center}
-\end{figure*}
+\end{figure}
 \paragraph{Concept drift:}
 Concept drift is a statistical property of data streams where the target variable drifts away from the model that is trying to predict it. In other words the underlying data distribution is changing over time. As a result accuracy of the classifier model decreases over time. For example, buying pattern of the customers in a store changes over time, mostly due to the seasonality. Electrical and mechanical devices wear off over time, producing shifted result which would cause drift in the observing data. Learning models should adapt to these changes quickly and accurately. Let us consider the example in Figure~\ref{fig:bg:condrift}. As a new chunk arrives (Figure~\ref{fig:bg:condrift}a), a new classifier is learned. The decision boundary is denoted by the straight line. The positive examples are represented by unfilled circles while the negative examples are represented by filled circles. With time the concept of some of the examples may change. As shown in Figure~\ref{fig:bg:condrift}b, due to concept drift some negative examples may have become positive. So, the previous decision boundary has become outdated and a new model has to be learned. Formally, concept drift is the change in the joint probability \(P(X, y) = P(y|X) \times P(X)\). Thus, observing the change in $y$ for given $X$, i.e. $P(y|X)$ is the key for detection.
 
 One challenge posed here is to differentiate the noise in data and the actual shift of the concept. Often in streaming environment data contains the both. Rate of drift is also a factor in detection. Sudden drift, known as {\it concept shift}, is easier to detect than concept drift, which is considered to be gradual.
 
-\begin{figure*}[htbp]
+\begin{figure}[htbp]
     \begin{center}
         \begin{tabular}{cc}
             \resizebox{60mm}{!}{\includegraphics{figs/conevol-a.jpg}} &
@@ -196,7 +203,7 @@ One challenge posed here is to differentiate the noise in data and the actual sh
         \caption{Concept evolution in data streams.}
         \label{fig:bg:dataevol}
     \end{center}
-\end{figure*}
+\end{figure}
 \paragraph{Concept evolution:}
 Concept evolution is referred to the emergence of a new class or a set of classes in stream data as the time flows. Twitter stream is an ideal example where concept evolution is very easily identifiable. Twitter reacts, seemingly, very fast upon important news around the globe. Looking into the different hash tag usages in such social media currently trending topics can be identified. To present a clearer picture let's consider following example in Figure~\ref{fig:bg:dataevol}. At certain point of time four classes and their corresponding decision boundaries are shown in the Figure~ (\ref{fig:bg:dataevol}a). With the more incoming data a novel class emerges, and for that decision boundaries need updating. Emergence of new class can affect any number of decision boundary/ rule, from one to all.
 
@@ -304,26 +311,27 @@ In sequence based windowing, sequence is based on the number of observations see
 
 Often it is more useful to learn about most recent updates with fine granularity and older ones in a summarized fashion. With this motivation concept of tilted-time windowing was introduced~\cite{chen02:tiltedtime}.
 
-\begin{figure*}[htbp]
+\begin{figure}[htbp]
     \begin{center}
         \includegraphics[width=3.0in]{figs/naturaltime.pdf}
         \caption{Natural Tilted Time Window}
         \label{fig:bg:ntime}
     \end{center}
-\end{figure*}
+\end{figure}
 \paragraph{Natural Tilted Time Windowing:} In natural tilted time windowing, units of time is distributed non-uniformly. Most recent time gets more units. For example, Figure~\ref{fig:bg:ntime} shows a natural tilted time windowing scheme, where for most recent hour 4 units stores quarterly updates, 24 units of time storing a day, and 31 units storing a months summary. That is, with 59 units of time information, this model stores more than 32 days' information.
 
-\begin{figure*}[htbp]
+\begin{figure}[htbp]
     \begin{center}
         \includegraphics[width=4.0in]{figs/logtime.pdf}
         \caption{Logarithmic Tilted Time Window}
         \label{fig:bg:ltime}
     \end{center}
-\end{figure*}
+\end{figure}
 \paragraph{Logarithmic Tilted Time Windowing:} Concept for logarithmic tilted time windowing is same as natural tilted time windowing. The only deference here is that time scale grows in logarithmic order. Figure~\ref{fig:bg:ltime} shows an example. 
 
 
 \subsection{Change Detection}
+\label{sec:bg:changedetection}
 An assumption of most machine learning methods is that data is generated from a stationary distribution. As discussed in the previous section, this assumption does not hold for streaming scenario. Thus stream mining requires algorithms to facilitate drift detection methods. Differentiating between {\it noise} and {\it change} makes the problem challenging. The difference between a new distribution and noise is {\it persistence}, where new examples consistently follows new distribution rather than old. This section discusses several methods to detect and adapt learning algorithms in presence of concept drift.
 
 \subsubsection{Detection}
@@ -368,6 +376,8 @@ where $\delta \in (0, 1)$ is confidence value, an input.
         Output $\mu_W$\\
     }
 \end{algorithm}
+
+ADWIN does not maintain the window explicitly, but compresses it using a variant of the exponential histogram technique. This means that it keeps a window of length $w$ using only $O(\lg w)$ memory and $O(\lg w)$ processing time per item.
 
 \subsubsection{Adaptation to Change}
 To improve accuracy of the decision model under concept drifting environment, decision model needs adaptation to the change. There are two types of approaches based on when to adapt: 
@@ -425,6 +435,7 @@ Naive Bayes algorithm is essentially a stream classification algorithm. One of t
 \end{algorithm}
 
 \subsection{Very Fast Decision Tree}
+\label{sec:bg:vfdt}
 Very Fast Decision Tree (VFDT), also known as Hoeffding Tree (HT), is the stream adaptation of decision tree generating from a stationary distribution. It is an anytime-ready algorithm and uses Hoeffding bounds to ensure the performance in terms of accuracy is asymptotically nearly identical to that of conventional tree algorithms. VFDT runs on constant time and memory per examples and can serve thousands of examples on a typical consumer system.
 
 VFDT constructs the tree by recursively replacing leaves with decission nodes. Each leave stores sufficient statistics that are used to evaluate the merit of split-test and to decide the target class. For incoming instances, the tree is traversed from the root to a leaf (based on the incoming instance's values) and the statistics are updated accordingly. If a unanimous decision cannot reached based on observed instances at that particular leaf node, the node is tested to check the sufficiency for a split. If there is enough statistical support in favor of split, the node is splitted on the best attribute and stats are passed to the descendants (new leaves). Number of descendants of this new decision node is equal to the number of possible values of the chosen attribute. Thus, the tree is not necessarily a binary tree.
@@ -593,11 +604,76 @@ A number of methods has been developed in past couple of decades focusing on the
 In this section, we present these basic concepts of ensembling a collection of classifier. We start with primitive methods such as bagging and boosting. However, we are particularly interested in more sophisticated methods based on decision tree learning methods of stream data such as Adaptive Size Hoeffding Tree (ASHT) and ADaptive WINdow bagging (ADWIN bagging).
 
 \subsection{Bagging}
-Bagging, also known as bootstrap aggregating, is a meta algorithm that improves accuracy and reduces variance and chance of over-fitting. Bagging is typically used with tree based learners. Given a training set $D$ of size $n$, bagging generates $m$ new training sets $D_i$ of size $n_{new}$ where $i = \{1, 2, \dots, m\}$ by sampling with replacement. If $n = n_{new}$ approximately two-thirds of the instances of $D_i$ is expected to be unique examples of $D$ while rest being duplicates. These $m$ sets are then used to learn $m$ classifier. Final decision is given by a majority voting scheme over the decision of these $m$ classifiers.
+\label{sec:bg:bagging}
+Bagging, also known as bootstrap aggregating, is a meta algorithm that improves accuracy and reduces variance and chance of over-fitting. Bagging is typically used with tree based learners. Given a training set $D$ of size $n$, bagging generates $m$ new training sets $D_i$ of size $n_{new}$ where $i = \{1, 2, \dots, m\}$ by sampling with replacement. If $n = n_{new}$ approximately two-thirds of the instances of $D_i$ is expected to be unique examples of $D$ while rest being duplicates. These $m$ sets are then used to learn $m$ classifier. Final decision is given by a majority voting scheme over the decision of these $m$ classifiers. Figure~\ref{fig:bg:bagging} shows an illustrative example of bagging method.
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=10.0cm]{figs/bagging.jpg}
+        \caption{Bagging or bootstrap aggregation}
+        \label{fig:bg:bagging}
+    \end{center}
+\end{figure}
+
+%ONLINE BAGGING http://ti.arc.nasa.gov/m/profile/oza/files/ozru01a.pdf
 
 \subsection{Boosting}
-\subsection{ASHT}
+Boosting is another supervised learning algorithm to iteratively improve learning hypothesis. The motivation behind the boosting approach is that a set of weak classifier could create a single strong learner. It forces a weak classifier to update or generate new rules that make less mistakes on previously misclassified records. Initially all records are assigned same weights. At the end of a boosting round, weights might change due to the errors in classification. Weights of the instances are increased or decreased if they are classified wrongly or correctly, respectively. Thus successive classifiers depend upon their predecessors. 
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=10.0cm]{figs/boosting.pdf}
+        \caption{Boosting method example}
+        \label{fig:bg:bagging}
+    \end{center}
+\end{figure}
+
+Mathematically, let $H= \{h_1, h_2, \dots, h_n\}$ be $n$ weak hypotheses. The combined hypothesis $H(.)$ is a weighted majority vote of the $n$ weak hypotheses where each hypothesis $h_i$ has a weight of $\alpha_i$ for $i = \{1, 2, \dots, n\}$:
+\begin{equation}
+\label{eqn:adaboostHypo}
+    H(.) = sign \left(\sum_{i=1}^n \alpha_i h_i(x) \right).
+\end{equation}
+
+One of the earliest boosting approach was proposed in~\cite{schapire90:whyens}. It calls weak learners three times on three modified distributions and achieves slight improvement in accuracy. Later,~\cite{freund97:boosting} proposed AdaBoost, an adaptive boosting method, that works with a principle of minimizing upper bound of empirical error. Let, $(x_1, y_1), (x_2, y_2), \dots, (x_n, y_n)$ are given examples where $x_i \in X, y_i \in Y = [-1, +1]$. Let, $D_t (i)$ be the weight of $i$-th example at $t$-th round. Then, AdaBoost initializes $D_1(i) =1/n$. Iterative steps are as follows:
+
+For each iteration $t= 1, 2, \dots, T$:
+\begin{itemize}
+    \item Train weak learner using distribution $D_t$
+    \item Get weak hypothesis $h_t : X \rightarrow \{-1, +1\}$ with error
+    \[
+        \epsilon_t = Pr_{i ~ D_t} [h_t(x_i) \ne y_i]
+    \]
+    \item Choose $\alpha_t = \frac{1}{2} \ln \left( \frac{1 - \epsilon_t}{\epsilon_t} \right)$
+    \item Update $D_{t+1} (i) = \frac{D_t(i) \exp(-\alpha y_i h_t(x_i))}{Z_t}$ where $Z_t$ is a normalization factor
+\end{itemize}
+Finally, the output is calculated with the Equation~\ref{eqn:adaboostHypo} given above.
+
+%ONLINE BOOSTING http://ti.arc.nasa.gov/m/profile/oza/files/ozru01a.pdf
+
+\subsection{Adaptive-Size Hoeffding Tree (ASHT) Bagging}
+In previous section (Section~\ref{sec:bg:vfdt}), we have introduced Very Fast Decision Tree (VFDT) or Hoeffding Tree (HT). Hoeffding Tree is inspired by the fact that a small sample size could be enough to effectively choose an optimal splitting attribute. An upper bound of the error introduced because of such generalization is given using Hoeffding bound.
+
+The Adaptive-Size Hoeffding Tree (ASHT) is, as the name suggests, extended from Hoeffding tree with deletion of nodes or reseting of the tree capabilities. Following are two significant differences of adaptive-size Hoeffding tree with Hoeffding tree: 
+\begin{itemize}
+    \item Maximum number of split nodes or the size of the tree is bounded in ASHT. There is no such limit on HT. HT grows indefinitely as the data and new concepts are introduced.
+    \item When number of split nodes exceeds the maximum value (essentially after a new split), some nodes are deleted to retain the tree property (max size).
+\end{itemize}
+There are two different choices for the deletion of nodes for the second point. First option is to delete the oldest node. In Hoeffding tree, root is always the oldest node. All children of root except for the nodes that were further splitted are also deleted in this case. The new root would be the root of the child not being deleted. Another and more crude approach would be to delete the complete altogether i.e. reseting the tree. 
+
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=10.0cm]{figs/asht.jpg}
+        \caption{Adaptive Size Hoeffding Tree concept}
+        \label{fig:bg:asht}
+    \end{center}
+\end{figure}
+
+Based on this modified Hoeffding tree, a bagging method is developed in~\cite{bifet09:asht}. The intuition of the methods is as follows: smaller trees adapts to changes faster than the larger trees. However, larger trees perform better where data has only small changes or drifts because of the fact the it is built with more data. A tree of size $s$ would expected to be reset twice as often as a tree with size $2s$. Using an ensemble of different sizes would thus give a set of trees with different reset speeds. Smaller trees would be updated for smalls changes in the streams, while larger ones will maintain a history for longer period. Polling over this set of classifier would thus expected to result in a classifier with finer granularity. It is to be noted that reset will occur even for stationary data, however, this should not have any negative influence on the ensemble's predictive performance.
+
+The proposed bagging method in~\cite{bifet09:asht} uses $n$ adaptive-size Hoeffding trees. The $n$-th ASHT has twice the maximum size of $(n-1)$-th tree. Size of the smallest tree is 2. For the polling, each tree is associate with a weight, which is selected to be the inverse of squared error.
+
 \subsection{ADWIN Bagging}
+ADWIN Bagging combines three different powerful concepts together: (i) bagging (Section~\ref{sec:bg:bagging}), (ii) adaptive window change detection (Section~\ref{sec:bg:changedetection}), and (iii) Hoeffding tree (Section~\ref{sec:bg:vfdt}).
+
+Bagging using ADWIN is implemented as ADWIN Bagging where the Bagging method is the online bagging method of Oza and Rusell~\cite{oza01:obagboost} with the addition of the ADWIN algorithm as a change detector. Hoeffding Trees are used as base classifier. When a change is detected, the worst classifier of the ensemble of classifiers is removed and a new classifier is added to the ensemble. 
 
 \bibliographystyle{apalike}
 \bibliography{ref}
