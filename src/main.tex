@@ -166,18 +166,39 @@ where $p_1, p_2, \dots, p_n$ are the distributions of several class attributes a
 Decision tree is, however, computationally feasible. Average cost of constructing a decision tree for $n$ instances with $m$ attributes is $O(mn \lg n)$, and querying time is $O(\lg n)$.
 
 \subsection{Neural Network}
-The Neural Network (NN) is a learning method inspired by biological neural network. A set of inter-connected nodes (also known as perceptrons and nuerons) mimic biological neural network. Figure~\ref{fig:bg:nnlayer} shows a skeleton of a neural network. A input layer is connected to the output layer via some layers of hidden layers. Decisions are made looking only into the output layer while hidden layer is thought of as a black box to the user. If there is no hidden layer, then neural network becomes a simple regresion problem i.e. output is a direct fuction of inputs. Each connection among these nodes has an associated weight. Given an input data set, these weights are updated accordingly to best fit the classification model. 
+The Neural Network (NN) is a learning method inspired by biological neural network. A set of inter-connected nodes (also known as perceptrons and neurons) mimic biological neural network. Figure~\ref{fig:bg:nnlayer} shows a skeleton of a neural network. Neural network is a weighted directed graph where a input layer is connected to the output layer via some layers of hidden layers. This is commonly known as Multi-Layer Perceptron (MLP). Decisions are made looking only into the output layer only. Hidden layers enlarge the space of hypotheses. If there is no hidden layer, then neural network becomes a simple regression problem i.e. output is a linear function of inputs. Each connection among these nodes has an associated weight. Given an input data set, these weights are updated accordingly to best fit the classification model. Learning is done by back-propagation algorithm~\cite{raul96:nn}. Errors are propagated back from the output layer to the hidden layer and weights are updated to minimize error.
 \begin{figure}[htbp]
     \begin{center}
-        \includegraphics[width=3.0in]{figs/nnlayers.jpg}
+        \includegraphics[width=4.0cm]{figs/nnlayers.png}
         \caption{Neural network layers}
         \label{fig:bg:nnlayer}
     \end{center}
 \end{figure}
 
-% http://teaching-wiki.sti2.at/uploads/c/c7/13_Intelligent_Systems-NeuralNetworks.pdf
-% http://natureofcode.com/book/chapter-10-neural-networks/
-% 
+Learning starts with assigning a small value as initial weights to all the connection weights. In case of a single perceptron, learning process is analogous to moving a parametric hyperplane around. Let $w_i$ be the weight of $i$-th input, then after $t+1$ iteration weight $w_i(t+1) = w_i(t) + \nabla E_i(t)$, where $\nabla E_i$ is the gradient of the error function. For a input vector $\mathbf{x}$ and true output $y$, $E$ is defined as the squared error:
+\[
+    E = \frac{1}{2} Err^2 = \frac{1}{2} (y - h_w(\mathbf{x}))^2
+\]
+Thus gradient of $E$ would be:
+\begin{align*}
+    \nabla E = \frac{\partial E}{\partial W_j} & = Err \times \frac{\partial Err}{\partial W_j} = Err \times \frac{\partial}{\partial W_j} (y - g(\sum_{j=0}^n w_j x_j)) \\
+    & = - Err \times g^{\prime} (in) \times x_j
+\end{align*}
+Based on this, update rule would be:
+\[
+    w_j = w_j + \alpha \times Err \times g^{\prime} (in) \times x_j
+\]
+where $\alpha$ is learning rate coefficient. Back propagation algorithm for multi-layer perceptron also works in similar fashion. Weights in the output layer are updated using following equation:
+\[
+    w_{j,i} = w_{j,i} + \alpha \times a_j \times \nabla_i
+\]
+where $\nabla_i = Err \times g^\prime(in_i)$. Hidden layers propagates this error from the output layer using:
+\begin{align*}
+    \nabla_j &= g^\prime (in_i) \sum_i w_{j,i} \nabla_i \\
+    w_{k, j} &= w_{k, j} + \alpha \times a_k \times \nabla_j
+\end{align*}
+
+MLP is a very expressive method. Only $1$ hidden layer is sufficient to represent all continuous functions and $2$ can represent any functions. MLP is prone to local minima, which is avoided by using different initial weight settings.
 
 \section{Data Stream Classification}
 Traditional data mining algorithms work in a memory bounded environment and requires multiple scan of the training data. In stream environment, one of the major assumptions is that new data samples are introduced in the system with such a high rate that repetitive analysis becomes infeasible. Thus, for stream classification, algorithms should be able to look into a instance only once and decide upon that. A bounded memory buffer can be used to facilitate some level of repetition. However, which instances are to remember and which are to forget would then become a decision choice. An alternate choice is to maintain sufficient statistics to have a representation of the data. The process of deletion or summarization of instances, however, means that some information are being lost over the time.
@@ -637,7 +658,7 @@ Bagging, also known as bootstrap aggregating, is a meta algorithm that improves 
     \end{center}
 \end{figure}
 
-For online bagging approach $n \rightarrow \infty$, and the Binomial distribution of $P(K=k)$ tends to a Poisson distibution with $P(K=k) = \exp(-1)/k!$. Using this justificaiton, online bagging chooses a $k ~ Poisson(1)$ for each incoming training examples $(x_i, y_i)$, and updates the base learning learning algorithms $k$ times. The classification is done as the same way of batched approach, by unweighted voiting of $m$ base classifers. For similar distribution of training examples, online bagging produces similar approximated base models. If (i) used based learner converges to the same same classifier with increasing training examples, and (ii) base learner produces same classifier given a fixed training set for both batched and online bagging methods; then online bagging will converge to the classifier obtained though batched learning methods.
+For online bagging approach $n \rightarrow \infty$, and the Binomial distribution of $P(K=k)$ tends to a Poisson distribution with $P(K=k) = \exp(-1)/k!$. Using this justification, online bagging chooses a $k ~ Poisson(1)$ for each incoming training examples $(x_i, y_i)$, and updates the base learning learning algorithms $k$ times. The classification is done as the same way of batched approach, by unweighted voting of $m$ base classifiers. For similar distribution of training examples, online bagging produces similar approximated base models. If (i) used based learner converges to the same same classifier with increasing training examples, and (ii) base learner produces same classifier given a fixed training set for both batched and online bagging methods; then online bagging will converge to the classifier obtained though batched learning methods.
 
 
 \subsection{Boosting}
@@ -670,7 +691,7 @@ For each iteration $t= 1, 2, \dots, T$:
 \end{itemize}
 Finally, the output is calculated with the Equation~\ref{eqn:adaboostHypo} given above.
 
-An online variant of AdaBoost uses a similar approach as online bagging method, simulating sampling with replacement using Poisson distribution. However, the Poisson parameter $\lambda$ (Equation~\ref{eqn:poisson}) associated with an example is increased if that particular example is misclassified. In case of correct classification $\lambda$ is decreased. Similar to the AdaBoost, online boosting approach assigns total weights equally to the correctly and misclassified instances, i.e. half of the total weights each. Unlike AdaBoost, in online boosting weights are updated based on only the examples seen thus far rather than the complete training set. This is intuitively probalematic as initial hypotheses are build on too few examples. Even with this limitation, online boosting shows good performance. Online boosting with naive Bayes base learner converges to the model achieved with AdaBoost as the number of training instances tends to infinity.
+An online variant of AdaBoost uses a similar approach as online bagging method, simulating sampling with replacement using Poisson distribution. However, the Poisson parameter $\lambda$ (Equation~\ref{eqn:poisson}) associated with an example is increased if that particular example is misclassified. In case of correct classification $\lambda$ is decreased. Similar to the AdaBoost, online boosting approach assigns total weights equally to the correctly and misclassified instances, i.e. half of the total weights each. Unlike AdaBoost, in online boosting weights are updated based on only the examples seen thus far rather than the complete training set. This is intuitively problematic as initial hypotheses are build on too few examples. Even with this limitation, online boosting shows good performance. Online boosting with naive Bayes base learner converges to the model achieved with AdaBoost as the number of training instances tends to infinity.
 
 \subsection{Adaptive-Size Hoeffding Tree (ASHT) Bagging}
 In previous section (Section~\ref{sec:bg:vfdt}), we have introduced Very Fast Decision Tree (VFDT) or Hoeffding Tree (HT). Hoeffding Tree is inspired by the fact that a small sample size could be enough to effectively choose an optimal splitting attribute. An upper bound of the error introduced because of such generalization is given using Hoeffding bound.
