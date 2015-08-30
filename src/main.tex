@@ -102,23 +102,18 @@ mahmud@in.tum.de
 
 \chapter{Background}
 \label{chp:background}
-This chapter discusses the primitives of data and stream classification. First, a brief overview of traditional data classification methods are presented. Followed by a section on data stream classification where challenges and approaches for stream classification are introduces. Finally, overview of current state-of-the-art ensemble learning methods are discussed. These discussion are lays the foundation of the approach introduced in this thesis.
+This chapter discusses the primitives of data and stream classification. First, a brief overview of traditional data classification methods are presented. Followed by a section on data stream classification where challenges and approaches for stream classification are introduced. Finally, overview of current state-of-the-art ensemble learning methods are discussed. These discussion are lays the foundation of the approach introduced in this thesis.
 
 \section{Learning Algorithms}
-The goal of data classification process is to predict a certain outcome based on some give data. In order to do so, data mining algorithms first processes a training set containing a set of attributes and corresponding outcome: a class or value. Algorithms develop hypotheses that best describe the relationship among the attributes and the outcome for the total instance set. 
-Formally, learning are defined as follow: Given a data set of m instances 
-$D \equiv \{ \{\vec{x}_1, y_1\}, \{\vec{x}_2, y_2\}, \{\vec{x}_3, y_3\}, \dots, \{\vec{x}_m, y_m\} \}$ 
-for $i = \{ 1, 2, 3, \dots, m \}$ and $ \vec{x} = \{x_1, x_2, x_3, \dots, x_n\}$, 
-learning algorithms try to approximate $H \equiv y = f(\vec{x})$. 
-Additional to being typical linear, polynomial, etc. functions, $H$ can also be a set of IF-THEN rules. 
-These rules or functions are then used to predict unseen instances where outcome class is not known. These algorithms are known as learning algorithms, and in last few decades, have widely been researched in the field of machine learning. This section briefly discusses few of the basic algorithms upon which the foundation of ensemble methods and this thesis are laid. The detailed discussion of these algorithms are out of the scope of this chapter. Thus we discuss only the core concept here.
+\label{sec:bg:learningalgos}
+The goal of data classification process is to predict an outcome based on some give data. In order to do so, data mining algorithms first processes a training set containing a set of attributes and corresponding outcome: a class or a value. Algorithms develop hypotheses that best describe the relationship among the attributes and the outcome for the total instance set.  Formally, learning problems are defined as follow: Given a data set of $m$ instances  $D \equiv \{ \{\vec{x}_1, y_1\}, \{\vec{x}_2, y_2\}, \{\vec{x}_3, y_3\}, \dots, \{\vec{x}_m, y_m\} \}$ where $ \vec{x} = \{x_1, x_2, x_3, \dots, x_n\}$, learning algorithms try to approximate $H \equiv y = f(\vec{x})$. Additional to being typical linear, polynomial, etc. functions, $H$ can also be a set of IF-THEN rules. These rules or functions are then used to predict unseen instances where outcome class is not known. These algorithms are known as learning algorithms, and in last few decades, have widely been researched in the field of machine learning. This section briefly discusses few of the basic algorithms upon which the foundation of ensemble methods and this thesis are laid. The detailed discussion of these algorithms are out of the scope of this chapter. Thus we discuss only the core concepts here.
 
 \subsection{$k$-Nearest Neighbors}
-K nearest neighbor algorithm, in short $k$-NN, is one the simplest learning available. It is a non-parametric instance-based lazy learning algorithm and works for both supervised and unsupervised learning. It uses similarity measure like distance functions to classify unknown instances. The decision is a majority voting of its $k$ neighbors. For example, if $k= 1$ then an unknown is assigned the class label of its nearest neighbor. There are several schemes to find the $k$ nearest neighbours. For continuous data some well-known distance functions are Euclidean distance, Manhattan distance, Minkowski distance, etc.
+$k$-nearest neighbor algorithm, in short $k$-NN, is one the simplest learning available. It is a non-parametric instance-based lazy learning algorithm and works for both supervised and unsupervised learning. It uses similarity measure like distance functions to classify unknown instances. The decision is a majority voting of  $k$ neighbors where $k$ is predefined. For example, if $k= 1$ then an unknown instance is assigned the class label of its nearest neighbor. There are several schemes to find the $k$ nearest neighbors. For continuous data, some well-known distance functions are Euclidean distance, Manhattan distance, Minkowski distance, etc.
 \begin{itemize}
     \item Euclidean distance $D_E = \sqrt{\sum_{\i =1 }^{k} (x_i - y_i)^2}$
     \item Manhattan distance $D_M = \sum_{\i =1 }^{k} |(x_i - y_i)|$
-    \item Minkowski distance $D_{Min}\sqrt[q]{\sum_{\i =1 }^{k} (|x_i - y_i|)^q}$
+    \item Minkowski distance $D_{Mink}\sqrt[q]{\sum_{\i =1 }^{k} (|x_i - y_i|)^q}$
 \end{itemize}
 For categorical data, Hamming distance can be used. Hamming distance is defined as $D_H = \sum_{\i =1 }^{k} |(x_i - y_i)|$ where $|x_i - y_i|$ is $0$ if $x=y$, $1$ otherwise.
 
@@ -130,16 +125,16 @@ For categorical data, Hamming distance can be used. Hamming distance is defined 
     \end{center}
 \end{figure}
 
-Choosing an optimal $k$ is the prime challange of $k-NN$ algorithm, which is extremely training data dependent. Changing position of few training points could led to a significant loss in performance. The method is particularly not stable in the class boundary. $k$ should be large enough that $k$-NN could overcome the noises in data, and small enough that instances of other classes are not included. Generally, higher $k$ reduces the overall noise and should be more precise. For most data set a value between $3$-$10$ perfoms much better than $1$-NN. Typically cross-validation is used to determine a good $k$. 
+Choosing an optimal $k$ is the prime challenge of $k$-NN algorithm, which is extremely training data dependent. Changing position of few training points could lead to a significant loss in performance. The method is particularly not stable in the class boundary. $k$ should be large enough that $k$-NN could overcome the noises in data, and small enough that instances of other classes are not included. Generally, higher $k$ reduces the overall noise and should be more precise. For most data set a value between $3$-$10$ performs much better than $1$-NN. Typically cross-validation is used to determine a good $k$. 
 
 \subsection{Na\"ive Bayes}
 Naive Bayes classification is based on Bayes rule. Bayes rule says that the probability of event $x$ conditioned on knowing event $y$, i.e. the probability of $x$ given $y$ is defined as
 \[
     p(x|y) = \frac{p(x,y)}{p(y)} = \frac{p(y|x) p(x)}{p(y)}
 \]
-The naive Bayes classifier~\cite{langley92:nb} assumes that all the explanatory variables are independent. Given a feature set $X = x_1, x_2, \dots, x_n$ of $n$ independent variables, naive Bayes assigns the instances to $k$ possible outcome or classes, $p(C_k | X)$. Using Bayes rule, the conditional probability can be decomposed as
+The naive Bayes classifier~\cite{langley92:nb} assumes that all the explanatory variables are independent. Given a feature set $X = x_1, x_2, \dots, x_n$ of $n$ independent variables, naive Bayes assigns the instances to $k$ possible outcome or classes, $p(C_k | X)$. Using Bayes rule, the conditional probability can be decomposed as:
 \[
-    p(C_k |X) = \frac{p(C_k) p(X|C_k)}{p(X)}
+    p(C_k |X) = \frac{p(C_k) p(X|C_k)}{p(X)}.
 \]
 In other words,
 \[
@@ -166,7 +161,7 @@ where $p_1, p_2, \dots, p_n$ are the distributions of several class attributes a
 Decision tree is, however, computationally feasible. Average cost of constructing a decision tree for $n$ instances with $m$ attributes is $O(mn \lg n)$, and querying time is $O(\lg n)$.
 
 \subsection{Neural Network}
-The Neural Network (NN) is a learning method inspired by biological neural network. A set of inter-connected nodes (also known as perceptrons and neurons) mimic biological neural network. Figure~\ref{fig:bg:nnlayer} shows a skeleton of a neural network. Neural network is a weighted directed graph where a input layer is connected to the output layer via some layers of hidden layers. This is commonly known as Multi-Layer Perceptron (MLP). Decisions are made looking only into the output layer only. Hidden layers enlarge the space of hypotheses. If there is no hidden layer, then neural network becomes a simple regression problem i.e. output is a linear function of inputs. Each connection among these nodes has an associated weight. Given an input data set, these weights are updated accordingly to best fit the classification model. Learning is done by back-propagation algorithm~\cite{raul96:nn}. Errors are propagated back from the output layer to the hidden layer and weights are updated to minimize error.
+The Neural Network (NN) is a learning method inspired by biological neural network. A set of inter-connected nodes (also known as perceptrons and neurons) mimics biological neural network. Figure~\ref{fig:bg:nnlayer} shows a skeleton of a neural network. Neural network is a weighted directed graph where a input layer is connected to the output layer via some layers of hidden layers. This is commonly known as Multi-Layer Perceptron (MLP). Decisions are made looking only into the output layer only. Hidden layers enlarge the space of hypotheses. If there is no hidden layer, then neural network becomes a simple regression problem i.e. output is a linear function of inputs. Each connection among these nodes has an associated weight. Given an input data set, these weights are updated accordingly to best fit the classification model. Learning is done by back-propagation algorithm~\cite{raul96:nn}. Errors are propagated back from the output layer to the hidden layer and weights are updated to minimize error.
 \begin{figure}[htbp]
     \begin{center}
         \includegraphics[width=4.0cm]{figs/nnlayers.png}
@@ -184,7 +179,7 @@ Thus gradient of $E$ would be:
     \nabla E = \frac{\partial E}{\partial W_j} & = Err \times \frac{\partial Err}{\partial W_j} = Err \times \frac{\partial}{\partial W_j} (y - g(\sum_{j=0}^n w_j x_j)) \\
     & = - Err \times g^{\prime} (in) \times x_j
 \end{align*}
-Based on this, update rule would be:
+Based on this, weight update rule would be:
 \[
     w_j = w_j + \alpha \times Err \times g^{\prime} (in) \times x_j
 \]
@@ -198,17 +193,17 @@ where $\nabla_i = Err \times g^\prime(in_i)$. Hidden layers propagates this erro
     w_{k, j} &= w_{k, j} + \alpha \times a_k \times \nabla_j
 \end{align*}
 
-MLP is a very expressive method. Only $1$ hidden layer is sufficient to represent all continuous functions and $2$ can represent any functions. MLP is prone to local minima, which is avoided by using different initial weight settings.
+MLP is a very expressive method. Only $1$ hidden layer is sufficient to represent all continuous functions and $2$ can represent any functions. MLP is prone to local minima, which is avoided by running MLP multiple times with different initial weight settings.
 
 \section{Data Stream Classification}
-Traditional data mining algorithms work in a memory bounded environment and requires multiple scan of the training data. In stream environment, one of the major assumptions is that new data samples are introduced in the system with such a high rate that repetitive analysis becomes infeasible. Thus, for stream classification, algorithms should be able to look into a instance only once and decide upon that. A bounded memory buffer can be used to facilitate some level of repetition. However, which instances are to remember and which are to forget would then become a decision choice. An alternate choice is to maintain sufficient statistics to have a representation of the data. The process of deletion or summarization of instances, however, means that some information are being lost over the time.
+Traditional data mining algorithms work in a memory bounded environment and require multiple scan of the training data. In stream environment, one of the major assumptions is that new data samples are introduced in the system with such a high rate that repetitive analysis becomes infeasible. Thus, for stream classification, algorithms should be able to look into a instance only once and decide upon that. A bounded memory buffer can be used to facilitate some level of repetition. However, which instances are to remember and which are to forget would then become a decision choice. An alternate choice is to maintain sufficient statistics to have a representation of the data. The process of deletion or summarization of instances, however, means that some information are being lost over the time.
 
 In this section, these challenges are first discussed in details. Then it presents the basis of some of the concepts arisen to handle these challenges. Finally, before moving onto the ensemble leaning, it discusses current state-of-the-art algorithms for stream mining.
 
 \subsection{Challenges}
-Challenges posed by the streaming environment can be categorized into two groups: (i) relating to runtime and memory requirements and (ii) relating to underlying concept identification. Speed of incoming data, unbounded memory requirement, single-pass learning fall into the first category. On the other hand, lack of labeled data, concept drifting, evolution and recurrence are examples of latter category.
+Challenges posed by the streaming environment can be categorized into two groups: (i) relating to runtime and memory requirements and (ii) relating to underlying concept identification. Speed of incoming data, unbounded memory requirement, single-pass learning fall into the first category. On the other hand, lack of labeled data, concept drift, evolution and recurrence are examples of latter category.
 
-\paragraph{Speed of data arrival}
+\paragraph{Speed of data arrival:}
 As mentioned before, it is an inherent characteristic of data streams that it arrives with a high speed. The algorithm should be able to adapt to the high speed nature of streaming information. The rate of building the classifier model should be higher than the data rate. This gives a very limited amount of available time for classification as compared to the traditional batch classification models.
 
 \paragraph{Memory requirements:}
@@ -266,7 +261,7 @@ In statistical evaluation, a statistic is sufficient for a family of probability
     \[
     f(x_1, x_2, \dots , x_n| \theta) = u(x_1, x_2, \dots , x_n) v(r(x_1, x_2, \dots , x_n), \theta)
     \]
-    where $u$ and $v$ are non-negative functions. The function $u$ can depend on the full random sample $x_1, x_2, \dots , x_n$, but not on the unknown parameter $\theta$. The function v can depend on $\theta$, but can depend on the random sample only through the value of $r(x_1, x_2, \dots , x_n)$.
+    where $u$ and $v$ are non-negative functions. The function $u$ can depend on the full random sample $x_1, x_2, \dots , x_n$, but not on the unknown parameter $\theta$. The function $v$ can depend on $\theta$, but can depend on the random sample only through the value of $r(x_1, x_2, \dots , x_n)$.
 \end{theorem}
 
 \subsubsection{Bounds of Random Variable}
@@ -279,9 +274,9 @@ A function that is used to estimating a random variable is called an estimator. 
     \item Relative approximation: $(1 - \delta)\bar{X} \le \mu \le (1 + \delta)\bar{X}$, where  is the relative error.
 \end{itemize}
 
-where $\mu$ and $\bar{X}$ represent actual and estimated mean. There are a number of theorems that provide bounds on the estimation, Chebyshev [!], Chernoff~[!], Hoeffding~\cite{hoeffding63:bound}, etc. are few of them.
+where $\mu$ and $\bar{X}$ represent actual and estimated mean. There are a number of theorems that provide bounds on the estimation, Chebyshev, Chernoff, Hoeffding bounds~\cite{hoeffding63:bound}, etc. are few of them.
 
-\begin{theorem}[Chebyshev]
+\begin{theorem}[Chebyshev Bound]
 \label{thm:chebyshev}
     Let $X$ be a random variable with standard deviation $\sigma$, the probability that the outcome of $X$ is no less than $k\sigma$ away from its mean is no more that $1/k^2$:
     \[
@@ -321,10 +316,10 @@ These methods only take a finite number of values or a range. One of the well-kn
     \label{eqn:poisson}
         p_k = P(x=k) = e^{-\lambda} \frac{\lambda^k}{k!}
     \end{equation}
-    where, $\lambda$ is both mean and variance, i.e. $E(X) = Var(X) = \lambda$
+where, $\lambda$ is both mean and variance, i.e. $E(X) = Var(X) = \lambda$
     
 \subsubsection{Recursive Mean, Variance, and Correlation}
-Fundamental equation of mean, variance, etc. are not usable for streams as past data points are lost as the time passes. However, their recursive version are also known. Equation~\ref{eqn:mean}, \ref{eqn:var}, and \ref{eqn:corr} can be used to recursively compute mean, variance, and correlation respectively.
+Fundamental equation of mean, variance, etc. are not usable for streams as past data points are lost as the time passes. However, their recursive version can easily be derived. Equation~\ref{eqn:mean}, \ref{eqn:var}, and \ref{eqn:corr} can be used to recursively compute mean, variance, and correlation respectively.
 
 \begin{equation}
 \label{eqn:mean}
@@ -345,7 +340,7 @@ As it can be seen from the equations, maintaining (i) number of observations, $n
 
 
 \subsubsection{Windowing}
-Windowing the process of selecting a subset of the observed instances that would be remembered to be used in the computation of statistics. Where the data set is finite and of limited size, all the instances can be remembered. For streams, this is not possible. Furthermore, computing statistics over all the instances of the past, in streaming environment would wrongly introduce information of classes that are not needed in the present. Thus, information of recent past is more important than the entire set. Windowing is categorized in two basic types: (i) sequence based windowing, and (ii) time-stamp based windowing.
+Windowing is the process of selecting a subset of the observed instances that would be remembered to be used in the computation of statistics. Where the data set is finite and of limited size, all the instances can be remembered. For streams, this is not possible. Furthermore, computing statistics over all the instances of the past, in streaming environment would wrongly introduce information of classes that are not needed in the present. Thus, information of recent past is more important than the entire set. Windowing is categorized in two basic types: (i) sequence based windowing, and (ii) time-stamp based windowing.
 
 In sequence based windowing, sequence is based on the number of observations seen; in time-stamp based approach, it is elapsed time. Landmark windowing and sliding windowing are two most used sequence based windowing system.
 
@@ -362,7 +357,7 @@ Often it is more useful to learn about most recent updates with fine granularity
         \label{fig:bg:ntime}
     \end{center}
 \end{figure}
-\paragraph{Natural Tilted Time Windowing:} In natural tilted time windowing, units of time is distributed non-uniformly. Most recent time gets more units. For example, Figure~\ref{fig:bg:ntime} shows a natural tilted time windowing scheme, where for most recent hour 4 units stores quarterly updates, 24 units of time storing a day, and 31 units storing a months summary. That is, with 59 units of time information, this model stores more than 32 days' information.
+\paragraph{Natural Tilted Time Windowing:} In natural tilted time windowing, units of time is distributed non-uniformly. Most recent time gets more units. For example, Figure~\ref{fig:bg:ntime} shows a natural tilted time windowing scheme, where for most recent hour 4 units stores quarterly updates, 24 units of time storing a day, and 31 units storing a months summary. That is, with 59 units of time information, this model stores about 32 days' information.
 
 \begin{figure}[htbp]
     \begin{center}
@@ -383,7 +378,7 @@ Detection methods can generally be classified into two categories. First approac
 
 Most methods follows the first approach. \cite{klinkenberg98:changedetection} monitors three performance indicators (accuracy, recall, and precision) over time, and uses their posterior comparison to a confident interval of standard sample errors for a moving average value for each indicator.
 
-A classical algorithm for change detection is Cumulative Sum (CUSUM)~\cite{page54:cusum}. CUSUM can detect that the mean of the input data is significantly different than zero. The test is as follows:
+A classical algorithm for change detection is \textit{Cumulative Sum (CUSUM)}~\cite{page54:cusum}. CUSUM can detect that the mean of the input data is significantly different than zero. The test is as follows:
 \[
     g_0 = 0 
 \]\[
@@ -393,7 +388,7 @@ if $g_t > \lambda$ CUSUM triggers an alarm and set $g_t = 0$. This detects the c
 
 For latter category, \cite{kifer04:condrift} uses Cherfnoff bound (Theorem~\ref{thm:chernoff}) and examines examples drawn from two probability distribution and decides whether these distributions are different.
 
-\paragraph{ADWIN Algorithm:} As introduced in previous chapter, ADWIN (ADaptive sliding WINdow) is another change detection algorithm of latter type. ADWIN keeps a variable length window of recent items. It ensures the property {\it there has been no change in the average value inside the window} for maximally statistically consistent length. The core idea of ADWIN is that whenever two {\it large enough} sub-windows of $W$ exhibit {\it distinct enough} averages, it is assumed that their corresponding expected values are different, and the older portion of the window is dropped. Essentially, this means that when the difference of means of the two windows is greater than a certain threshold $\epsilon_{cut}$, the older portion should be dropped. Equation to compute $\epsilon_{cut}$ is as follows:
+\paragraph{ADWIN Algorithm:} ADWIN (ADaptive sliding WINdow) is another change detection algorithm of latter type. ADWIN keeps a variable length window of recent items. It ensures the property {\it there has been no change in the average value inside the window} for maximally statistically consistent length. The core idea of ADWIN is that whenever two {\it large enough} sub-windows of $W$ exhibit {\it distinct enough} averages, it is assumed that their corresponding expected values are different, and the older portion of the window is dropped. Essentially, this means that when the difference of means of the two windows is greater than a certain threshold $\epsilon_{cut}$, the older portion should be dropped. Equation to compute $\epsilon_{cut}$ is as follows:
 \[
     m = \frac{2}{1/|W_0| + 1/|W_1|}
 \]\[
@@ -424,13 +419,12 @@ where $\delta \in (0, 1)$ is confidence value, an input.
 ADWIN does not maintain the window explicitly, but compresses it using a variant of the exponential histogram technique. This means that it keeps a window of length $w$ using only $O(\lg w)$ memory and $O(\lg w)$ processing time per item.
 
 \subsubsection{Adaptation to Change}
-To improve accuracy of the decision model under concept drifting environment, decision model needs adaptation to the change. There are two types of approaches based on when to adapt: 
+To improve accuracy of the decision model under concept drifting environment, decision model needs adaptation to the changes. There are two types of approaches based on when to adapt: 
 \begin{itemize}    
-    \item Blind or Periodic Methods: Models are updated on regular interval whether an changes have actually occurred or not. 
+    \item Blind or Periodic Methods: Models are updated on regular interval whether any change has actually occurred or not. 
     \item Informed Methods: Models are only updated when there are sufficient reasons to believe that changes in the concept have occurred.
 \end{itemize}
-It could a good idea to use periodic methods where duration of seasonality is known beforehand. Otherwise, chosen duration could be too large or too small to response to the change. In such cases, an informed decision is more desired. However, informed methods requires more resources (than blind methods) to be able to make such decision.
-
+It could be a good idea to use periodic methods where duration of seasonality is known beforehand. Otherwise, chosen duration could be too large or too small to response to the changes. In such cases, an informed decision is more desired. However, informed methods requires more resources (than blind methods) to be able to make such decision.
 
 \subsection{Na\"ive Bayes Adaptation}
 Naive Bayes algorithm is essentially a stream classification algorithm. One of the advantages of this classifier in the context of data stream is its low complexity for deployment. It only depends on the number of explanatory variables. Its memory consumption is also low since it requires only one conditional probability density estimation per variable.
@@ -482,15 +476,15 @@ Naive Bayes algorithm is essentially a stream classification algorithm. One of t
 \label{sec:bg:vfdt}
 Very Fast Decision Tree (VFDT), also known as Hoeffding Tree (HT), is the stream adaptation of decision tree generating from a stationary distribution. It is an anytime-ready algorithm and uses Hoeffding bounds to ensure the performance in terms of accuracy is asymptotically nearly identical to that of conventional tree algorithms. VFDT runs on constant time and memory per examples and can serve thousands of examples on a typical consumer system.
 
-VFDT constructs the tree by recursively replacing leaves with decission nodes. Each leave stores sufficient statistics that are used to evaluate the merit of split-test and to decide the target class. For incoming instances, the tree is traversed from the root to a leaf (based on the incoming instance's values) and the statistics are updated accordingly. If a unanimous decision cannot reached based on observed instances at that particular leaf node, the node is tested to check the sufficiency for a split. If there is enough statistical support in favor of split, the node is splitted on the best attribute and stats are passed to the descendants (new leaves). Number of descendants of this new decision node is equal to the number of possible values of the chosen attribute. Thus, the tree is not necessarily a binary tree.
+VFDT constructs the tree by recursively replacing leaves with decision nodes. Each leave stores sufficient statistics that are used to evaluate the merit of split-test and to decide the target class. For incoming instances, the tree is traversed from the root to a leaf (based on the incoming instance's values) and the statistics are updated accordingly. If a unanimous decision cannot be reached based on observed instances at that particular leaf node, the node is tested to check the sufficiency for a split. If there is enough statistical support in favor of split, the node is splitted on the best attribute and stats are passed to the descendants (new leaves). Number of descendants of this new decision node is equal to the number of possible values of the chosen attribute. Thus, the tree is not necessarily a binary tree.
 
 Deciding on whether to split a node or not is a unique contribution of VFDT. VFDT solves this difficult problem of deciding exactly how many examples are required to be observed by a leaf node before splitting by using Hoeffding bound (Theorem~\ref{thm:hoeffding}). Consider $G(.)$ be the heuristic measure of the attributes. This measure could be information gain as of C4.5 or Gini index of CART. For information gain range $R$ in Hoeffding bound is $\lg (\#classes)$. Goal is to find $n$ such that the attribute chosen for split after observing $n$ instances, would, with high probability, be the same as it would be chosen after observing infinite instances. Assume that $X_a$ is the attribute with the best $G(.)$, and $X_b$ is the second best attribute after observing $n$ instances. Then $\Delta G = G(X_a) - G(X_b)$ be the difference between their observed heuristics. From Hoeffding bound, we know if $\Delta G < \epsilon$, then with probability $1 - \delta$ $X_a$ would be the attribute with highest value in the evaluation function in the universe. Otherwise, if $\Delta G < \epsilon$, then the sample size is not enough to make a stable split decision. As the assumption is that underlying generating distribution is stationary, thus as the sample size increases, $\epsilon$ decreases and heuristic value for most informative attribute goes up.
 
-To fasten up the process, VFDT uses an extra parameter $N_{min}$ to reduce the number of $G(.)$ computation. Computing $G(.)$ when there is too few instances is run-time inefficient. Thus a user parameter $N_{min}$ is used to indicate minimum number of instances needed to be observed before the evalution starts.
+To fasten up the process, VFDT uses an extra parameter $N_{min}$ to reduce the number of $G(.)$ computation. Computing $G(.)$ when there are too few instances is run-time inefficient. Thus a user parameter $N_{min}$ is used to indicate minimum number of instances needed to be observed before the evaluation starts.
 
-When multiple attributes continuously performs similar in heuristic evaluation after observing a large number of examples, $\Delta G$ might never be greater than $\epsilon$. To break such tied cases, another user parameter $tau$ is used, and when $\epsilon$ falls below $\tau$ (i.e. $\Delta G < \epsilon <\tau$), algorithm splits on the best attribute. Algorithm~\ref{alg:vfdt} summarizes the pseudocode of VFDT.
+When multiple attributes continuously perform similar in heuristic evaluation after observing a large number of examples, $\Delta G$ might never be greater than $\epsilon$. To break such tied cases, another user parameter $tau$ is used, and when $\epsilon$ falls below $\tau$ (i.e. $\Delta G < \epsilon <\tau$), algorithm splits on the best attribute. Algorithm~\ref{alg:vfdt} summarizes the pseudo-code of VFDT.
 
-There are some property of VFDT that are different than C4.5. In contrast to the C4.5 algorithm number of examples that support a decision increases in VFDT. Typically VFDT also results a low variance model than that of C4.5. However, there is no mechanism avoid overfitting in VFDT as there is no room for pruning.
+There are some property of VFDT that are different than C4.5. In contrast to the C4.5 algorithm number of examples that support a decision increases in VFDT. Typically VFDT also results a low variance model than that of C4.5. However, there is no mechanism avoid over-fitting in VFDT as there is no room for pruning.
 
 \begin{algorithm}[htbp]
     \DontPrintSemicolon
@@ -541,7 +535,7 @@ There are some property of VFDT that are different than C4.5. In contrast to the
     }
 \end{algorithm}
 \subsection{Concept-adapting Very Fast Decision Tree}
-Concept-adapting Very Fast Decision Tree (CVFDT) is the extension of CFDT that adds the ability to adapt the model by detecting the changes in the underlying distribution that generates the examples. CVFDT does not require the model to be recomputed, instead it updates the sufficient statistics stored in each node that the new instances affects by maintaining a sliding window. It increases the counter of new instances and decreases count of oldest examples which now needs to be forgotten. If the underlying distribution is stationary, this would not have any effect. But in case of a concept drifting distribution, some decision nodes that previously had passed the Hoeffding bound test will no longer pass, rather an alternate attribute would now have higher or similar gain. CVFDT keeps stats to detect such situation and starts maintaining an alternate subtree with the new best attribute as its root. When this alternate subtree becomes more accurate on new data then the old subtree is replaced by the new one. Pseudocode of CVFDT has be shown in Algorithm~\ref{alg:cvfdt}. The sub-routine $GROW$ is essentially the Hoeffding Tree algorithm where instead of only keeping stats in the leave, every node keeps track of the instances it has seen. Two other sub-routines $FORGET$ and $VALIDATE\_SPLIT$ have been shown separately.
+Concept-adapting Very Fast Decision Tree (CVFDT) is the extension of CFDT that adds the ability to adapt the model by detecting the changes in the underlying distribution that generates the examples. CVFDT does not require the model to be recomputed, instead it updates the sufficient statistics stored in each node that the new instances affects by maintaining a sliding window. It increases the counter of new instances and decreases count of oldest examples which now need to be forgotten. If the underlying distribution is stationary, this would not have any effect. But in case of a concept drifting distribution, some decision nodes that previously had passed the Hoeffding bound test will no longer pass, rather an alternate attribute would now have higher or similar gain. CVFDT keeps stats to detect such situation and starts maintaining an alternate subtree with the new best attribute as its root. When this alternate subtree becomes more accurate on new data then the old subtree is replaced by the new one. Pseudo-code of CVFDT has be shown in Algorithm~\ref{alg:cvfdt}. The sub-routine $GROW$ is essentially the Hoeffding Tree algorithm where instead of only keeping stats in the leave, every node keeps track of the instances it has seen. Two other sub-routines $FORGET$ and $VALIDATE\_SPLIT$ have been shown separately.
 
 \begin{algorithm}[htbp]
     \ContinuedFloat
@@ -629,7 +623,7 @@ Lastly, there is $VALIDATE\_SPLIT$ sub-routine that periodically checks the inte
 Now that related concept of basic learning algorithms and stream mining are discussed, in the next section, the concepts of ensemble learning are presented.
 
 \section{Ensemble Learning}
-Ensemble learning, due to its intrinsic merits, focuses to get the best out of a collection of base learners. Ensemble learning can be thought of as a divide-and-conquer approach. However, it may not necessarily divides the tasks rather does more tasks. The motivation behind was presented in the previous chapter. In short, ensemble methods are interesting because of following possibilities:
+Ensemble learning, due to its intrinsic merits, focuses to get the best out of a collection of base learners. Ensemble learning can be thought of as a divide-and-conquer approach. However, it may not necessarily divide the tasks rather might do more tasks. The motivation behind was presented in the previous chapter. In short, ensemble methods are interesting because of following possibilities:
 \begin{itemize}
     \item Avoiding worst classifier by averaging several classifier.
     \item Fusing multiple classifier to improve performance of the best classifier.
@@ -637,7 +631,7 @@ Ensemble learning, due to its intrinsic merits, focuses to get the best out of a
     \item Dividing streams into chunks, learn separate models from each and then combine their results (divide and conquer).
 \end{itemize}
 
-A number of methods has been developed in past couple of decades focusing on these motivations. They employ different approaches to improve the final classifier. Following is a summary of different approaches of generating ensembles of classifiers.
+A number of methods have been developed in past couple of decades focusing on these motivations. They employ different approaches to improve the final classifier. Following is a summary of different approaches of generating ensembles of classifiers.
 \begin{itemize}
     \item Creating multiple training sets by resampling the original set and feeding those into different learners.
     \item Using different combination of features to learn multiple classifiers.
@@ -645,7 +639,7 @@ A number of methods has been developed in past couple of decades focusing on the
     \item Manipulating the learning algorithms such that they result different outcomes for the same training set. For example, introducing certain randomness into tree growing algorithm.
 \end{itemize}
 
-In this section, we present these basic concepts of ensembling a collection of classifier. We start with primitive methods such as bagging and boosting. However, we are particularly interested in more sophisticated methods based on decision tree learning methods of stream data such as Adaptive Size Hoeffding Tree (ASHT) and ADaptive WINdow bagging (ADWIN bagging).
+In this section, we present these basic concepts of building an ensemble of a collection of classifier. We start with primitive methods such as bagging and boosting. However, we are particularly interested in more sophisticated methods based on decision tree learning methods of stream data such as Adaptive Size Hoeffding Tree (ASHT) and ADaptive WINdow bagging (ADWIN bagging).
 
 \subsection{Bagging}
 \label{sec:bg:bagging}
@@ -711,7 +705,7 @@ There are two different choices for the deletion of nodes for the second point. 
     \end{center}
 \end{figure}
 
-Based on this modified Hoeffding tree, a bagging method is developed in~\cite{bifet09:asht}. The intuition of the methods is as follows: smaller trees adapts to changes faster than the larger trees. However, larger trees perform better where data has only small changes or drifts because of the fact the it is built with more data. A tree of size $s$ would expected to be reset twice as often as a tree with size $2s$. Using an ensemble of different sizes would thus give a set of trees with different reset speeds. Smaller trees would be updated for smalls changes in the streams, while larger ones will maintain a history for longer period. Polling over this set of classifier would thus expected to result in a classifier with finer granularity. It is to be noted that reset will occur even for stationary data, however, this should not have any negative influence on the ensemble's predictive performance.
+Based on this modified Hoeffding tree, a bagging method is developed in~\cite{bifet09:asht}. The intuition of the methods is as follows: smaller trees adapts to changes faster than the larger trees. However, larger trees perform better where data has only small changes or drifts because of the fact the it is built with more data. A tree of size $s$ would expected to be reset twice as often as a tree with size $2s$. Using an ensemble of different sizes would thus give a set of trees with different reset speeds. Smaller trees would be updated for smalls changes in the streams, while larger ones will maintain a history for longer period. Polling over this set of classifier would thus expected to result in a classifier with finer granularity. It is to be noted that reset will occur even for stationary data, however, this should not have any negative influence on the ensemble's predictive performance for stationary cases.
 
 The proposed bagging method in~\cite{bifet09:asht} uses $n$ adaptive-size Hoeffding trees. The $n$-th ASHT has twice the maximum size of $(n-1)$-th tree. Size of the smallest tree is 2. For the polling, each tree is associate with a weight, which is selected to be the inverse of squared error.
 
