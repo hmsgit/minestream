@@ -473,11 +473,17 @@ public FlagOption binarySplitsOption = new FlagOption("binarySplits", 'b',
     protected Node treeRoot;
 
     protected int decisionNodeCount;
-
+    public int getDecisionNodeCount() {return decisionNodeCount;}
     protected int activeLeafNodeCount;
-
+    public int getActiveLeafNodeCount() {return activeLeafNodeCount;}
     protected int inactiveLeafNodeCount;
+    public int getInactiveLeafNodeCount() {return inactiveLeafNodeCount;}
 
+    public int getResetCount() {return 0;}
+    public int getAlternateTreeCount() {return 0;}
+    public int getPrunedAlternateTrees() {return 0;}
+    public int getSwitchedAlternateTrees() {return 0;}
+    
     protected double inactiveLeafByteSizeEstimate;
 
     protected double activeLeafByteSizeEstimate;

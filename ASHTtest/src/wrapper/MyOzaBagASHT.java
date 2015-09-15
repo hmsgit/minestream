@@ -24,9 +24,11 @@ package wrapper;
  *    
  */
 
+import com.sun.javafx.scene.traversal.Algorithm;
+import java.util.Arrays;
+import java.util.Collection;
 import moa.classifiers.Classifier;
 import moa.classifiers.meta.OzaBag;
-import moa.classifiers.trees.ASHoeffdingTree;
 import moa.core.DoubleVector;
 import moa.core.MiscUtils;
 import moa.options.IntOption;
@@ -74,10 +76,10 @@ import weka.core.Utils;
  * and Ricard GavaldÃ . New ensemble methods for evolving data
  * streams. In 15th ACM SIGKDD International Conference on Knowledge
  * Discovery and Data Mining, 2009.<br/><br/>
- * The learner must be ASHoeffdingTree, a Hoeffding Tree with a maximum
+ * The learner must be MyASHoeffdingTree, a Hoeffding Tree with a maximum
  * size value.<br/><br/>
  * Example:<br/><br/>
- * <code>MyOzaBagASHT -l ASHoeffdingTree -s 10 -u -r </code>
+ * <code>MyOzaBagASHT -l MyASHoeffdingTree -s 10 -u -r </code>
  * Parameters:<ul>
  * <li>Same parameters as <code>OzaBag</code>
  * <li>-f : the size of first classifier in the bag.
@@ -120,10 +122,10 @@ public class MyOzaBagASHT extends OzaBag {
         for (int i = 0; i < this.ensemble.length; i++) {
             this.ensemble[i] = baseLearner.copy();
             this.error[i] = 0.0;
-            ((ASHoeffdingTree) this.ensemble[i]).setMaxSize(pow); //EXTENSION TO ASHT
+            ((MyASHoeffdingTree) this.ensemble[i]).setMaxSize(pow); //EXTENSION TO ASHT
             if ((this.resetTreesOption != null)
                     && this.resetTreesOption.isSet()) {
-                ((ASHoeffdingTree) this.ensemble[i]).setResetTree();
+                ((MyASHoeffdingTree) this.ensemble[i]).setResetTree();
             }
             pow *= 2; //EXTENSION TO ASHT
         }
@@ -166,12 +168,12 @@ public class MyOzaBagASHT extends OzaBag {
     @Override
     public void getModelDescription(StringBuilder out, int indent) {        
         for (int i = 0; i < this.ensemble.length; i++) {
-            if (this.ensemble[i] instanceof moa.classifiers.trees.ASHoeffdingTree
-                    && ((ASHoeffdingTree)this.ensemble[i]).measureTreeDepth() != 0) {
+            if (this.ensemble[i] instanceof wrapper.MyASHoeffdingTree
+                    && ((MyASHoeffdingTree)this.ensemble[i]).measureTreeDepth() != 0) {
                 
                 StringBuilder outx = new StringBuilder();
-                ((ASHoeffdingTree)this.ensemble[i]).getModelDescription(outx, indent);
-                out.append("TREE "+i+":\n");
+                out.append("--------TREE--------: "+ i +":\n");
+                ((MyASHoeffdingTree)this.ensemble[i]).getModelDescription(outx, indent);
                 out.append(outx.toString());
             }
         }
@@ -181,11 +183,159 @@ public class MyOzaBagASHT extends OzaBag {
         int [] toRet = new int[this.ensemble.length];
         
         for (int i = 0; i < this.ensemble.length; i++) {
-            if (this.ensemble[i] instanceof moa.classifiers.trees.ASHoeffdingTree)
-                toRet[i] = ((ASHoeffdingTree)this.ensemble[i]).measureTreeDepth();
+            if (this.ensemble[i] instanceof wrapper.MyASHoeffdingTree)
+                toRet[i] = ((MyASHoeffdingTree)this.ensemble[i]).measureTreeDepth();
             else 
                 return null;
         }
         return toRet;
+    }
+    public int maxDepth() {
+        int ret[] = measureTreeDepths();
+        if (ret == null) return 0;
+        Arrays.sort(ret);
+        return ret[ret.length-1];
+    }
+    public int minDepth() {
+        int ret[] = measureTreeDepths();
+        if (ret == null) return 0;
+        Arrays.sort(ret);
+        return ret[0];
+    }
+    public int [] getResetCounts() {
+        int [] toRet = new int[this.ensemble.length];
+        
+        for (int i = 0; i < this.ensemble.length; i++) {
+            if (this.ensemble[i] instanceof wrapper.MyASHoeffdingTree)
+                toRet[i] = ((MyASHoeffdingTree)this.ensemble[i]).getResetCount();
+            else 
+                return null;
+        }
+        return toRet;
+    }
+    public int maxReset() {
+        int ret[] = getResetCounts();
+        if (ret == null) return 0;
+        Arrays.sort(ret);
+        return ret[ret.length-1];
+    }
+    public int minReset() {
+        int ret[] = getResetCounts();
+        if (ret == null) return 0;
+        Arrays.sort(ret);
+        return ret[0];
+    }
+    public int [] getPrunedCounts() {
+        int [] toRet = new int[this.ensemble.length];
+        
+        for (int i = 0; i < this.ensemble.length; i++) {
+            if (this.ensemble[i] instanceof wrapper.MyASHoeffdingTree)
+                toRet[i] = ((MyASHoeffdingTree)this.ensemble[i]).getPrunedAlternateTrees();
+            else 
+                return null;
+        }
+        return toRet;
+    }
+    public int maxPruned() {
+        int ret[] = getPrunedCounts();
+        if (ret == null) return 0;
+        Arrays.sort(ret);
+        return ret[ret.length-1];
+    }
+    public int minPruned() {
+        int ret[] = getPrunedCounts();
+        if (ret == null) return 0;
+        Arrays.sort(ret);
+        return ret[0];
+    }
+    
+    public int calcByteSize() {
+        int toRet = 0;
+        for (int i = 0; i < this.ensemble.length; i++) {
+            if (this.ensemble[i] instanceof wrapper.MyASHoeffdingTree)
+                toRet += ((MyASHoeffdingTree)this.ensemble[i]).calcByteSize();
+            else 
+                return 0;
+        }
+        return toRet;
+    }
+    
+    public int getDecisionNodeCount() {
+        int toRet = 0;
+        for (Classifier ensemble1 : this.ensemble) {
+            if (ensemble1 instanceof wrapper.MyASHoeffdingTree) {
+                toRet += ((MyASHoeffdingTree) ensemble1).getDecisionNodeCount();
+            } else { 
+                return 0;
+            }
+        }
+        return toRet;
+    }
+    public int getActiveLeafNodeCount() {
+        int toRet = 0;
+        for (Classifier ensemble1 : this.ensemble) {
+            if (ensemble1 instanceof wrapper.MyASHoeffdingTree) {
+                toRet += ((MyASHoeffdingTree) ensemble1).getActiveLeafNodeCount();
+            } else { 
+                return 0;
+            }
+        }
+        return toRet;
+    }
+    public int getInactiveLeafNodeCount() {
+        int toRet = 0;
+        for (Classifier ensemble1 : this.ensemble) {
+            if (ensemble1 instanceof wrapper.MyASHoeffdingTree) {
+                toRet += ((MyASHoeffdingTree) ensemble1).getInactiveLeafNodeCount();
+            } else { 
+                return 0;
+            }
+        }
+        return toRet;
+    }
+
+    public double getResetCount() {
+        int toRet = 0;
+        int pow = this.firstClassifierSizeOption.getValue();
+        int sum = 0;
+        for (int i = 0; i < this.ensemble.length; i++) {
+            if (this.ensemble[i] instanceof wrapper.MyASHoeffdingTree)
+                toRet += pow *((MyASHoeffdingTree)this.ensemble[i]).getResetCount();
+            else 
+                return 0;
+            sum += pow;
+            pow *= 2;
+        }
+        double ret = (double)toRet / sum;
+        return (double) Math.round(ret * 100)/100;
+    }
+    
+    public double getPrunedAlternateTrees() {
+        int toRet = 0;
+        int pow = this.firstClassifierSizeOption.getValue();
+        int sum = 0;
+        for (int i = 0; i < this.ensemble.length; i++) {
+            if (this.ensemble[i] instanceof wrapper.MyASHoeffdingTree)
+                toRet += pow *((MyASHoeffdingTree)this.ensemble[i]).getPrunedAlternateTrees();
+            else 
+                return 0;
+            sum += pow;
+            pow *= 2;
+        }
+        double ret = (double)toRet / sum;
+        return (double) Math.round(ret * 100)/100;
+    }
+    
+    public double measureTreeDepth() {
+        double toRet = 0;
+        
+        for (int i = 0; i < this.ensemble.length; i++) {
+            if (this.ensemble[i] instanceof wrapper.MyASHoeffdingTree)
+                toRet += ((MyASHoeffdingTree)this.ensemble[i]).measureTreeDepth();
+            else 
+                return 0;
+        }
+        //return toRet;
+        return (double) Math.round(toRet * 100 / this.ensemble.length)/100;
     }
 }

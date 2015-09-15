@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import moa.classifiers.meta.OzaBagASHT;
 import moa.streams.generators.RandomRBFGeneratorDrift;
-import wrapper.MyHoeffdingAdaptiveTree;
+import wrapper.*;
 
 /**
  *
@@ -35,7 +35,29 @@ public class Main {
     private void testHTwithRandRBFDrift() {
         RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
         inStream.prepareForUse();
-        inStream.speedChangeOption.setValue(0.01f);
+        inStream.speedChangeOption.setValue(.01f);
+        inStream.numCentroidsOption.setValue(140);
+        //inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
+        //inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
+        
+        MyHoeffdingTree classifier = new MyASHoeffdingTree();
+        ((MyASHoeffdingTree)classifier).setMaxSize(10);
+        ((MyASHoeffdingTree)classifier).setResetTree();
+                
+        try {
+            new ASHTtest().test(
+                    //new moa.streams.ArffFileStream("cluster.csv", -1),
+                    inStream,
+                    classifier
+            );
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }    
+    private void testHTwithProcessedRBF() {
+        wrapper.MyRandomRBFGeneratorDrift inStream = new wrapper.MyRandomRBFGeneratorDrift(100,5,4000);
+        inStream.prepareForUse();
+        inStream.numDriftCentroidsOption.setValue(0);
         
         try {
             new HTtest().test(
@@ -47,7 +69,22 @@ public class Main {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private void testHTwithStackedRBF() {
+    private void testHTwithProcessedRBFDrift() {
+        wrapper.MyRandomRBFGeneratorDrift inStream = new wrapper.MyRandomRBFGeneratorDrift(300,5,2000);
+        inStream.prepareForUse();
+        inStream.speedChangeOption.setValue(1f);
+        
+        try {
+            new HTtest().test(
+                    //new moa.streams.ArffFileStream("cluster.csv", -1),
+                    inStream,
+                    new  MyHoeffdingAdaptiveTree()
+            );
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void testASHTwithRandRBF() {
         wrapper.StackedRBFStream inStream = new wrapper.StackedRBFStream(3);
         inStream.numClassesOption.setValue(6);
         inStream.setClassStartIndexOption(1, 3);
@@ -67,20 +104,21 @@ public class Main {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private void testASHTwithStackedRBF() {
-        wrapper.StackedRBFStream inStream = new wrapper.StackedRBFStream(3);
-        inStream.numClassesOption.setValue(6);
-        inStream.setClassStartIndexOption(1, 3);
-        inStream.setClassStartIndexOption(2, 5);
-        
-        inStream.setSpeedChangeOpiton(1, 0.01f);
-        inStream.setSpeedChangeOpiton(2, 0.1f);
+    private void testASHTwithRandRBFDrift() {
+        RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
         inStream.prepareForUse();
+        inStream.speedChangeOption.setValue(.01f);
+        inStream.numCentroidsOption.setValue(140);
+        
+        MyOzaBagASHT classifier = new MyOzaBagASHT();
+        classifier.firstClassifierSizeOption.setValue(2);
+        classifier.ensembleSizeOption.setValue(3);
+        //classifier.resetTreesOption.setValue(true);
         
         try {
             new ASHTtest().test(
                     inStream,
-                    new wrapper.MyOzaBagASHT()
+                    classifier
             );
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,11 +126,11 @@ public class Main {
     }
     
     public static void main(String[] args) {
-        //new Main().testHTwithStackedRBF();
-        //new Main().testHTwithRandRBFDrift();
         //new Main().testHTwithRandRBF();
         
-        new Main().testASHTwithStackedRBF();
+        new Main().testHTwithRandRBFDrift();
+        //new Main().testHTwithProcessedRBFDrift();
+        new Main().testASHTwithRandRBFDrift();
     }
     
 }

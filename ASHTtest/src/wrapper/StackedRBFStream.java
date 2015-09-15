@@ -37,8 +37,6 @@ public class StackedRBFStream extends AbstractOptionHandler implements
     public StackedRBFStream(int stackSize) {
         generators = new MyRandomRBFGeneratorDrift[stackSize];
         for (int i = 0; i < generators.length; i++) {
-            generators[i] = new MyRandomRBFGeneratorDrift();
-            //generators[i].prepareForUse();
         }
         
         modelRand = new Random(this.modelRandomSeedOption.getValue());
@@ -59,13 +57,9 @@ public class StackedRBFStream extends AbstractOptionHandler implements
         }
     }
     public void setClassStartIndexOption(int value) {
-        for (MyRandomRBFGeneratorDrift generator : generators) {
-            generator.classStartIndexOption.setValue(value);
-        }
     }
     public void setClassStartIndexOption(int generatorNumber, int value) {
-        if (generatorNumber > generators.length - 1) return;
-        generators[generatorNumber].classStartIndexOption.setValue(value);
+        return;
     }
     public void setNumCentroidOpiton(int generatorNumber, int value) {
         if (generatorNumber > generators.length - 1) return;

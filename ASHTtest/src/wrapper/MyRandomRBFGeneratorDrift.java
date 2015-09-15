@@ -6,6 +6,8 @@
 package wrapper;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import moa.core.InstancesHeader;
 import moa.core.MiscUtils;
@@ -60,6 +62,42 @@ public class MyRandomRBFGeneratorDrift extends AbstractOptionHandler implements
         public int classLabel;
 
         public double stdDev;
+        
+        public boolean isActive;
+        public double driftCoeffient;
+        
+        public Centroid() {
+            isActive = true;
+            driftCoeffient = 1.0;
+        }
+    }
+    
+    protected static class Pool {
+        public ArrayList<Integer> centroidIndices;
+        public double activationPercent;
+        public double numInstancePercent;
+        
+        public Pool() {
+            centroidIndices = new ArrayList();
+            activationPercent = 1.0;
+            numInstancePercent = 1.0;
+        }
+    }
+    
+    public Pool[] pools;
+    public int numInstancesToReconfig;
+    public ArrayList<Instance> nextInstances;
+    
+    public MyRandomRBFGeneratorDrift(int centroid, int pool, int reconflimit) {
+        numCentroidsOption.setValue(centroid);
+        numDriftCentroidsOption.setValue(centroid);
+        numInstancesToReconfig = reconflimit;
+        
+        pools = new Pool[pool];
+        for (int i = 0; i < pool; i++)
+            pools[i] = new Pool();
+        
+        nextInstances = new ArrayList<>();
     }
 
     public FloatOption speedChangeOption = new FloatOption("speedChange", 's',
@@ -67,9 +105,6 @@ public class MyRandomRBFGeneratorDrift extends AbstractOptionHandler implements
 
     public IntOption numDriftCentroidsOption = new IntOption("numDriftCentroids", 'k',
             "The number of centroids with drift.", 50, 0, Integer.MAX_VALUE);
-    
-    public IntOption classStartIndexOption = new IntOption("classLabelStartIndex",
-            'z', "Class label starts from.", 1);
     
     protected double[][] speedCentroids;
     
@@ -80,7 +115,7 @@ public class MyRandomRBFGeneratorDrift extends AbstractOptionHandler implements
     protected double[] centroidWeights;
 
     protected Random instanceRandom;
-
+    
     @Override
     public void prepareForUseImpl(TaskMonitor monitor,
             ObjectRepository repository) {
@@ -115,43 +150,14 @@ public class MyRandomRBFGeneratorDrift extends AbstractOptionHandler implements
         this.instanceRandom = new Random(this.instanceRandomSeedOption.getValue());
     }
 
-    private Instance _nextInstance() {
-        Centroid centroid = this.centroids[MiscUtils.chooseRandomIndexBasedOnWeights(this.centroidWeights,
-                this.instanceRandom)];
-        int numAtts = this.numAttsOption.getValue();
-        double[] attVals = new double[numAtts + 1];
-        for (int i = 0; i < numAtts; i++) {
-            attVals[i] = (this.instanceRandom.nextDouble() * 2.0) - 1.0;
-        }
-        double magnitude = 0.0;
-        for (int i = 0; i < numAtts; i++) {
-            magnitude += attVals[i] * attVals[i];
-        }
-        magnitude = Math.sqrt(magnitude);
-        double desiredMag = this.instanceRandom.nextGaussian()
-                * centroid.stdDev;
-        double scale = desiredMag / magnitude;
-        for (int i = 0; i < numAtts; i++) {
-            attVals[i] = centroid.centre[i] + attVals[i] * scale;
-        }
-        Instance inst = new DenseInstance(1.0, attVals);
-        inst.setDataset(getHeader());
-        inst.setClassValue(centroid.classLabel);
-        return inst;
-    }
-
     protected void generateHeader() {
         FastVector attributes = new FastVector();
         for (int i = 0; i < this.numAttsOption.getValue(); i++) {
             attributes.addElement(new Attribute("att" + (i + 1)));
         }
         
-        int classoffset = classStartIndexOption.getValue()-1;
         FastVector classLabels = new FastVector();
-        //for (int i = 0; i < classoffset; i++) {
-        //    classLabels.addElement("classx"+ i);
-        //}
-        for (int i = classoffset; i < this.numClassesOption.getValue()+classoffset; i++) {
+        for (int i = 0; i < this.numClassesOption.getValue(); i++) {
             classLabels.addElement("class" + (i + 1));
         }
         attributes.addElement(new Attribute("class", classLabels));
@@ -170,26 +176,24 @@ public class MyRandomRBFGeneratorDrift extends AbstractOptionHandler implements
             for (int j = 0; j < randCentre.length; j++) {
                 randCentre[j] = modelRand.nextDouble();
             }
-            this.centroids[i].centre = randCentre;
-            
-            int classoffset = classStartIndexOption.getValue()-1;
-            this.centroids[i].classLabel = classoffset + modelRand.nextInt(this.numClassesOption.getValue());
-            
+            this.centroids[i].centre = randCentre;            
+            this.centroids[i].classLabel = modelRand.nextInt(this.numClassesOption.getValue());
             this.centroids[i].stdDev = modelRand.nextDouble();
             this.centroidWeights[i] = modelRand.nextDouble();
         }
     }
 
-    @Override
-    public Instance nextInstance() {
+    public void xnextInstance() {
         //Update Centroids with drift
         int len = this.numDriftCentroidsOption.getValue();
         if (len > this.centroids.length) {
             len = this.centroids.length;
         }
         for (int j = 0; j < len; j++) {
+            if (!this.centroids[j].isActive) continue;
+            
             for (int i = 0; i < this.numAttsOption.getValue(); i++) {
-                this.centroids[j].centre[i] += this.speedCentroids[j][i] * this.speedChangeOption.getValue();
+                this.centroids[j].centre[i] += this.centroids[j].driftCoeffient * this.speedCentroids[j][i] * this.speedChangeOption.getValue();
                 if (this.centroids[j].centre[i] > 1) {
                     this.centroids[j].centre[i] = 1;
                     this.speedCentroids[j][i] = -this.speedCentroids[j][i];
@@ -200,7 +204,53 @@ public class MyRandomRBFGeneratorDrift extends AbstractOptionHandler implements
                 }
             }
         }
-        return _nextInstance();
+        
+        
+        for (int p = 0; p < pools.length; p++) {
+            for (int j = 0; j < numInstancesToReconfig * (p+1); j++) {
+                
+                int index = MiscUtils.chooseRandomIndexBasedOnWeights(this.centroidWeights,
+                    this.instanceRandom);
+                Centroid centroid = this.centroids[index];
+                if (!centroid.isActive || !pools[p].centroidIndices.contains(index)) {
+                    j--;
+                    continue;
+                }
+                
+                int numAtts = this.numAttsOption.getValue();
+                double[] attVals = new double[numAtts + 1];
+                for (int i = 0; i < numAtts; i++) {
+                    attVals[i] = (this.instanceRandom.nextDouble() * 2.0) - 1.0;
+                }
+                double magnitude = 0.0;
+                for (int i = 0; i < numAtts; i++) {
+                    magnitude += attVals[i] * attVals[i];
+                }
+                magnitude = Math.sqrt(magnitude);
+                double desiredMag = this.instanceRandom.nextGaussian()
+                        * centroid.stdDev;
+                double scale = desiredMag / magnitude;
+                for (int i = 0; i < numAtts; i++) {
+                    attVals[i] = centroid.centre[i] + attVals[i] * scale;
+                }
+                Instance inst = new DenseInstance(1.0, attVals);
+                inst.setDataset(getHeader());
+                inst.setClassValue(centroid.classLabel);
+
+                nextInstances.add(inst);
+            }
+        }
+        long seed = System.nanoTime();
+        Collections.shuffle(nextInstances, new Random(seed));
+    }
+    
+    @Override
+    public Instance nextInstance() {
+        if (nextInstances.isEmpty()) {
+            xnextInstance();
+            reconfig();
+        }
+        return nextInstances.remove(0);
     }
 
     protected void generateCentroids() {
@@ -224,10 +274,39 @@ public class MyRandomRBFGeneratorDrift extends AbstractOptionHandler implements
             }
             this.speedCentroids[i] = randSpeed;
         }
+        
+        Random poolrand = new Random((int) System.currentTimeMillis());
+        for (int i = 0; i < centroids.length; i++) {
+            pools[poolrand.nextInt(pools.length)].centroidIndices.add(i);
+        }
+        
+        reconfig();
     }
 
     @Override
     public void getDescription(StringBuilder sb, int indent) {
         // TODO Auto-generated method stub
+    }
+    
+    public void reconfig() {
+        for (int i = 0; i < centroids.length; i++) {
+            centroids[i].isActive = true;
+        }
+        for (int i = 0; i < pools.length; i++) {
+            Random poolrand = new Random((int) System.currentTimeMillis());
+            pools[i].activationPercent = 1.0/(i+1);
+            int toDeactivate = pools[i].centroidIndices.size() 
+                    - (int) (pools[i].centroidIndices.size() * pools[i].activationPercent);
+            
+            for (int j = 0, k = 0; k < toDeactivate; j++) {
+                int index = pools[i].centroidIndices.get(j % pools[i].centroidIndices.size());
+                if (poolrand.nextInt(100) % 2 == 0 
+                        && centroids[index].isActive != false) { 
+                    centroids[index].isActive = false;
+                    k++;
+                }
+                centroids[index].driftCoeffient = 1.0 - 1.0/(i+1);
+            }
+        }
     }
 }

@@ -3,142 +3,187 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package ashttest;
 
-import dbaccess.DBConnection;
-import java.util.ArrayList;
+import moa.evaluation.BasicClassificationPerformanceEvaluator;
+import wrapper.*;
+
+import moa.classifiers.Classifier;
 import moa.evaluation.WindowClassificationPerformanceEvaluator;
 import moa.options.IntOption;
-import moa.streams.ArffFileStream;
 import moa.streams.InstanceStream;
-import models.BayesianStream;
 import weka.core.Instance;
-import wrapper.MyHoeffdingTree;
-import moa.classifiers.trees.*;
-import moa.classifiers.meta.*;
-import wrapper.*;
 
 /**
  *
  * @author mahmud
  */
-public class ASHTtest {
-    private final static int outputFrequency = 1000; //each X instances, evaluator outputs result
 
-    private  wrapper.MyOzaBagASHT ht;
-    
+public class ASHTtest {
+    private  Classifier ht;
     static InstanceStream trainingStream;
 
-    double start1;
-
-    public void test(InstanceStream inStream, wrapper.MyOzaBagASHT classifier) throws Exception {
-        long startTime = System.currentTimeMillis();
+    public void test(InstanceStream inStream, Classifier classifier) 
+            throws Exception {
         
-        
-        trainingStream = inStream;
         ht = classifier;
-        //oza bag
-        ht.baseLearnerOption.setValueViaCLIString("trees.ASHoeffdingTree");
-        ht.firstClassifierSizeOption.setValue(1);
-        ht.ensembleSizeOption.setValue(5);
+        trainingStream = inStream;
         
-        System.out.println("-:\t");
+        if (ht instanceof MyHoeffdingTree) {
+            
+        } else if (ht instanceof MyOzaBagASHT) {
+            ((MyOzaBagASHT)ht).baseLearnerOption.setValueViaCLIString("wrapper.MyASHoeffdingTree");
+        }
         
-        //ht.leafpredictionOption.setChosenIndex(2); //NB
         ht.prepareForUse();
         ht.setModelContext(trainingStream.getHeader());
-        //ht.gracePeriodOption.setValue(1000); // default = 200
         
-        WindowClassificationPerformanceEvaluator evaluator = new WindowClassificationPerformanceEvaluator();
-        evaluator.widthOption = new IntOption("Width", 'w', "Window width", 2000); //default!
-
-        // Prepare classifier for learning
-        int numberSamplesCorrect = 0;
-        int numberSamples = 0;
+        long startTime = System.currentTimeMillis();
+        long elapsedTime = 0;
+        
+        WindowClassificationPerformanceEvaluator windowEval = new WindowClassificationPerformanceEvaluator();
+        windowEval.widthOption = new IntOption("Width", 'w', "Window width", TestParameters.WIDTH); //default!
+        BasicClassificationPerformanceEvaluator basicEval = new BasicClassificationPerformanceEvaluator();
+        
         //Keeping track of where we are
-        int windowCount = outputFrequency;
-        int falsePositives = 0;
-        int falseNegatives = 0;
-        int truePositives = 0;
-        int trueNegatives = 0;
-        int lastRow = 0;
+        int numberInstance = 0;
+        int windowCount = TestParameters.WIDTH;
+        int tp = 0, tn = 0, fp = 0, fn = 0;
+        int xtp = 0, xtn = 0, xfp = 0, xfn = 0;
         
-        int olddepth = -1;
-        int olddepths []= new int[5]; //for asht
-        int notcounted = 0;
-        StringBuilder prev = null;
+        System.out.println("Count,\tTime,\tTP,\tFP,\tTN,\tFN,"
+                + "\tAccu,\tKappa,\tKpa_t,\tMem,"
+                + "\tDepth,\tTSize,\tDcNod,\tActLf,\tInacLf,"
+                + "\tReset,\tAlter,\tSwitch,\tPrune,"
+                + "\tClOp0,\tClOp1,\tClOp2,\tClOp3");
         
         Instance trainInst = trainingStream.nextInstance();
-        int frequency[] = new int[trainInst.numAttributes()];
-        while (trainingStream.hasMoreInstances()) {
-            if (numberSamples % 1000 == 0)
-                System.out.print(numberSamples + "\t");
-            windowCount--;
-
-            numberSamples++;
-            if (numberSamples >= 200000) break;
+        while (trainingStream.hasMoreInstances()
+                && numberInstance++ < TestParameters.NUMBER_OF_INSTANCES) {
             
             double[] votes = ht.getVotesForInstance(trainInst);
+            windowEval.addResult(trainInst, votes);
+            basicEval.addResult(trainInst, votes);
             
-            //evaluator.addResult(trainInst, votes);
-            
+            // manual counting
             if (votes.length != 0 && votes.length != 1) {
                 if (ht.correctlyClassifies(trainInst)) {
                     if (votes[0] >= votes[1])
-                        truePositives++;
+                        tp++;
                     else
-                        trueNegatives++;
-                    numberSamplesCorrect++;
+                        tn++;
                 } else {
                     if (votes[0] >= votes[1])
-                        falsePositives++;
+                        fp++;
                     else
-                        falseNegatives++;
+                        fn++;
                 }
-            } else {
-                notcounted++;
             }
+            
             ht.trainOnInstance(trainInst);
-            
-            boolean isIncrease = false;
-            for (int i = 0; i < olddepths.length; i++)
-                if (olddepths[i] < ht.measureTreeDepths()[i])
-                    isIncrease = true;
-            
-            
-            StringBuilder sb = new StringBuilder();
-            ht.getModelDescription(sb, 0);
-            //if (olddepth < ht.measureTreeDepth()) {
-            if (isIncrease) {
-                if(prev != null)
-                    System.out.println(numberSamples +": \n"+ prev.toString());
-                
-                System.out.println(numberSamples +": \n"+ sb.toString());
-                
-            }
-            prev = sb;
-            //olddepth = ht.measureTreeDepth();
-            olddepths = ht.measureTreeDepths();
-            
             trainInst = trainingStream.nextInstance();
+            
+            if (--windowCount == 0) {
+                windowCount = TestParameters.WIDTH;
+                
+                elapsedTime += System.currentTimeMillis() - startTime;
+                xtp = tp - xtp; xtn = tn - xtn; xfp = fp - xfp; xfn = fn - xfn;
+                
+                System.out.print(numberInstance     + ",\t");
+                System.out.print((double)elapsedTime/1000        + ",\t");
+                System.out.print(xtp        + ",\t");
+                System.out.print(xfp        + ",\t");
+                System.out.print(xtn        + ",\t");
+                System.out.print(xfn        + ",\t");
+                
+                System.out.print((double)Math.round(windowEval.getFractionCorrectlyClassified()*10000)/100   + ",\t");
+                System.out.print((double)Math.round(windowEval.getKappaStatistic()*10000)/100                + ",\t");
+                System.out.print((double)Math.round(windowEval.getKappaTemporalStatistic()*10000)/100      + ",\t");
+                
+                printClassifierInfos();
+                //printTree();
+                System.out.println();
+                
+                startTime = System.currentTimeMillis();
+            }
         }
+        elapsedTime += System.currentTimeMillis() - startTime;
         
-        double accuracy = 100.0 * (double) numberSamplesCorrect / (double) numberSamples;
-        //System.out.println("\nNumber of Performance Measurements: " + evaluator.getPerformanceMeasurements().length);
-        //System.out.println("Number of Performance Measurements: " + evaluator.getPerformanceMeasurements().toString());
-        System.out.println("not counted: " + notcounted);
-        System.out.println("Classic Prequential Preprocessed " + numberSamples + " instances processed with " + accuracy + "% accuracy");
-        System.out.println("False positives: " + falsePositives);
-        System.out.println("False negatives: " + falseNegatives);
-        System.out.println("True positives: " + truePositives);
-        System.out.println("True negatives: " + trueNegatives);
-        System.out.println("Sensitivity/True Positive Rate: " + 100.0 * (double)truePositives/((double)truePositives + (double)falseNegatives));
-        System.out.println("Specificity/True Negative Rate: " + 100.0 * (double)trueNegatives/((double)trueNegatives + (double)falsePositives));
-        double precision = 100.0 * (double)truePositives / ((double)truePositives + (double)falsePositives);
-        double f1score = 200.0 * (double)truePositives / (2.0* (double)truePositives + (double)falsePositives + (double)falseNegatives);
-        System.out.println("Precision/Positive Predictive Value: " + precision);
-        System.out.println("F1 Score: " + f1score);
+        System.out.println();        
+        System.out.print(--numberInstance               + ",\t");
+        System.out.print((double)elapsedTime/1000       + ",\t");
+        System.out.print(tp        + ",\t");
+        System.out.print(fp        + ",\t");
+        System.out.print(tn        + ",\t");
+        System.out.print(fn        + ",\t");
 
-        System.out.println("Runtime: " + (System.currentTimeMillis() - startTime));
+        System.out.print((double)Math.round(basicEval.getFractionCorrectlyClassified()*10000)/100   + ",\t");
+        System.out.print((double)Math.round(basicEval.getKappaStatistic()*10000)/100                + ",\t");
+        System.out.print((double)Math.round(basicEval.getKappaTemporalStatistic()*10000)/100      + ",\t");
+        
+        printClassifierInfos();
+        //printTree();
+        System.out.println();
+    }
+    
+    void printClassifierInfos() {
+        if (ht instanceof MyHoeffdingTree) {
+            MyHoeffdingTree _xht = (MyHoeffdingTree) ht;
+            System.out.print(-_xht.calcByteSize()+ ",\t");
+
+            System.out.print(_xht.measureTreeDepth()+ ",\t");
+            System.out.print(_xht.getDecisionNodeCount()+_xht.getActiveLeafNodeCount()
+                    +_xht.getInactiveLeafNodeCount()+ ",\t");
+            System.out.print(_xht.getDecisionNodeCount()+ ",\t");
+            System.out.print(_xht.getActiveLeafNodeCount()+ ",\t");
+            System.out.print(_xht.getInactiveLeafNodeCount()+ ",\t");
+
+            System.out.print(_xht.getResetCount()+ ",\t");
+            System.out.print(_xht.getAlternateTreeCount()+ ",\t");
+            System.out.print(_xht.getSwitchedAlternateTrees()+ ",\t");
+            System.out.print(_xht.getPrunedAlternateTrees()+ ",\t");
+
+            System.out.print(0+ ",\t");
+            System.out.print(0+ ",\t");
+            System.out.print(0+ ",\t");
+            System.out.print(0+ ",\t");
+
+        } else if (ht instanceof MyOzaBagASHT) {
+            MyOzaBagASHT _xht = (MyOzaBagASHT) ht;
+            System.out.print(-_xht.calcByteSize()+ ",\t");
+
+            System.out.print(_xht.measureTreeDepth()+ ",\t"); // Average depth
+            System.out.print(_xht.getDecisionNodeCount()+_xht.getActiveLeafNodeCount()
+                    +_xht.getInactiveLeafNodeCount()+ ",\t"); // total
+            System.out.print(_xht.getDecisionNodeCount()+ ",\t"); // total
+            System.out.print(_xht.getActiveLeafNodeCount()+ ",\t"); // total
+            System.out.print(_xht.getInactiveLeafNodeCount()+ ",\t"); // total
+
+            System.out.print(_xht.getResetCount()+ ",\t"); // weighted reset count
+            System.out.print(0 + ",\t");
+            System.out.print(0 + ",\t");
+            System.out.print(_xht.getPrunedAlternateTrees()+ ",\t"); // 0, if reset
+
+            //ClOp0-1-2-3
+            System.out.print(_xht.maxDepth()+   ",\t");
+            System.out.print(_xht.minDepth()+   ",\t");
+            if (_xht.resetTreesOption.isSet()) {
+                System.out.print(_xht.maxReset()+   ",\t");
+                System.out.print(_xht.minReset()+   ",\t");
+            } else {
+                System.out.print(_xht.maxPruned()+   ",\t");
+                System.out.print(_xht.minPruned()+   ",\t");
+            }
+        }
+    }
+    void printTree() {
+        StringBuilder sb = new StringBuilder();
+        if (ht instanceof MyHoeffdingTree) {
+            ((MyHoeffdingTree)ht).getModelDescription(sb, 0);            
+        } else if (ht instanceof MyOzaBagASHT) {
+            ((MyOzaBagASHT)ht).getModelDescription(sb, 0);
+        }
+        System.out.println("\n"+sb.toString());
     }
 }

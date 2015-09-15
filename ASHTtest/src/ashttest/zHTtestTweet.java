@@ -17,7 +17,7 @@ import wrapper.MyHoeffdingTree;
  *
  * @author mahmud
  */
-public class HTtestTweet {
+public class zHTtestTweet {
     /**
      * @param args the command line arguments
      */
