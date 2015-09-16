@@ -21,23 +21,25 @@ import weka.core.Instance;
  */
 
 public class ASHTtest {
-    private  Classifier ht;
+    private  Classifier classifier;
     static InstanceStream trainingStream;
+    private StringBuilder stats;
 
-    public void test(InstanceStream inStream, Classifier classifier) 
+    public void test(InstanceStream inStream, Classifier inclassifier, StringBuilder outstats) 
             throws Exception {
         
-        ht = classifier;
+        classifier = inclassifier;
         trainingStream = inStream;
+        stats = outstats;
         
-        if (ht instanceof MyHoeffdingTree) {
+        if (classifier instanceof MyHoeffdingTree) {
             
-        } else if (ht instanceof MyOzaBagASHT) {
-            ((MyOzaBagASHT)ht).baseLearnerOption.setValueViaCLIString("wrapper.MyASHoeffdingTree");
+        } else if (classifier instanceof MyOzaBagASHT) {
+            ((MyOzaBagASHT)classifier).baseLearnerOption.setValueViaCLIString("wrapper.MyASHoeffdingTree");
         }
         
-        ht.prepareForUse();
-        ht.setModelContext(trainingStream.getHeader());
+        classifier.prepareForUse();
+        classifier.setModelContext(trainingStream.getHeader());
         
         long startTime = System.currentTimeMillis();
         long elapsedTime = 0;
@@ -52,23 +54,23 @@ public class ASHTtest {
         int tp = 0, tn = 0, fp = 0, fn = 0;
         int xtp = 0, xtn = 0, xfp = 0, xfn = 0;
         
-        System.out.println("Count,\tTime,\tTP,\tFP,\tTN,\tFN,"
+        stats.append("Count,\tTime,\tTP,\tFP,\tTN,\tFN,"
                 + "\tAccu,\tKappa,\tKpa_t,\tMem,"
                 + "\tDepth,\tTSize,\tDcNod,\tActLf,\tInacLf,"
                 + "\tReset,\tAlter,\tSwitch,\tPrune,"
-                + "\tClOp0,\tClOp1,\tClOp2,\tClOp3");
+                + "\tClOp0,\tClOp1,\tClOp2,\tClOp3\n");
         
         Instance trainInst = trainingStream.nextInstance();
         while (trainingStream.hasMoreInstances()
                 && numberInstance++ < TestParameters.NUMBER_OF_INSTANCES) {
             
-            double[] votes = ht.getVotesForInstance(trainInst);
+            double[] votes = classifier.getVotesForInstance(trainInst);
             windowEval.addResult(trainInst, votes);
             basicEval.addResult(trainInst, votes);
             
             // manual counting
             if (votes.length != 0 && votes.length != 1) {
-                if (ht.correctlyClassifies(trainInst)) {
+                if (classifier.correctlyClassifies(trainInst)) {
                     if (votes[0] >= votes[1])
                         tp++;
                     else
@@ -81,7 +83,7 @@ public class ASHTtest {
                 }
             }
             
-            ht.trainOnInstance(trainInst);
+            classifier.trainOnInstance(trainInst);
             trainInst = trainingStream.nextInstance();
             
             if (--windowCount == 0) {
@@ -90,99 +92,149 @@ public class ASHTtest {
                 elapsedTime += System.currentTimeMillis() - startTime;
                 xtp = tp - xtp; xtn = tn - xtn; xfp = fp - xfp; xfn = fn - xfn;
                 
-                System.out.print(numberInstance     + ",\t");
-                System.out.print((double)elapsedTime/1000        + ",\t");
-                System.out.print(xtp        + ",\t");
-                System.out.print(xfp        + ",\t");
-                System.out.print(xtn        + ",\t");
-                System.out.print(xfn        + ",\t");
+                stats.append(numberInstance     + ",\t");
+                stats.append((double)elapsedTime/1000        + ",\t");
+                stats.append(xtp        + ",\t");
+                stats.append(xfp        + ",\t");
+                stats.append(xtn        + ",\t");
+                stats.append(xfn        + ",\t");
                 
-                System.out.print((double)Math.round(windowEval.getFractionCorrectlyClassified()*10000)/100   + ",\t");
-                System.out.print((double)Math.round(windowEval.getKappaStatistic()*10000)/100                + ",\t");
-                System.out.print((double)Math.round(windowEval.getKappaTemporalStatistic()*10000)/100      + ",\t");
+                stats.append((double)Math.round(windowEval.getFractionCorrectlyClassified()*10000)/100   + ",\t");
+                stats.append((double)Math.round(windowEval.getKappaStatistic()*10000)/100                + ",\t");
+                stats.append((double)Math.round(windowEval.getKappaTemporalStatistic()*10000)/100      + ",\t");
                 
                 printClassifierInfos();
                 //printTree();
-                System.out.println();
+                stats.append("\n");
                 
                 startTime = System.currentTimeMillis();
             }
         }
         elapsedTime += System.currentTimeMillis() - startTime;
         
-        System.out.println();        
-        System.out.print(--numberInstance               + ",\t");
-        System.out.print((double)elapsedTime/1000       + ",\t");
-        System.out.print(tp        + ",\t");
-        System.out.print(fp        + ",\t");
-        System.out.print(tn        + ",\t");
-        System.out.print(fn        + ",\t");
+        stats.append("\n");
+        stats.append(--numberInstance               + ",\t");
+        stats.append((double)elapsedTime/1000       + ",\t");
+        stats.append(tp        + ",\t");
+        stats.append(fp        + ",\t");
+        stats.append(tn        + ",\t");
+        stats.append(fn        + ",\t");
 
-        System.out.print((double)Math.round(basicEval.getFractionCorrectlyClassified()*10000)/100   + ",\t");
-        System.out.print((double)Math.round(basicEval.getKappaStatistic()*10000)/100                + ",\t");
-        System.out.print((double)Math.round(basicEval.getKappaTemporalStatistic()*10000)/100      + ",\t");
+        stats.append((double)Math.round(basicEval.getFractionCorrectlyClassified()*10000)/100   + ",\t");
+        stats.append((double)Math.round(basicEval.getKappaStatistic()*10000)/100                + ",\t");
+        stats.append((double)Math.round(basicEval.getKappaTemporalStatistic()*10000)/100      + ",\t");
         
         printClassifierInfos();
         //printTree();
-        System.out.println();
+        stats.append("\n");
     }
     
     void printClassifierInfos() {
-        if (ht instanceof MyHoeffdingTree) {
-            MyHoeffdingTree _xht = (MyHoeffdingTree) ht;
-            System.out.print(-_xht.calcByteSize()+ ",\t");
+        if (classifier instanceof MyHoeffdingTree) {
+            MyHoeffdingTree _xht = (MyHoeffdingTree) classifier;
+            stats.append(-_xht.calcByteSize()+ ",\t");
 
-            System.out.print(_xht.measureTreeDepth()+ ",\t");
-            System.out.print(_xht.getDecisionNodeCount()+_xht.getActiveLeafNodeCount()
+            stats.append(_xht.measureTreeDepth()+ ",\t");
+            stats.append(_xht.getDecisionNodeCount()+_xht.getActiveLeafNodeCount()
                     +_xht.getInactiveLeafNodeCount()+ ",\t");
-            System.out.print(_xht.getDecisionNodeCount()+ ",\t");
-            System.out.print(_xht.getActiveLeafNodeCount()+ ",\t");
-            System.out.print(_xht.getInactiveLeafNodeCount()+ ",\t");
+            stats.append(_xht.getDecisionNodeCount()+ ",\t");
+            stats.append(_xht.getActiveLeafNodeCount()+ ",\t");
+            stats.append(_xht.getInactiveLeafNodeCount()+ ",\t");
 
-            System.out.print(_xht.getResetCount()+ ",\t");
-            System.out.print(_xht.getAlternateTreeCount()+ ",\t");
-            System.out.print(_xht.getSwitchedAlternateTrees()+ ",\t");
-            System.out.print(_xht.getPrunedAlternateTrees()+ ",\t");
+            stats.append(_xht.getResetCount()+ ",\t");
+            stats.append(_xht.getAlternateTreeCount()+ ",\t");
+            stats.append(_xht.getSwitchedAlternateTrees()+ ",\t");
+            stats.append(_xht.getPrunedAlternateTrees()+ ",\t");
 
-            System.out.print(0+ ",\t");
-            System.out.print(0+ ",\t");
-            System.out.print(0+ ",\t");
-            System.out.print(0+ ",\t");
+            stats.append(0+ ",\t");
+            stats.append(0+ ",\t");
+            stats.append(0+ ",\t");
+            stats.append(0+ ",\t");
 
-        } else if (ht instanceof MyOzaBagASHT) {
-            MyOzaBagASHT _xht = (MyOzaBagASHT) ht;
-            System.out.print(-_xht.calcByteSize()+ ",\t");
+        } else if (classifier instanceof MyOzaBagASHT) {
+            MyOzaBagASHT _xht = (MyOzaBagASHT) classifier;
+            stats.append(-_xht.calcByteSize()+ ",\t");
 
-            System.out.print(_xht.measureTreeDepth()+ ",\t"); // Average depth
-            System.out.print(_xht.getDecisionNodeCount()+_xht.getActiveLeafNodeCount()
+            stats.append(_xht.measureTreeDepth()+ ",\t"); // Average depth
+            stats.append(_xht.getDecisionNodeCount()+_xht.getActiveLeafNodeCount()
                     +_xht.getInactiveLeafNodeCount()+ ",\t"); // total
-            System.out.print(_xht.getDecisionNodeCount()+ ",\t"); // total
-            System.out.print(_xht.getActiveLeafNodeCount()+ ",\t"); // total
-            System.out.print(_xht.getInactiveLeafNodeCount()+ ",\t"); // total
+            stats.append(_xht.getDecisionNodeCount()+ ",\t"); // total
+            stats.append(_xht.getActiveLeafNodeCount()+ ",\t"); // total
+            stats.append(_xht.getInactiveLeafNodeCount()+ ",\t"); // total
 
-            System.out.print(_xht.getResetCount()+ ",\t"); // weighted reset count
-            System.out.print(0 + ",\t");
-            System.out.print(0 + ",\t");
-            System.out.print(_xht.getPrunedAlternateTrees()+ ",\t"); // 0, if reset
+            stats.append(_xht.getResetCount()+ ",\t"); // weighted reset count
+            stats.append(0 + ",\t");
+            stats.append(0 + ",\t");
+            stats.append(_xht.getPrunedAlternateTrees()+ ",\t"); // 0, if reset
 
             //ClOp0-1-2-3
-            System.out.print(_xht.maxDepth()+   ",\t");
-            System.out.print(_xht.minDepth()+   ",\t");
+            stats.append(_xht.maxDepth()+   ",\t");
+            stats.append(_xht.minDepth()+   ",\t");
             if (_xht.resetTreesOption.isSet()) {
-                System.out.print(_xht.maxReset()+   ",\t");
-                System.out.print(_xht.minReset()+   ",\t");
+                stats.append(_xht.maxReset()+   ",\t");
+                stats.append(_xht.minReset()+   ",\t");
             } else {
-                System.out.print(_xht.maxPruned()+   ",\t");
-                System.out.print(_xht.minPruned()+   ",\t");
+                stats.append(_xht.maxPruned()+   ",\t");
+                stats.append(_xht.minPruned()+   ",\t");
             }
+        } else if (classifier instanceof MyOzaBagAdwin) {
+            MyOzaBagAdwin _xht = (MyOzaBagAdwin) classifier;
+            stats.append(-_xht.calcByteSize()+ ",\t");
+
+            stats.append(_xht.measureTreeDepth()+ ",\t"); // Average depth
+            stats.append(_xht.getDecisionNodeCount()+_xht.getActiveLeafNodeCount()
+                    +_xht.getInactiveLeafNodeCount()+ ",\t"); // total
+            stats.append(_xht.getDecisionNodeCount()+ ",\t"); // total
+            stats.append(_xht.getActiveLeafNodeCount()+ ",\t"); // total
+            stats.append(_xht.getInactiveLeafNodeCount()+ ",\t"); // total
+
+            stats.append(_xht.getResetCount()+ ",\t"); // weighted reset count
+            stats.append(0 + ",\t");
+            stats.append(0 + ",\t");
+            stats.append(_xht.getPrunedAlternateTrees()+ ",\t"); // 0, if reset
+
+            //ClOp0-1-2-3
+            stats.append(_xht.maxDepth()+   ",\t");
+            stats.append(_xht.minDepth()+   ",\t");
+            
+            stats.append(_xht.maxReset()+   ",\t");
+            stats.append(_xht.minReset()+   ",\t");
+        } else if (classifier instanceof MyOzaBoostAdwin) {
+            MyOzaBoostAdwin _xht = (MyOzaBoostAdwin) classifier;
+            stats.append(-_xht.calcByteSize()+ ",\t");
+
+            stats.append(_xht.measureTreeDepth()+ ",\t"); // Average depth
+            stats.append(_xht.getDecisionNodeCount()+_xht.getActiveLeafNodeCount()
+                    +_xht.getInactiveLeafNodeCount()+ ",\t"); // total
+            stats.append(_xht.getDecisionNodeCount()+ ",\t"); // total
+            stats.append(_xht.getActiveLeafNodeCount()+ ",\t"); // total
+            stats.append(_xht.getInactiveLeafNodeCount()+ ",\t"); // total
+
+            stats.append(_xht.getResetCount()+ ",\t"); // weighted reset count
+            stats.append(0 + ",\t");
+            stats.append(0 + ",\t");
+            stats.append(_xht.getPrunedAlternateTrees()+ ",\t"); // 0, if reset
+
+            //ClOp0-1-2-3
+            stats.append(_xht.maxDepth()+   ",\t");
+            stats.append(_xht.minDepth()+   ",\t");
+            
+            stats.append(_xht.maxReset()+   ",\t");
+            stats.append(_xht.minReset()+   ",\t");
         }
+        //stats.append("\n");
     }
+    
     void printTree() {
         StringBuilder sb = new StringBuilder();
-        if (ht instanceof MyHoeffdingTree) {
-            ((MyHoeffdingTree)ht).getModelDescription(sb, 0);            
-        } else if (ht instanceof MyOzaBagASHT) {
-            ((MyOzaBagASHT)ht).getModelDescription(sb, 0);
+        if (classifier instanceof MyHoeffdingTree) {
+            ((MyHoeffdingTree)classifier).getModelDescription(sb, 0);            
+        } else if (classifier instanceof MyOzaBagASHT) {
+            ((MyOzaBagASHT)classifier).getModelDescription(sb, 0);
+        } else if (classifier instanceof MyOzaBagAdwin) {
+            ((MyOzaBagAdwin)classifier).getModelDescription(sb, 0);
+        } else if (classifier instanceof MyOzaBoostAdwin) {
+            ((MyOzaBoostAdwin)classifier).getModelDescription(sb, 0);
         }
         System.out.println("\n"+sb.toString());
     }
