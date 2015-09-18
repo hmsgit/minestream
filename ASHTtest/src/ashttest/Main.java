@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import moa.streams.generators.RandomRBFGeneratorDrift;
 import wrapper.*;
+import wrapper.generator.*;
 
 /**
  *
@@ -880,7 +881,6 @@ public class Main {
         stats.append(test_OzaBagAdwin_RandRBF(5, 0.01,  100, 100, 200, .01, true));
         stats.append(test_OzaBagAdwin_RandRBF(5, 0.01,  100, 100, 200, .01, true));
         
-        
         writeStatsInFile(file, stats);
     }
     
@@ -1257,24 +1257,74 @@ public class Main {
         writeStatsInFile(file, stats);
     }
     
-    
+    private void test_AdaHT_ProcessedRBF() {
+        File file = new File("xht-randrbf.txt");
+        StringBuilder stats = new StringBuilder();
+        
+        //stats.append(test_AdaHT_RandRBF(0.01, 100, 25, 200, .05, false));
+        //stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01, 100, 25, 200, .05, false));
+        
+        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift(300, 5, 1000);
+        inStream.prepareForUse();
+        inStream.speedChangeOption.setValue(0.1);
+        
+        try {
+            new ASHTtest().test(
+                    inStream,
+                    new  MyHoeffdingAdaptiveTree(),
+                    stats
+            );
+            
+            MyOzaBagASHT cl = new MyOzaBagASHT();
+            cl.resetTreesOption.set();
+            cl.ensembleSizeOption.setValue(5);
+            cl.baseLearnerOption.setValueViaCLIString("wrapper.MyASHoeffdingTree");
+            cl.firstClassifierSizeOption.setValue(2);
+            new ASHTtest().test(inStream, cl, stats);
+            
+            OzaBagSRHT cx = new OzaBagSRHT();
+            cx.resetTreesOption.set();
+            cx.ensembleSizeOption.setValue(5);
+            cx.baseLearnerOption.setValueViaCLIString("wrapper.SizeRestrictedHT");
+            cx.firstClassifierSizeOption.setValue(2);
+            new ASHTtest().test(inStream, cx, stats);
+            
+            cx = new OzaBagSRHT();
+            cx.resetTreesOption.set();
+            cx.ensembleSizeOption.setValue(5);
+            cx.baseLearnerOption.setValueViaCLIString("wrapper.SizeRestrictedHT");
+            cx.firstClassifierSizeOption.setValue(3);
+            new ASHTtest().test(inStream, cx, stats);
+            
+            cx = new OzaBagSRHT();
+            cx.resetTreesOption.setValue(false);
+            cx.ensembleSizeOption.setValue(5);
+            cx.baseLearnerOption.setValueViaCLIString("wrapper.SizeRestrictedHT");
+            cx.firstClassifierSizeOption.setValue(2);
+            new ASHTtest().test(inStream, cx, stats);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        stats.append("\n\n\n\n");
+        System.out.println(stats.toString());
+    }
     
     
     
     private void testHTwithRandRBFDrift() {
-        File file = new File("./runs/ht-randrbf.txt");
+        File file = new File("xht-randrbf.txt");
         StringBuilder stats = new StringBuilder();
         
         RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
         inStream.prepareForUse();
         inStream.speedChangeOption.setValue(.01f);
-        inStream.numCentroidsOption.setValue(140);
+        inStream.numCentroidsOption.setValue(50);
         //inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         //inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
         
-        MyHoeffdingTree classifier = new MyASHoeffdingTree();
-        ((MyASHoeffdingTree)classifier).setMaxSize(10);
-        ((MyASHoeffdingTree)classifier).setResetTree();
+        SizeRestrictedHT classifier = new SizeRestrictedHT();
+        ((SizeRestrictedHT)classifier).setMaxSize(10);
+        ((SizeRestrictedHT)classifier).setResetTree(false);
                 
         try {
             new ASHTtest().test(
@@ -1286,12 +1336,13 @@ public class Main {
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println(stats.toString());
     }    
     private void testHTwithProcessedRBF() {
-        File file = new File("./runs/ht-randrbf.txt");
+        File file = new File("xht-randrbf.txt");
         StringBuilder stats = new StringBuilder();
         
-        wrapper.generator.MyRandomRBFGeneratorDrift inStream = new wrapper.generator.MyRandomRBFGeneratorDrift(100,5,4000);
+        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift(300, 5, 10000);
         inStream.prepareForUse();
         inStream.numDriftCentroidsOption.setValue(0);
         
@@ -1364,6 +1415,8 @@ public class Main {
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        System.out.println(stats.toString());
     }
     private void testAdwinwithRandRBFDrift() {
         File file = new File("./runs/ht-randrbf.txt");
@@ -1427,18 +1480,21 @@ public class Main {
         //new Main().testAdwinwithRandRBFDrift();
         //new Main().testBoostAdwinwithRandRBFDrift();
         
-        new Main().test_HT_RandRBF();
-        new Main().test_AdaHT_RandRBF();
-        new Main().test_ASHT_RandRBF();
+//        new Main().test_HT_RandRBF();
+//        new Main().test_AdaHT_RandRBF();
+//        new Main().test_ASHT_RandRBF();
+//        
+//        new Main().test_OzaBagHT_RandRBF();
+//        new Main().test_OzaBagAdaHT_RandRBF();
+//        new Main().test_OzaBagASHT_RandRBF();
+//        new Main().test_OzaBagAdwin_RandRBF();
+//        
+//        new Main().test_OzaBoostHT_RandRBF();
+//        new Main().test_OzaBoostAdaHT_RandRBF();
+//        new Main().test_OzaBoostAdwin_RandRBF();
         
-        new Main().test_OzaBagHT_RandRBF();
-        new Main().test_OzaBagAdaHT_RandRBF();
-        new Main().test_OzaBagASHT_RandRBF();
-        new Main().test_OzaBagAdwin_RandRBF();
         
-        new Main().test_OzaBoostHT_RandRBF();
-        new Main().test_OzaBoostAdaHT_RandRBF();
-        new Main().test_OzaBoostAdwin_RandRBF();
+        new Main().test_AdaHT_ProcessedRBF();
     }
     
 }

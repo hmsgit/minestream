@@ -207,7 +207,7 @@ public class MyRandomRBFGeneratorDrift extends AbstractOptionHandler implements
         
         
         for (int p = 0; p < pools.length; p++) {
-            for (int j = 0; j < numInstancesToReconfig * (p+1); j++) {
+            for (int j = 0; j < numInstancesToReconfig * (p+1) * (p+1); j++) {
                 
                 int index = MiscUtils.chooseRandomIndexBasedOnWeights(this.centroidWeights,
                     this.instanceRandom);
@@ -294,7 +294,7 @@ public class MyRandomRBFGeneratorDrift extends AbstractOptionHandler implements
         }
         for (int i = 0; i < pools.length; i++) {
             Random poolrand = new Random((int) System.currentTimeMillis());
-            pools[i].activationPercent = 1.0/(i+1);
+            pools[i].activationPercent = 1.0/(i+1) * (i+1);
             int toDeactivate = pools[i].centroidIndices.size() 
                     - (int) (pools[i].centroidIndices.size() * pools[i].activationPercent);
             

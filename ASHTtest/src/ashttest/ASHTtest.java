@@ -24,6 +24,8 @@ public class ASHTtest {
     private  Classifier classifier;
     static InstanceStream trainingStream;
     private StringBuilder stats;
+    
+    private boolean printSteps = true;
 
     public void test(InstanceStream inStream, Classifier inclassifier, StringBuilder outstats) 
             throws Exception {
@@ -92,27 +94,31 @@ public class ASHTtest {
                 elapsedTime += System.currentTimeMillis() - startTime;
                 xtp = tp - xtp; xtn = tn - xtn; xfp = fp - xfp; xfn = fn - xfn;
                 
-                stats.append(numberInstance     + ",\t");
-                stats.append((double)elapsedTime/1000        + ",\t");
-                stats.append(xtp        + ",\t");
-                stats.append(xfp        + ",\t");
-                stats.append(xtn        + ",\t");
-                stats.append(xfn        + ",\t");
+                StringBuilder stepStats;
+                stepStats = printSteps == true ? stats: new StringBuilder();
                 
-                stats.append((double)Math.round(windowEval.getFractionCorrectlyClassified()*10000)/100   + ",\t");
-                stats.append((double)Math.round(windowEval.getKappaStatistic()*10000)/100                + ",\t");
-                stats.append((double)Math.round(windowEval.getKappaTemporalStatistic()*10000)/100      + ",\t");
+                stepStats.append(numberInstance     + ",\t");
+                stepStats.append((double)elapsedTime/1000        + ",\t");
+                stepStats.append(xtp        + ",\t");
+                stepStats.append(xfp        + ",\t");
+                stepStats.append(xtn        + ",\t");
+                stepStats.append(xfn        + ",\t");
                 
-                printClassifierInfos();
+                stepStats.append((double)Math.round(windowEval.getFractionCorrectlyClassified()*10000)/100   + ",\t");
+                stepStats.append((double)Math.round(windowEval.getKappaStatistic()*10000)/100                + ",\t");
+                stepStats.append((double)Math.round(windowEval.getKappaTemporalStatistic()*10000)/100      + ",\t");
+                
+                printClassifierInfos(stepStats);
+                //printClassifierInfos();
                 //printTree();
-                stats.append("\n");
+                stepStats.append("\n");
                 
                 startTime = System.currentTimeMillis();
             }
         }
         elapsedTime += System.currentTimeMillis() - startTime;
         
-        stats.append("\n");
+        if (printSteps == true) stats.append("\n");
         stats.append(--numberInstance               + ",\t");
         stats.append((double)elapsedTime/1000       + ",\t");
         stats.append(tp        + ",\t");
@@ -126,10 +132,13 @@ public class ASHTtest {
         
         printClassifierInfos();
         //printTree();
-        stats.append("\n");
+        stats.append("\n\n");
     }
     
     void printClassifierInfos() {
+        printClassifierInfos(stats);
+    }
+    void printClassifierInfos(StringBuilder stats) {
         if (classifier instanceof MyHoeffdingTree) {
             MyHoeffdingTree _xht = (MyHoeffdingTree) classifier;
             stats.append(-_xht.calcByteSize()+ ",\t");
@@ -151,6 +160,32 @@ public class ASHTtest {
             stats.append(0+ ",\t");
             stats.append(0+ ",\t");
 
+        } else if (classifier instanceof OzaBagSRHT) {
+            OzaBagSRHT _xht = (OzaBagSRHT) classifier;
+            stats.append(-_xht.calcByteSize()+ ",\t");
+
+            stats.append(_xht.measureTreeDepth()+ ",\t"); // Average depth
+            stats.append(_xht.getDecisionNodeCount()+_xht.getActiveLeafNodeCount()
+                    +_xht.getInactiveLeafNodeCount()+ ",\t"); // total
+            stats.append(_xht.getDecisionNodeCount()+ ",\t"); // total
+            stats.append(_xht.getActiveLeafNodeCount()+ ",\t"); // total
+            stats.append(_xht.getInactiveLeafNodeCount()+ ",\t"); // total
+
+            stats.append(_xht.getResetCount()+ ",\t"); // weighted reset count
+            stats.append(0 + ",\t");
+            stats.append(0 + ",\t");
+            stats.append(_xht.getPrunedAlternateTrees()+ ",\t"); // 0, if reset
+
+            //ClOp0-1-2-3
+            stats.append(_xht.maxDepth()+   ",\t");
+            stats.append(_xht.minDepth()+   ",\t");
+            if (_xht.resetTreesOption.isSet()) {
+                stats.append(_xht.maxReset()+   ",\t");
+                stats.append(_xht.minReset()+   ",\t");
+            } else {
+                stats.append(_xht.maxPruned()+   ",\t");
+                stats.append(_xht.minPruned()+   ",\t");
+            }
         } else if (classifier instanceof MyOzaBagASHT) {
             MyOzaBagASHT _xht = (MyOzaBagASHT) classifier;
             stats.append(-_xht.calcByteSize()+ ",\t");
