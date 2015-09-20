@@ -43,7 +43,7 @@ public class OzaBagSRHT extends MyOzaBag {
 
     protected double alpha = 0.01;
 
-    private int [] resetCount;
+    public int resetCount;
     ArrayList<Classifier> dyingClassifiers = new ArrayList<>();
     
     
@@ -51,7 +51,7 @@ public class OzaBagSRHT extends MyOzaBag {
     public void resetLearningImpl() {
         this.ensemble = new Classifier[this.ensembleSizeOption.getValue()];
         this.error = new double[this.ensembleSizeOption.getValue()];
-        this.resetCount = new int[this.ensembleSizeOption.getValue()];
+        this.resetCount = 0;
         Classifier baseLearner = (Classifier) getPreparedClassOption(this.baseLearnerOption);
         baseLearner.resetLearning();
         int pow = this.firstClassifierSizeOption.getValue(); //EXTENSION TO ASHT
@@ -91,8 +91,13 @@ public class OzaBagSRHT extends MyOzaBag {
                 SizeRestrictedHT ens = (SizeRestrictedHT) ensemble[i];
                 if (ens.getDecisionNodeCount() >= ens.maxSize) {
                     if (i >= this.ensembleSizeOption.getValue()/2 
-                            && dyingClassifiers.size() <= this.ensembleSizeOption.getValue())
+                            //&& dyingClassifiers.size() <= this.ensembleSizeOption.getValue()
+                            )
                         dyingClassifiers.add(ens);
+                    if (dyingClassifiers.size() > this.ensembleSizeOption.getValue()) {
+                        dyingClassifiers.remove(0);
+                        resetCount++;
+                    }
                     
                     Classifier baseLearner = (Classifier) getPreparedClassOption(this.baseLearnerOption);
                     baseLearner.resetLearning();
@@ -286,12 +291,12 @@ public class OzaBagSRHT extends MyOzaBag {
             if (this.ensemble[i] instanceof wrapper.SizeRestrictedHT)
                 toRet += pow *((SizeRestrictedHT)this.ensemble[i]).getResetCount();
             else 
-                return 0;
+                return resetCount;
             sum += pow;
             pow *= 2;
         }
         double ret = (double)toRet / sum;
-        return (double) Math.round(ret * 100)/100;
+        return resetCount; //(double) Math.round(ret * 100)/100;
     }
     
     @Override

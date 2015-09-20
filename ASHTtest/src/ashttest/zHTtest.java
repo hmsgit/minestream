@@ -16,7 +16,7 @@ import wrapper.*;
  *
  * @author mahmud
  */
-public class HTtest {
+public class zHTtest {
     private  MyHoeffdingTree ht;
     static InstanceStream trainingStream;
 

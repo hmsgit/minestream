@@ -85,17 +85,19 @@ public class MyRandomRBFGeneratorDrift extends AbstractOptionHandler implements
     }
     
     public Pool[] pools;
+    public int numPools;
     public int numInstancesToReconfig;
-    public ArrayList<Instance> nextInstances;
+    public ArrayList<InstancePool> nextInstances;
     
+    public MyRandomRBFGeneratorDrift() {init(100, 5, 10000);}
     public MyRandomRBFGeneratorDrift(int centroid, int pool, int reconflimit) {
+        init(centroid, pool, reconflimit);
+    }
+    public void init(int centroid, int pool, int reconflimit) {
         numCentroidsOption.setValue(centroid);
         numDriftCentroidsOption.setValue(centroid);
+        numPools = pool;
         numInstancesToReconfig = reconflimit;
-        
-        pools = new Pool[pool];
-        for (int i = 0; i < pool; i++)
-            pools[i] = new Pool();
         
         nextInstances = new ArrayList<>();
     }
@@ -120,6 +122,10 @@ public class MyRandomRBFGeneratorDrift extends AbstractOptionHandler implements
     public void prepareForUseImpl(TaskMonitor monitor,
             ObjectRepository repository) {
         monitor.setCurrentActivity("Preparing random RBF...", -1.0);
+        pools = new Pool[numPools];
+        for (int i = 0; i < numPools; i++)
+            pools[i] = new Pool();
+        
         generateHeader();
         generateCentroids();
         restart();
@@ -237,7 +243,7 @@ public class MyRandomRBFGeneratorDrift extends AbstractOptionHandler implements
                 inst.setDataset(getHeader());
                 inst.setClassValue(centroid.classLabel);
 
-                nextInstances.add(inst);
+                nextInstances.add(new InstancePool(inst, p));
             }
         }
         long seed = System.nanoTime();
@@ -250,7 +256,20 @@ public class MyRandomRBFGeneratorDrift extends AbstractOptionHandler implements
             xnextInstance();
             reconfig();
         }
+        return nextInstances.remove(0)._inst;
+    }
+    
+    public InstancePool nextInstancePool() {
+        if (nextInstances.isEmpty()) {
+            xnextInstance();
+            reconfig();
+        }
         return nextInstances.remove(0);
+    }
+    public int numPools() {
+        if (pools != null)
+            return pools.length;
+        return 0;
     }
 
     protected void generateCentroids() {

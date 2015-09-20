@@ -14,13 +14,15 @@ import moa.evaluation.WindowClassificationPerformanceEvaluator;
 import moa.options.IntOption;
 import moa.streams.InstanceStream;
 import weka.core.Instance;
+import wrapper.generator.InstancePool;
+import wrapper.generator.MyRandomRBFGeneratorDrift;
 
 /**
  *
  * @author mahmud
  */
 
-public class ASHTtest {
+public class RunTest {
     private  Classifier classifier;
     static InstanceStream trainingStream;
     private StringBuilder stats;
@@ -56,13 +58,31 @@ public class ASHTtest {
         int tp = 0, tn = 0, fp = 0, fn = 0;
         int xtp = 0, xtn = 0, xfp = 0, xfn = 0;
         
-        stats.append("Count,\tTime,\tTP,\tFP,\tTN,\tFN,"
+        int [] ptp, pfp, ptn, pfn;
+        if (trainingStream instanceof MyRandomRBFGeneratorDrift) {
+            MyRandomRBFGeneratorDrift s = (MyRandomRBFGeneratorDrift) trainingStream;
+            ptp = new int[s.numPools()];
+            ptn = new int[s.numPools()];
+            pfp = new int[s.numPools()];
+            pfn = new int[s.numPools()];
+        } else {
+            ptp = ptn = pfp = pfn = null;
+        }
+        
+        stats.append("Count,\tTime,\tTP,\tFN,\tTN,\tFP,"
                 + "\tAccu,\tKappa,\tKpa_t,\tMem,"
                 + "\tDepth,\tTSize,\tDcNod,\tActLf,\tInacLf,"
                 + "\tReset,\tAlter,\tSwitch,\tPrune,"
                 + "\tClOp0,\tClOp1,\tClOp2,\tClOp3\n");
         
-        Instance trainInst = trainingStream.nextInstance();
+        InstancePool instPool = null;
+        Instance trainInst;
+        if (trainingStream instanceof MyRandomRBFGeneratorDrift) {
+            instPool = ((MyRandomRBFGeneratorDrift)trainingStream).nextInstancePool();
+            trainInst = instPool._inst;
+        } else {
+            trainInst = trainingStream.nextInstance();
+        }
         while (trainingStream.hasMoreInstances()
                 && numberInstance++ < TestParameters.NUMBER_OF_INSTANCES) {
             
@@ -73,20 +93,32 @@ public class ASHTtest {
             // manual counting
             if (votes.length != 0 && votes.length != 1) {
                 if (classifier.correctlyClassifies(trainInst)) {
-                    if (votes[0] >= votes[1])
+                    if (votes[0] >= votes[1]) {
                         tp++;
-                    else
+                        if (ptp != null) ptp[instPool._pool]++;
+                    } else {
                         tn++;
+                        if (ptn != null) ptn[instPool._pool]++;
+                    }
                 } else {
-                    if (votes[0] >= votes[1])
+                    if (votes[0] >= votes[1]) {
                         fp++;
-                    else
+                        if (pfp != null) pfp[instPool._pool]++;
+                    } else {
                         fn++;
+                        if (pfn != null) pfn[instPool._pool]++;
+                    }
                 }
             }
             
             classifier.trainOnInstance(trainInst);
-            trainInst = trainingStream.nextInstance();
+            //trainInst = trainingStream.nextInstance();
+            if (trainingStream instanceof MyRandomRBFGeneratorDrift) {
+                instPool = ((MyRandomRBFGeneratorDrift)trainingStream).nextInstancePool();
+                trainInst = instPool._inst;
+            } else {
+                trainInst = trainingStream.nextInstance();
+            }
             
             if (--windowCount == 0) {
                 windowCount = TestParameters.WIDTH;
@@ -100,9 +132,9 @@ public class ASHTtest {
                 stepStats.append(numberInstance     + ",\t");
                 stepStats.append((double)elapsedTime/1000        + ",\t");
                 stepStats.append(xtp        + ",\t");
-                stepStats.append(xfp        + ",\t");
-                stepStats.append(xtn        + ",\t");
                 stepStats.append(xfn        + ",\t");
+                stepStats.append(xtn        + ",\t");
+                stepStats.append(xfp        + ",\t");
                 
                 stepStats.append((double)Math.round(windowEval.getFractionCorrectlyClassified()*10000)/100   + ",\t");
                 stepStats.append((double)Math.round(windowEval.getKappaStatistic()*10000)/100                + ",\t");
@@ -122,9 +154,9 @@ public class ASHTtest {
         stats.append(--numberInstance               + ",\t");
         stats.append((double)elapsedTime/1000       + ",\t");
         stats.append(tp        + ",\t");
-        stats.append(fp        + ",\t");
-        stats.append(tn        + ",\t");
         stats.append(fn        + ",\t");
+        stats.append(tn        + ",\t");
+        stats.append(fp        + ",\t");
 
         stats.append((double)Math.round(basicEval.getFractionCorrectlyClassified()*10000)/100   + ",\t");
         stats.append((double)Math.round(basicEval.getKappaStatistic()*10000)/100                + ",\t");
@@ -132,7 +164,21 @@ public class ASHTtest {
         
         printClassifierInfos();
         //printTree();
-        stats.append("\n\n");
+        stats.append("\n");
+        
+        if (trainingStream instanceof MyRandomRBFGeneratorDrift) {
+            MyRandomRBFGeneratorDrift s = (MyRandomRBFGeneratorDrift) trainingStream;
+            stats.append("Pool,\tTP,\tFN,\tTN,\tFP\n");
+            for (int i = 0; i < s.numPools(); i++) {
+                stats.append((i+1)        + ",\t");
+                stats.append(ptp[i]        + ",\t");
+                stats.append(pfn[i]        + ",\t");
+                stats.append(ptn[i]        + ",\t");
+                stats.append(pfp[i]        + ",\t");
+                stats.append("\n");
+            }
+        }
+        stats.append("\n");
     }
     
     void printClassifierInfos() {
