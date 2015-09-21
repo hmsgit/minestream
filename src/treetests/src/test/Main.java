@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ashttest;
+package test;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import moa.streams.generators.RandomRBFGeneratorDrift;
 import wrapper.*;
 import wrapper.generator.*;
 
@@ -20,7 +21,7 @@ import wrapper.generator.*;
  */
 
 
-public class MainProcessedRBF {
+public class Main {
     private void writeStatsInFile(File file, StringBuilder stats) {
         try {
             if (!file.exists())
@@ -31,7 +32,7 @@ public class MainProcessedRBF {
             bw.write(stats.toString());
             bw.close();
         } catch (IOException ex) {
-            Logger.getLogger(MainProcessedRBF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -44,7 +45,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -52,7 +53,7 @@ public class MainProcessedRBF {
         inStream.speedChangeOption.setValue(speedChange);
         inStream.numCentroidsOption.setValue(numCentroid);
         inStream.numDriftCentroidsOption.setValue(numDrift);
-        stats.append("HT-ProcessRBF\n")
+        stats.append("HT-RandomRBF\n")
                 .append("Speed Change:,\t").append(inStream.speedChangeOption.getValue())
                 .append(",\tCentroids:,\t").append(inStream.numCentroidsOption.getValue())
                 .append(",\tDriftCentroid:\t").append(inStream.numDriftCentroidsOption.getValue())
@@ -77,14 +78,14 @@ public class MainProcessedRBF {
                     stats
             );
         } catch (Exception ex) {
-            Logger.getLogger(MainProcessedRBF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         stats.append("\n\n\n\n");
         return stats.toString();
     }
     
     private void test_HT_RandRBF() {
-        File file = new File("ht-processedrbf.txt");
+        File file = new File("ht-randrbf.txt");
         
         StringBuilder stats = new StringBuilder();
 //            double speedChange,
@@ -146,7 +147,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -154,7 +155,7 @@ public class MainProcessedRBF {
         inStream.speedChangeOption.setValue(speedChange);
         inStream.numCentroidsOption.setValue(numCentroid);
         inStream.numDriftCentroidsOption.setValue(numDrift);
-        stats.append("AdaHT-ProcessRBF\n")
+        stats.append("AdaHT-RandomRBF\n")
                 .append("Speed Change:,\t").append(inStream.speedChangeOption.getValue())
                 .append(",\tCentroids:,\t").append(inStream.numCentroidsOption.getValue())
                 .append(",\tDriftCentroid:\t").append(inStream.numDriftCentroidsOption.getValue())
@@ -179,14 +180,14 @@ public class MainProcessedRBF {
                     stats
             );
         } catch (Exception ex) {
-            Logger.getLogger(MainProcessedRBF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         stats.append("\n\n\n\n");
         return stats.toString();
     }
     
     private void test_AdaHT_RandRBF() {
-        File file = new File("adaht-processedrbf.txt");
+        File file = new File("adaht-randrbf.txt");
         
         StringBuilder stats = new StringBuilder();
 //            double speedChange,
@@ -245,7 +246,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -253,7 +254,7 @@ public class MainProcessedRBF {
         inStream.speedChangeOption.setValue(0.01);
         inStream.numCentroidsOption.setValue(100);
         inStream.numDriftCentroidsOption.setValue(100);
-        stats.append("ASHT-ProcessRBF\n")
+        stats.append("ASHT-RandomRBF\n")
                 .append("Speed Change:,\t").append(inStream.speedChangeOption.getValue())
                 .append(",\tCentroids:,\t").append(inStream.numCentroidsOption.getValue())
                 .append(",\tDriftCentroid:\t").append(inStream.numDriftCentroidsOption.getValue())
@@ -281,14 +282,14 @@ public class MainProcessedRBF {
                     stats
             );
         } catch (Exception ex) {
-            Logger.getLogger(MainProcessedRBF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         stats.append("\n\n\n\n");
         return stats.toString();
     }
     
     private void test_ASHT_RandRBF() {
-        File file = new File("asht-processedrbf.txt");
+        File file = new File("asht-randrbf.txt");
         
         StringBuilder stats = new StringBuilder();
 //            double maxSize,
@@ -326,7 +327,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -334,7 +335,7 @@ public class MainProcessedRBF {
         inStream.speedChangeOption.setValue(speedChange);
         inStream.numCentroidsOption.setValue(numCentroid);
         inStream.numDriftCentroidsOption.setValue(numDrift);
-        stats.append("OzaBagHT-ProcessRBF\n")
+        stats.append("OzaBagHT-RandomRBF\n")
                 .append("Speed Change:,\t").append(inStream.speedChangeOption.getValue())
                 .append(",\tCentroids:,\t").append(inStream.numCentroidsOption.getValue())
                 .append(",\tDriftCentroid:\t").append(inStream.numDriftCentroidsOption.getValue())
@@ -363,14 +364,14 @@ public class MainProcessedRBF {
                     stats
             );
         } catch (Exception ex) {
-            Logger.getLogger(MainProcessedRBF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         stats.append("\n\n\n\n");
         return stats.toString();
     }
     
     private void test_OzaBagHT_RandRBF() {
-        File file = new File("ozabaght-processedrbf.txt");
+        File file = new File("ozabaght-randrbf.txt");
         
         StringBuilder stats = new StringBuilder();
 //            int ensSize
@@ -447,7 +448,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -455,7 +456,7 @@ public class MainProcessedRBF {
         inStream.speedChangeOption.setValue(speedChange);
         inStream.numCentroidsOption.setValue(numCentroid);
         inStream.numDriftCentroidsOption.setValue(numDrift);
-        stats.append("OzaBagAdaHT-ProcessRBF\n")
+        stats.append("OzaBagAdaHT-RandomRBF\n")
                 .append("Speed Change:,\t").append(inStream.speedChangeOption.getValue())
                 .append(",\tCentroids:,\t").append(inStream.numCentroidsOption.getValue())
                 .append(",\tDriftCentroid:\t").append(inStream.numDriftCentroidsOption.getValue())
@@ -484,14 +485,14 @@ public class MainProcessedRBF {
                     stats
             );
         } catch (Exception ex) {
-            Logger.getLogger(MainProcessedRBF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         stats.append("\n\n\n\n");
         return stats.toString();
     }
     
     private void test_OzaBagAdaHT_RandRBF() {
-        File file = new File("ozabagadaht-processedrbf.txt");
+        File file = new File("ozabagadaht-randrbf.txt");
         
         StringBuilder stats = new StringBuilder();
 //            int ensSize
@@ -571,7 +572,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -579,7 +580,7 @@ public class MainProcessedRBF {
         inStream.speedChangeOption.setValue(speedChange);
         inStream.numCentroidsOption.setValue(numCentroid);
         inStream.numDriftCentroidsOption.setValue(numDrift);
-        stats.append("OzaBagASHT-ProcessRBF\n")
+        stats.append("OzaBagASHT-RandomRBF\n")
                 .append("Speed Change:,\t").append(inStream.speedChangeOption.getValue())
                 .append(",\tCentroids:,\t").append(inStream.numCentroidsOption.getValue())
                 .append(",\tDriftCentroid:\t").append(inStream.numDriftCentroidsOption.getValue())
@@ -611,14 +612,14 @@ public class MainProcessedRBF {
                     stats
             );
         } catch (Exception ex) {
-            Logger.getLogger(MainProcessedRBF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         stats.append("\n\n\n\n");
         return stats.toString();
     }
     
     private void test_OzaBagASHT_RandRBF() {
-        File file = new File("ozabagasht-processedrbf.txt");
+        File file = new File("ozabagasht-randrbf.txt");
         
         StringBuilder stats = new StringBuilder();
 //            int ensSize
@@ -766,7 +767,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -774,7 +775,7 @@ public class MainProcessedRBF {
         inStream.speedChangeOption.setValue(speedChange);
         inStream.numCentroidsOption.setValue(numCentroid);
         inStream.numDriftCentroidsOption.setValue(numDrift);
-        stats.append("OzaBagAdwin-ProcessRBF\n")
+        stats.append("OzaBagAdwin-RandomRBF\n")
                 .append("Speed Change:,\t").append(inStream.speedChangeOption.getValue())
                 .append(",\tCentroids:,\t").append(inStream.numCentroidsOption.getValue())
                 .append(",\tDriftCentroid:\t").append(inStream.numDriftCentroidsOption.getValue())
@@ -803,14 +804,14 @@ public class MainProcessedRBF {
                     stats
             );
         } catch (Exception ex) {
-            Logger.getLogger(MainProcessedRBF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         stats.append("\n\n\n\n");
         return stats.toString();
     }
     
     private void test_OzaBagAdwin_RandRBF() {
-        File file = new File("ozabagadwin-processedrbf.txt");
+        File file = new File("ozabagadwin-randrbf.txt");
         
         StringBuilder stats = new StringBuilder();
 //            int ensSize
@@ -895,7 +896,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -903,7 +904,7 @@ public class MainProcessedRBF {
         inStream.speedChangeOption.setValue(speedChange);
         inStream.numCentroidsOption.setValue(numCentroid);
         inStream.numDriftCentroidsOption.setValue(numDrift);
-        stats.append("OzaBoostHT-ProcessRBF\n")
+        stats.append("OzaBoostHT-RandomRBF\n")
                 .append("Speed Change:,\t").append(inStream.speedChangeOption.getValue())
                 .append(",\tCentroids:,\t").append(inStream.numCentroidsOption.getValue())
                 .append(",\tDriftCentroid:\t").append(inStream.numDriftCentroidsOption.getValue())
@@ -932,14 +933,14 @@ public class MainProcessedRBF {
                     stats
             );
         } catch (Exception ex) {
-            Logger.getLogger(MainProcessedRBF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         stats.append("\n\n\n\n");
         return stats.toString();
     }
     
     private void test_OzaBoostHT_RandRBF() {
-        File file = new File("ozaboostht-processedrbf.txt");
+        File file = new File("ozaboostht-randrbf.txt");
         
         StringBuilder stats = new StringBuilder();
 //            int ensSize
@@ -1019,7 +1020,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -1027,7 +1028,7 @@ public class MainProcessedRBF {
         inStream.speedChangeOption.setValue(speedChange);
         inStream.numCentroidsOption.setValue(numCentroid);
         inStream.numDriftCentroidsOption.setValue(numDrift);
-        stats.append("OzaBoostAdaHT-ProcessRBF\n")
+        stats.append("OzaBoostAdaHT-RandomRBF\n")
                 .append("Speed Change:,\t").append(inStream.speedChangeOption.getValue())
                 .append(",\tCentroids:,\t").append(inStream.numCentroidsOption.getValue())
                 .append(",\tDriftCentroid:\t").append(inStream.numDriftCentroidsOption.getValue())
@@ -1056,14 +1057,14 @@ public class MainProcessedRBF {
                     stats
             );
         } catch (Exception ex) {
-            Logger.getLogger(MainProcessedRBF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         stats.append("\n\n\n\n");
         return stats.toString();
     }
     
     private void test_OzaBoostAdaHT_RandRBF() {
-        File file = new File("ozaboostadaht-processedrbf.txt");
+        File file = new File("ozaboostadaht-randrbf.txt");
         
         StringBuilder stats = new StringBuilder();
 //            int ensSize
@@ -1144,7 +1145,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -1152,7 +1153,7 @@ public class MainProcessedRBF {
         inStream.speedChangeOption.setValue(speedChange);
         inStream.numCentroidsOption.setValue(numCentroid);
         inStream.numDriftCentroidsOption.setValue(numDrift);
-        stats.append("OzaBoostAdwin-ProcessRBF\n")
+        stats.append("OzaBoostAdwin-RandomRBF\n")
                 .append("Speed Change:,\t").append(inStream.speedChangeOption.getValue())
                 .append(",\tCentroids:,\t").append(inStream.numCentroidsOption.getValue())
                 .append(",\tDriftCentroid:\t").append(inStream.numDriftCentroidsOption.getValue())
@@ -1181,14 +1182,14 @@ public class MainProcessedRBF {
                     stats
             );
         } catch (Exception ex) {
-            Logger.getLogger(MainProcessedRBF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         stats.append("\n\n\n\n");
         return stats.toString();
     }
     
     private void test_OzaBoostAdwin_RandRBF() {
-        File file = new File("ozaboostadwin-processedrbf.txt");
+        File file = new File("ozaboostadwin-randrbf.txt");
         
         StringBuilder stats = new StringBuilder();
 //            int ensSize
@@ -1214,9 +1215,9 @@ public class MainProcessedRBF {
         
         stats.append(test_OzaBoostAdwin_RandRBF(5, 0,         100, 100, 200, .05, false));
         stats.append(test_OzaBoostAdwin_RandRBF(5, 0.001,     100, 100, 200, .05, false));
-        stats.append(test_OzaBoostAdwin_RandRBF(5, 0.01,      100, 100, 200, .05, false));
-        stats.append(test_OzaBoostAdwin_RandRBF(5, 0.1,       100, 100, 200, .05, false));
-        stats.append(test_OzaBoostAdwin_RandRBF(5, 1,         100, 100, 200, .05, false));
+        stats.append(test_OzaBoostAdwin_RandRBF(5, 0.005,      100, 100, 200, .05, false));
+        stats.append(test_OzaBoostAdwin_RandRBF(5, 0.01,       100, 100, 200, .05, false));
+        stats.append(test_OzaBoostAdwin_RandRBF(5, .05,         100, 100, 200, .05, false));
         
         
         stats.append(test_OzaBoostAdwin_RandRBF(5, 0.01,  50,   50, 200, .05, false));
@@ -1256,6 +1257,63 @@ public class MainProcessedRBF {
         writeStatsInFile(file, stats);
     }
     
+    private void xtest_OzaBagSRHT_RandRBF() {
+        File file = new File("ozabagsrht-randrbf.txt");
+        StringBuilder stats = new StringBuilder();
+        
+        //stats.append(test_AdaHT_RandRBF(0.01, 100, 25, 200, .05, false));
+        //stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01, 100, 25, 200, .05, false));
+        
+        RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
+        inStream.prepareForUse();
+        inStream.speedChangeOption.setValue(0.1);
+        
+        try {
+            new RunTest().test(
+                    inStream,
+                    new  MyHoeffdingAdaptiveTree(),
+                    stats
+            );
+            
+            MyOzaBagASHT cl = new MyOzaBagASHT();
+            cl.resetTreesOption.set();
+            cl.ensembleSizeOption.setValue(5);
+            cl.baseLearnerOption.setValueViaCLIString("wrapper.MyASHoeffdingTree");
+            cl.firstClassifierSizeOption.setValue(3);
+            inStream.restart();
+            new RunTest().test(inStream, cl, stats);
+            
+            OzaBagSRHT cx = new OzaBagSRHT();
+            cx.resetTreesOption.set();
+            cx.ensembleSizeOption.setValue(5);
+            cx.baseLearnerOption.setValueViaCLIString("wrapper.SizeRestrictedHT");
+            cx.firstClassifierSizeOption.setValue(3);
+            inStream.restart();
+            new RunTest().test(inStream, cx, stats);
+            
+//            cx = new OzaBagSRHT();
+//            cx.resetTreesOption.set();
+//            cx.ensembleSizeOption.setValue(5);
+//            cx.baseLearnerOption.setValueViaCLIString("wrapper.SizeRestrictedHT");
+//            cx.firstClassifierSizeOption.setValue(2);
+//            inStream.restart();
+//            new ASHTtest().test(inStream, cx, stats);
+            
+//            cx = new OzaBagSRHT();
+//            cx.resetTreesOption.setValue(false);
+//            cx.ensembleSizeOption.setValue(5);
+//            cx.baseLearnerOption.setValueViaCLIString("wrapper.SizeRestrictedHT");
+//            cx.firstClassifierSizeOption.setValue(2);
+//            inStream.restart();
+//            new ASHTtest().test(inStream, cx, stats);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        stats.append("\n\n\n\n");
+        System.out.println(stats.toString());
+    }
+    
+    
     private String test_OzaBagSRHT_RandRBF (
             int ensSize,
             int firstClassifierSize,
@@ -1269,9 +1327,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift(300, 5, 1000);
-        inStream.speedChangeOption.setValue(0.1);
-        
+        RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -1318,7 +1374,7 @@ public class MainProcessedRBF {
     }
     
     private void test_OzaBagSRHT_RandRBF() {
-        File file = new File("ozabagsrht-processedrbf.txt");
+        File file = new File("ozabagsrht-randrbf.txt");
         
         StringBuilder stats = new StringBuilder();
 //            int ensSize
@@ -1455,27 +1511,195 @@ public class MainProcessedRBF {
     }
     
     
-
-
+    
+    
+    private void testHTwithRandRBFDrift() {
+        File file = new File("xht-randrbf.txt");
+        StringBuilder stats = new StringBuilder();
+        
+        RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
+        inStream.prepareForUse();
+        inStream.speedChangeOption.setValue(.01f);
+        inStream.numCentroidsOption.setValue(50);
+        //inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
+        //inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
+        
+        SizeRestrictedHT classifier = new SizeRestrictedHT();
+        ((SizeRestrictedHT)classifier).setMaxSize(10);
+        ((SizeRestrictedHT)classifier).setResetTree(false);
+                
+        try {
+            new RunTest().test(
+                    //new moa.streams.ArffFileStream("cluster.csv", -1),
+                    inStream,
+                    classifier,
+                    stats
+            );
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(stats.toString());
+    }    
+    private void testHTwithProcessedRBF() {
+        File file = new File("xht-randrbf.txt");
+        StringBuilder stats = new StringBuilder();
+        
+        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift(300, 5, 10000);
+        inStream.prepareForUse();
+        inStream.numDriftCentroidsOption.setValue(0);
+        
+        try {
+            new zHTtest().test(
+                    //new moa.streams.ArffFileStream("cluster.csv", -1),
+                    inStream,
+                    new  MyHoeffdingAdaptiveTree()
+            );
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void testHTwithProcessedRBFDrift() {
+        File file = new File("./runs/ht-randrbf.txt");
+        StringBuilder stats = new StringBuilder();
+        
+        wrapper.generator.MyRandomRBFGeneratorDrift inStream = new wrapper.generator.MyRandomRBFGeneratorDrift(300,5,2000);
+        inStream.prepareForUse();
+        inStream.speedChangeOption.setValue(1f);
+        
+        try {
+            new zHTtest().test(
+                    //new moa.streams.ArffFileStream("cluster.csv", -1),
+                    inStream,
+                    new  MyHoeffdingAdaptiveTree()
+            );
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void testASHTwithRandRBF() {
+        File file = new File("./runs/ht-randrbf.txt");
+        StringBuilder stats = new StringBuilder();
+        
+        RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
+        inStream.numClassesOption.setValue(2);
+        inStream.prepareForUse();
+        
+        try {
+            new zHTtest().test(
+                    //new moa.streams.ArffFileStream("cluster.csv", -1),
+                    inStream,
+                    new  MyHoeffdingAdaptiveTree()
+            );
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void testASHTwithRandRBFDrift() {
+        File file = new File("./runs/ht-randrbf.txt");
+        StringBuilder stats = new StringBuilder();
+        
+        RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
+        inStream.prepareForUse();
+        inStream.speedChangeOption.setValue(.01f);
+        inStream.numCentroidsOption.setValue(140);
+        
+        MyOzaBagASHT classifier = new MyOzaBagASHT();
+        classifier.firstClassifierSizeOption.setValue(2);
+        classifier.ensembleSizeOption.setValue(5);
+        classifier.resetTreesOption.setValue(true);
+        
+        try {
+            new RunTest().test(
+                    inStream,
+                    classifier,
+                    stats
+            );
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        System.out.println(stats.toString());
+    }
+    private void testAdwinwithRandRBFDrift() {
+        File file = new File("./runs/ht-randrbf.txt");
+        StringBuilder stats = new StringBuilder();
+        
+        RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
+        inStream.prepareForUse();
+        inStream.speedChangeOption.setValue(.01f);
+        inStream.numCentroidsOption.setValue(140);
+        
+        MyOzaBagAdwin classifier = new MyOzaBagAdwin();
+        classifier.ensembleSizeOption.setValue(5);
+        
+        try {
+            new RunTest().test(
+                    inStream,
+                    classifier,
+                    stats
+            );
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void testBoostAdwinwithRandRBFDrift() {
+        File file = new File("./runs/ht-randrbf.txt");
+        StringBuilder stats = new StringBuilder();
+        
+        RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
+        inStream.prepareForUse();
+        //inStream.speedChangeOption.setValue(.01f);
+        //inStream.numCentroidsOption.setValue(140);
+        
+        MyOzaBoostAdwin classifier = new MyOzaBoostAdwin();
+        classifier.ensembleSizeOption.setValue(5);
+        
+        try {
+            new RunTest().test(
+                    inStream,
+                    classifier,
+                    stats
+            );
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     
     
     
     public static void main(String[] args) {
-        new MainProcessedRBF().test_HT_RandRBF();
-        new MainProcessedRBF().test_AdaHT_RandRBF();
-        new MainProcessedRBF().test_ASHT_RandRBF();
+        //new Main().testHTwithRandRBF();
+        new Main().testHTwithRandRBFDrift();
+        //new Main().testASHTwithRandRBFDrift();
+        //new Main().testHTwithProcessedRBFDrift();
+        //new Main().testAdwinwithRandRBFDrift();
+        //new Main().testBoostAdwinwithRandRBFDrift();
         
-        new MainProcessedRBF().test_OzaBagHT_RandRBF();
-        new MainProcessedRBF().test_OzaBagAdaHT_RandRBF();
-        new MainProcessedRBF().test_OzaBagASHT_RandRBF();
-        new MainProcessedRBF().test_OzaBagAdwin_RandRBF();
+//        new Main().test_HT_RandRBF();
+//        new Main().test_AdaHT_RandRBF();
+//        new Main().test_ASHT_RandRBF();
+//        
+//        new Main().test_OzaBagHT_RandRBF();
+//        new Main().test_OzaBagAdaHT_RandRBF();
+//        new Main().test_OzaBagASHT_RandRBF();
+//        new Main().test_OzaBagAdwin_RandRBF();
+//        
+//        new Main().test_OzaBoostHT_RandRBF();
+//        new Main().test_OzaBoostAdaHT_RandRBF();
+        //new Main().test_OzaBoostAdwin_RandRBF();
         
-        new MainProcessedRBF().test_OzaBoostHT_RandRBF();
-        new MainProcessedRBF().test_OzaBoostAdaHT_RandRBF();
-        //new MainProcessedRBF().test_OzaBoostAdwin_RandRBF();
         
+        //new Main().test_OzaBagSRHT_RandRBF();
         
-        new MainProcessedRBF().test_OzaBagSRHT_RandRBF();
+        //MainProcessedRBF.main(args);
+        //MainCensus.main(args);
     }
     
 }

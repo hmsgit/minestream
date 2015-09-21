@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package ashttest;
+package test;
 
 import moa.evaluation.BasicClassificationPerformanceEvaluator;
 import wrapper.*;

@@ -4,6 +4,7 @@ build.xml
 *.xml
 *.xls
 */nbproject/*
+*.properties
 
 # rars and txts in src
 *.rar
@@ -17,10 +18,12 @@ tweetdb
 
 
 # Binaries and build output
+/src/treetests/nbproject/private/
+/src/treetests/build/
+/src/treetests/dist/
 *.class
-src/build/
-src/dist/
 *.jar
+
 
 # Project files of LaTeX IDEs
 *.aux

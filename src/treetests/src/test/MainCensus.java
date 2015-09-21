@@ -1,4 +1,4 @@
-package ashttest;
+package test;
 
 import java.io.BufferedWriter;
 import java.io.File;
