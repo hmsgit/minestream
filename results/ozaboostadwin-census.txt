@@ -1,0 +1,300 @@
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	1
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.23,	34066,	2806,	5943,	5702,	82.5,	47.39,	52.12,	146,	3.0,	46,	7,	39,	0,	0.0,	0,	0,	0.0,	3,	3,	0,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	2
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.41,	33820,	3226,	6381,	5296,	82.53,	48.9,	52.22,	197,	2.5,	62,	9,	53,	0,	3.0,	0,	0,	0.0,	3,	2,	6,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	3
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	1.58,	31683,	5458,	6290,	5391,	77.77,	39.06,	39.2,	11867,	6.67,	3443,	1535,	1908,	0,	4.33,	0,	0,	0.0,	17,	0,	12,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	4
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	1.62,	32178,	4968,	6128,	5556,	78.45,	39.76,	41.04,	10486,	6.0,	3033,	1383,	1650,	0,	9.0,	0,	0,	0.0,	18,	0,	24,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	2.927,	32325,	4817,	6026,	5657,	78.54,	39.56,	41.31,	24855,	9.4,	7149,	3403,	3746,	0,	12.6,	0,	0,	0.0,	26,	0,	29,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	6
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	2.745,	32284,	4864,	5860,	5820,	78.11,	38.13,	40.13,	19098,	10.17,	5521,	2529,	2992,	0,	12.0,	0,	0,	0.0,	24,	1,	28,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	7
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	4.248,	32264,	4882,	6200,	5486,	78.77,	40.61,	41.92,	39834,	10.57,	11359,	5750,	5609,	0,	17.57,	0,	0,	0.0,	28,	0,	54,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	8
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	4.44,	32231,	4904,	6173,	5521,	78.65,	40.27,	41.6,	30771,	10.38,	8802,	4357,	4445,	0,	18.25,	0,	0,	0.0,	35,	0,	65,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	9
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	4.865,	32133,	5007,	6136,	5556,	78.37,	39.59,	40.83,	34203,	10.44,	9813,	4755,	5058,	0,	18.22,	0,	0,	0.0,	29,	0,	51,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	10
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	5.68,	32200,	4929,	6180,	5523,	78.6,	40.16,	41.45,	40391,	11.2,	11602,	5575,	6027,	0,	23.7,	0,	0,	0.0,	27,	0,	58,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	2.88,	32325,	4817,	6026,	5657,	78.54,	39.56,	41.31,	24855,	9.4,	7149,	3403,	3746,	0,	12.6,	0,	0,	0.0,	26,	0,	29,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	400,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	2.655,	32258,	4888,	6165,	5516,	78.69,	40.35,	41.7,	22485,	10.2,	6488,	3016,	3472,	0,	11.0,	0,	0,	0.0,	28,	0,	38,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	800,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	2.052,	32315,	4796,	5879,	5794,	78.29,	38.54,	40.61,	13434,	9.8,	3887,	1768,	2119,	0,	16.8,	0,	0,	0.0,	25,	0,	42,	3,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	1600,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	2.07,	32286,	4858,	6023,	5660,	78.45,	39.38,	41.06,	14503,	10.2,	4174,	1976,	2198,	0,	16.0,	0,	0,	0.0,	30,	0,	40,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	3200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	1.41,	32143,	5003,	6154,	5527,	78.43,	39.81,	40.99,	4410,	6.2,	1306,	487,	819,	0,	16.2,	0,	0,	0.0,	16,	0,	50,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.001,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	1.65,	32603,	4545,	5973,	5706,	79.0,	40.27,	42.56,	8277,	6.0,	2400,	1072,	1328,	0,	10.8,	0,	0,	0.0,	14,	0,	26,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.005,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	1.645,	32603,	4545,	5973,	5706,	79.0,	40.27,	42.56,	8277,	6.0,	2400,	1072,	1328,	0,	10.8,	0,	0,	0.0,	14,	0,	26,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.01,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	1.653,	32603,	4545,	5973,	5706,	79.0,	40.27,	42.56,	8277,	6.0,	2400,	1072,	1328,	0,	10.8,	0,	0,	0.0,	14,	0,	26,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	2.85,	32325,	4817,	6026,	5657,	78.54,	39.56,	41.31,	24855,	9.4,	7149,	3403,	3746,	0,	12.6,	0,	0,	0.0,	26,	0,	29,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.1,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	3.837,	32176,	4958,	6235,	5447,	78.69,	40.59,	41.69,	38349,	15.0,	10889,	5677,	5212,	0,	11.4,	0,	0,	0.0,	41,	0,	39,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.01,	BinarySplit:,	true,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	2.055,	31827,	5315,	6204,	5481,	77.89,	38.95,	39.5,	9939,	11.8,	2839,	1417,	1422,	0,	9.0,	0,	0,	0.0,	23,	0,	17,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.01,	BinarySplit:,	true,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	2.06,	31827,	5315,	6204,	5481,	77.89,	38.95,	39.5,	9939,	11.8,	2839,	1417,	1422,	0,	9.0,	0,	0,	0.0,	23,	0,	17,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.01,	BinarySplit:,	true,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	2.09,	31827,	5315,	6204,	5481,	77.89,	38.95,	39.5,	9939,	11.8,	2839,	1417,	1422,	0,	9.0,	0,	0,	0.0,	23,	0,	17,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.01,	BinarySplit:,	true,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	2.065,	31827,	5315,	6204,	5481,	77.89,	38.95,	39.5,	9939,	11.8,	2839,	1417,	1422,	0,	9.0,	0,	0,	0.0,	23,	0,	17,	0,	
+
+
+
+
+
+OzaBoostAdwin-census
+
+GracePeriod:,	200,	TieThreshold:,	0.01,	BinarySplit:,	true,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	2.095,	31827,	5315,	6204,	5481,	77.89,	38.95,	39.5,	9939,	11.8,	2839,	1417,	1422,	0,	9.0,	0,	0,	0.0,	23,	0,	17,	0,	
+
+
+
+
+
