@@ -44,7 +44,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        VarSpeedRBFGenerator inStream = new VarSpeedRBFGenerator();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -146,7 +146,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        VarSpeedRBFGenerator inStream = new VarSpeedRBFGenerator();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -245,7 +245,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        VarSpeedRBFGenerator inStream = new VarSpeedRBFGenerator();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -326,7 +326,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        VarSpeedRBFGenerator inStream = new VarSpeedRBFGenerator();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -447,7 +447,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        VarSpeedRBFGenerator inStream = new VarSpeedRBFGenerator();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -571,7 +571,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        VarSpeedRBFGenerator inStream = new VarSpeedRBFGenerator();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -766,7 +766,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        VarSpeedRBFGenerator inStream = new VarSpeedRBFGenerator();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -895,7 +895,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        VarSpeedRBFGenerator inStream = new VarSpeedRBFGenerator();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -1019,7 +1019,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        VarSpeedRBFGenerator inStream = new VarSpeedRBFGenerator();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -1144,7 +1144,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift();
+        VarSpeedRBFGenerator inStream = new VarSpeedRBFGenerator();
         inStream.prepareForUse();
         inStream.modelRandomSeedOption.setValue((int)System.nanoTime());
         inStream.instanceRandomSeedOption.setValue((int)System.nanoTime());
@@ -1269,7 +1269,7 @@ public class MainProcessedRBF {
         
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift(300, 5, 1000);
+        VarSpeedRBFGenerator inStream = new VarSpeedRBFGenerator(300, 5, 1000);
         inStream.speedChangeOption.setValue(0.1);
         
         inStream.prepareForUse();

@@ -15,7 +15,7 @@ import moa.options.IntOption;
 import moa.streams.InstanceStream;
 import weka.core.Instance;
 import wrapper.generator.InstancePool;
-import wrapper.generator.MyRandomRBFGeneratorDrift;
+import wrapper.generator.VarSpeedRBFGenerator;
 
 /**
  *
@@ -59,8 +59,8 @@ public class RunTest {
         int xtp = 0, xtn = 0, xfp = 0, xfn = 0;
         
         int [] ptp, pfp, ptn, pfn;
-        if (trainingStream instanceof MyRandomRBFGeneratorDrift) {
-            MyRandomRBFGeneratorDrift s = (MyRandomRBFGeneratorDrift) trainingStream;
+        if (trainingStream instanceof VarSpeedRBFGenerator) {
+            VarSpeedRBFGenerator s = (VarSpeedRBFGenerator) trainingStream;
             ptp = new int[s.numPools()];
             ptn = new int[s.numPools()];
             pfp = new int[s.numPools()];
@@ -77,8 +77,8 @@ public class RunTest {
         
         InstancePool instPool = null;
         Instance trainInst;
-        if (trainingStream instanceof MyRandomRBFGeneratorDrift) {
-            instPool = ((MyRandomRBFGeneratorDrift)trainingStream).nextInstancePool();
+        if (trainingStream instanceof VarSpeedRBFGenerator) {
+            instPool = ((VarSpeedRBFGenerator)trainingStream).nextInstancePool();
             trainInst = instPool._inst;
         } else {
             trainInst = trainingStream.nextInstance();
@@ -113,8 +113,8 @@ public class RunTest {
             
             classifier.trainOnInstance(trainInst);
             //trainInst = trainingStream.nextInstance();
-            if (trainingStream instanceof MyRandomRBFGeneratorDrift) {
-                instPool = ((MyRandomRBFGeneratorDrift)trainingStream).nextInstancePool();
+            if (trainingStream instanceof VarSpeedRBFGenerator) {
+                instPool = ((VarSpeedRBFGenerator)trainingStream).nextInstancePool();
                 trainInst = instPool._inst;
             } else {
                 trainInst = trainingStream.nextInstance();
@@ -166,8 +166,8 @@ public class RunTest {
         //printTree();
         stats.append("\n");
         
-        if (trainingStream instanceof MyRandomRBFGeneratorDrift) {
-            MyRandomRBFGeneratorDrift s = (MyRandomRBFGeneratorDrift) trainingStream;
+        if (trainingStream instanceof VarSpeedRBFGenerator) {
+            VarSpeedRBFGenerator s = (VarSpeedRBFGenerator) trainingStream;
             stats.append("Pool,\tTP,\tFN,\tTN,\tFP\n");
             for (int i = 0; i < s.numPools(); i++) {
                 stats.append((i+1)        + ",\t");

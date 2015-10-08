@@ -22,7 +22,7 @@ import wrapper.generator.*;
 
 
 public class Main {
-    private void writeStatsInFile(File file, StringBuilder stats) {
+    public void writeStatsInFile(File file, StringBuilder stats) {
         try {
             if (!file.exists())
                 file.createNewFile();
@@ -1544,7 +1544,7 @@ public class Main {
         File file = new File("xht-randrbf.txt");
         StringBuilder stats = new StringBuilder();
         
-        MyRandomRBFGeneratorDrift inStream = new MyRandomRBFGeneratorDrift(300, 5, 10000);
+        VarSpeedRBFGenerator inStream = new VarSpeedRBFGenerator(300, 5, 10000);
         inStream.prepareForUse();
         inStream.numDriftCentroidsOption.setValue(0);
         
@@ -1562,7 +1562,7 @@ public class Main {
         File file = new File("./runs/ht-randrbf.txt");
         StringBuilder stats = new StringBuilder();
         
-        wrapper.generator.MyRandomRBFGeneratorDrift inStream = new wrapper.generator.MyRandomRBFGeneratorDrift(300,5,2000);
+        wrapper.generator.VarSpeedRBFGenerator inStream = new wrapper.generator.VarSpeedRBFGenerator(300,5,2000);
         inStream.prepareForUse();
         inStream.speedChangeOption.setValue(1f);
         
