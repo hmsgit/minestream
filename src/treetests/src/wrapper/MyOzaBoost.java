@@ -244,14 +244,16 @@ public class MyOzaBoost extends AbstractClassifier {
         Arrays.sort(ret);
         return ret[0];
     }
-    
-    public int calcByteSize() {
+        public int calcByteSize() {
         int toRet = 0;
         for (int i = 0; i < this.ensemble.length; i++) {
-            if (this.ensemble[i] instanceof wrapper.MyASHoeffdingTree)
+            if (this.ensemble[i] instanceof wrapper.MyHoeffdingTree)
+                toRet += ((MyHoeffdingTree)this.ensemble[i]).calcByteSize();
+            else if (this.ensemble[i] instanceof wrapper.MyHoeffdingAdaptiveTree)
+                toRet += ((MyHoeffdingAdaptiveTree)this.ensemble[i]).calcByteSize();
+            else if (this.ensemble[i] instanceof wrapper.MyASHoeffdingTree)
                 toRet += ((MyASHoeffdingTree)this.ensemble[i]).calcByteSize();
-            else 
-                return 0;
+            
         }
         return toRet;
     }
@@ -259,10 +261,12 @@ public class MyOzaBoost extends AbstractClassifier {
     public int getDecisionNodeCount() {
         int toRet = 0;
         for (Classifier ensemble1 : this.ensemble) {
-            if (ensemble1 instanceof wrapper.MyASHoeffdingTree) {
+            if (ensemble1 instanceof wrapper.MyHoeffdingTree) {
+                toRet += ((MyHoeffdingTree) ensemble1).getDecisionNodeCount();
+            } else if (ensemble1 instanceof wrapper.MyHoeffdingAdaptiveTree) {
+                toRet += ((MyHoeffdingAdaptiveTree) ensemble1).getDecisionNodeCount();
+            } else if (ensemble1 instanceof wrapper.MyASHoeffdingTree) {
                 toRet += ((MyASHoeffdingTree) ensemble1).getDecisionNodeCount();
-            } else { 
-                return 0;
             }
         }
         return toRet;
@@ -270,10 +274,12 @@ public class MyOzaBoost extends AbstractClassifier {
     public int getActiveLeafNodeCount() {
         int toRet = 0;
         for (Classifier ensemble1 : this.ensemble) {
-            if (ensemble1 instanceof wrapper.MyASHoeffdingTree) {
+            if (ensemble1 instanceof wrapper.MyHoeffdingTree) {
+                toRet += ((MyHoeffdingTree) ensemble1).getActiveLeafNodeCount();
+            } else if (ensemble1 instanceof wrapper.MyHoeffdingAdaptiveTree) {
+                toRet += ((MyHoeffdingAdaptiveTree) ensemble1).getActiveLeafNodeCount();
+            } else if (ensemble1 instanceof wrapper.MyASHoeffdingTree) {
                 toRet += ((MyASHoeffdingTree) ensemble1).getActiveLeafNodeCount();
-            } else { 
-                return 0;
             }
         }
         return toRet;
@@ -281,21 +287,47 @@ public class MyOzaBoost extends AbstractClassifier {
     public int getInactiveLeafNodeCount() {
         int toRet = 0;
         for (Classifier ensemble1 : this.ensemble) {
-            if (ensemble1 instanceof wrapper.MyASHoeffdingTree) {
+            if (ensemble1 instanceof wrapper.MyHoeffdingTree) {
+                toRet += ((MyHoeffdingTree) ensemble1).getInactiveLeafNodeCount();
+            } else if (ensemble1 instanceof wrapper.MyHoeffdingAdaptiveTree) {
+                toRet += ((MyHoeffdingAdaptiveTree) ensemble1).getInactiveLeafNodeCount();
+            } else if (ensemble1 instanceof wrapper.MyASHoeffdingTree) {
                 toRet += ((MyASHoeffdingTree) ensemble1).getInactiveLeafNodeCount();
-            } else { 
-                return 0;
             }
         }
         return toRet;
     }
 
     public double getResetCount() {
-        return 0;
+        double toRet = 0;
+        
+        for (int i = 0; i < this.ensemble.length; i++) {
+            if (this.ensemble[i] instanceof wrapper.MyASHoeffdingTree)
+                toRet += ((MyASHoeffdingTree)this.ensemble[i]).getResetCount();
+            
+            else if (this.ensemble[i] instanceof wrapper.MyHoeffdingAdaptiveTree)
+                toRet += ((MyHoeffdingAdaptiveTree)this.ensemble[i]).getResetCount();
+            else if (this.ensemble[i] instanceof wrapper.MyASHoeffdingTree)
+                toRet += ((MyASHoeffdingTree)this.ensemble[i]).getResetCount();
+        }
+        //return toRet;
+        return (double) Math.round(toRet * 100 / this.ensemble.length)/100;
     }
     
     public double getPrunedAlternateTrees() {
-        return 0;
+        double toRet = 0;
+        
+        for (int i = 0; i < this.ensemble.length; i++) {
+            if (this.ensemble[i] instanceof wrapper.MyASHoeffdingTree)
+                toRet += ((MyASHoeffdingTree)this.ensemble[i]).getPrunedAlternateTrees();
+            
+            else if (this.ensemble[i] instanceof wrapper.MyHoeffdingAdaptiveTree)
+                toRet += ((MyHoeffdingAdaptiveTree)this.ensemble[i]).getPrunedAlternateTrees();
+            else if (this.ensemble[i] instanceof wrapper.MyASHoeffdingTree)
+                toRet += ((MyASHoeffdingTree)this.ensemble[i]).getPrunedAlternateTrees();
+        }
+        //return toRet;
+        return (double) Math.round(toRet * 100 / this.ensemble.length)/100;
     }
     
     public double measureTreeDepth() {
@@ -304,8 +336,11 @@ public class MyOzaBoost extends AbstractClassifier {
         for (int i = 0; i < this.ensemble.length; i++) {
             if (this.ensemble[i] instanceof wrapper.MyASHoeffdingTree)
                 toRet += ((MyASHoeffdingTree)this.ensemble[i]).measureTreeDepth();
-            else 
-                return 0;
+            
+            else if (this.ensemble[i] instanceof wrapper.MyHoeffdingAdaptiveTree)
+                toRet += ((MyHoeffdingAdaptiveTree)this.ensemble[i]).measureTreeDepth();
+            else if (this.ensemble[i] instanceof wrapper.MyASHoeffdingTree)
+                toRet += ((MyASHoeffdingTree)this.ensemble[i]).measureTreeDepth();
         }
         //return toRet;
         return (double) Math.round(toRet * 100 / this.ensemble.length)/100;

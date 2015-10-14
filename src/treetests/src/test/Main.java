@@ -1676,7 +1676,7 @@ public class Main {
     
     public static void main(String[] args) {
         //new Main().testHTwithRandRBF();
-        new Main().testHTwithRandRBFDrift();
+//        new Main().testHTwithRandRBFDrift();
         //new Main().testASHTwithRandRBFDrift();
         //new Main().testHTwithProcessedRBFDrift();
         //new Main().testAdwinwithRandRBFDrift();
@@ -1686,19 +1686,19 @@ public class Main {
 //        new Main().test_AdaHT_RandRBF();
 //        new Main().test_ASHT_RandRBF();
 //        
-//        new Main().test_OzaBagHT_RandRBF();
-//        new Main().test_OzaBagAdaHT_RandRBF();
-//        new Main().test_OzaBagASHT_RandRBF();
-//        new Main().test_OzaBagAdwin_RandRBF();
+        //new Main().test_OzaBagHT_RandRBF();
+        new Main().test_OzaBagAdaHT_RandRBF();
+        new Main().test_OzaBagASHT_RandRBF();
+        new Main().test_OzaBagAdwin_RandRBF();
 //        
-//        new Main().test_OzaBoostHT_RandRBF();
-//        new Main().test_OzaBoostAdaHT_RandRBF();
+        new Main().test_OzaBoostHT_RandRBF();
+        new Main().test_OzaBoostAdaHT_RandRBF();
         //new Main().test_OzaBoostAdwin_RandRBF();
         
         
-        //new Main().test_OzaBagSRHT_RandRBF();
+        new Main().test_OzaBagSRHT_RandRBF();
         
-        //MainProcessedRBF.main(args);
+        MainProcessedRBF.main(args);
         //MainCensus.main(args);
     }
     

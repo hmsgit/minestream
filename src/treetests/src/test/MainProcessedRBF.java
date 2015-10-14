@@ -1461,15 +1461,15 @@ public class MainProcessedRBF {
     
     
     public static void main(String[] args) {
-        new MainProcessedRBF().test_HT_RandRBF();
-        new MainProcessedRBF().test_AdaHT_RandRBF();
-        new MainProcessedRBF().test_ASHT_RandRBF();
-        
+//        new MainProcessedRBF().test_HT_RandRBF();
+//        new MainProcessedRBF().test_AdaHT_RandRBF();
+//        new MainProcessedRBF().test_ASHT_RandRBF();
+//        
         new MainProcessedRBF().test_OzaBagHT_RandRBF();
         new MainProcessedRBF().test_OzaBagAdaHT_RandRBF();
         new MainProcessedRBF().test_OzaBagASHT_RandRBF();
         new MainProcessedRBF().test_OzaBagAdwin_RandRBF();
-        
+//        
         new MainProcessedRBF().test_OzaBoostHT_RandRBF();
         new MainProcessedRBF().test_OzaBoostAdaHT_RandRBF();
         //new MainProcessedRBF().test_OzaBoostAdwin_RandRBF();

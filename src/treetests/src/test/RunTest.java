@@ -302,6 +302,50 @@ public class RunTest {
             
             stats.append(_xht.maxReset()+   ",\t");
             stats.append(_xht.minReset()+   ",\t");
+        } else if (classifier instanceof MyOzaBoost) {
+            MyOzaBoost _xht = (MyOzaBoost) classifier;
+            stats.append(-_xht.calcByteSize()+ ",\t");
+
+            stats.append(_xht.measureTreeDepth()+ ",\t"); // Average depth
+            stats.append(_xht.getDecisionNodeCount()+_xht.getActiveLeafNodeCount()
+                    +_xht.getInactiveLeafNodeCount()+ ",\t"); // total
+            stats.append(_xht.getDecisionNodeCount()+ ",\t"); // total
+            stats.append(_xht.getActiveLeafNodeCount()+ ",\t"); // total
+            stats.append(_xht.getInactiveLeafNodeCount()+ ",\t"); // total
+
+            stats.append(_xht.getResetCount()+ ",\t"); // weighted reset count
+            stats.append(0 + ",\t");
+            stats.append(0 + ",\t");
+            stats.append(_xht.getPrunedAlternateTrees()+ ",\t"); // 0, if reset
+
+            //ClOp0-1-2-3
+            stats.append(_xht.maxDepth()+   ",\t");
+            stats.append(_xht.minDepth()+   ",\t");
+            
+            stats.append(_xht.maxReset()+   ",\t");
+            stats.append(_xht.minReset()+   ",\t");
+        } else if (classifier instanceof MyOzaBag) {
+            MyOzaBag _xht = (MyOzaBag) classifier;
+            stats.append(-_xht.calcByteSize()+ ",\t");
+
+            stats.append(_xht.measureTreeDepth()+ ",\t"); // Average depth
+            stats.append(_xht.getDecisionNodeCount()+_xht.getActiveLeafNodeCount()
+                    +_xht.getInactiveLeafNodeCount()+ ",\t"); // total
+            stats.append(_xht.getDecisionNodeCount()+ ",\t"); // total
+            stats.append(_xht.getActiveLeafNodeCount()+ ",\t"); // total
+            stats.append(_xht.getInactiveLeafNodeCount()+ ",\t"); // total
+
+            stats.append(_xht.getResetCount()+ ",\t"); // weighted reset count
+            stats.append(0 + ",\t");
+            stats.append(0 + ",\t");
+            stats.append(_xht.getPrunedAlternateTrees()+ ",\t"); // 0, if reset
+
+            //ClOp0-1-2-3
+            stats.append(_xht.maxDepth()+   ",\t");
+            stats.append(_xht.minDepth()+   ",\t");
+            
+            stats.append(_xht.maxReset()+   ",\t");
+            stats.append(_xht.minReset()+   ",\t");
         }
         //stats.append("\n");
     }

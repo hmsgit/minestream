@@ -5,8 +5,8 @@
 \usepackage[T1]{fontenc}      % Font encoding
 \usepackage{lmodern,cmap}     % lmodern font, correctly copyable characters in pdf
 
-\usepackage{hyperref}
-%\usepackage[hidelinks]{hyperref}
+%\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage{color}
 \usepackage{setspace}
 \usepackage{caption}
@@ -105,132 +105,13 @@ mahmud@in.tum.de\\
 
 
 \input{introduction.tex}
-\input{literature.tex}
+%\input{literature.tex}
 \input{background.tex}
 \input{dataset.tex}
+\input{algorithm.tex}
+\input{exp.tex}
 
 
-\chapter{Algorithms}
-\label{chp:algo}
-In the previous chapters, we have presented the motivations, fundamental concepts, solution overview of this thesis. We have also presented the dataset generation process. Now, in this chapter, we present our algorithms, Size Restricted Hoeffding Tree (SRHT) and Carry-over bagging. Size restricted Hoeffding tree is extended from original Hoeffding tree algorithm and incorporates ADWIN method. Carry-over bagging is developed over the concepts of Oza online bagging approach.
-
-Before, discussing the algorithms, we define our problem mathematically and re-state the solution overview.
-
-\section{Problem Statement}
-\section{Solution Overview}
-
-\section{Size Restricted Hoeffding Tree (SRHT)}
-This adaptive Hoeffding Tree uses ADWIN to monitor performance of branches on the tree and to replace them with new branches when their accuracy decreases if the new branches are more accurate.
-
-\begin{algorithm}[htbp]
-    \caption{SRHT: Size Restricted Hoeffding Tree}
-    \label{alg:srht}
-    \DontPrintSemicolon
-    \SetKwInOut{Input}{Input} \SetKwInOut{Output}{Output} 
-    
-    \Input{$S$: Stream of examples \\
-        $X$: Set of nominal attributes \\
-        $Y$: Set of class labels $Y = \{y_1, y_2, \dots, y_k\}$ \\
-        $G(.)$: Split evaluation function \\
-        $N_{min}$: Minimum number of examples \\
-        $\delta$: is one minus the desired probability \\
-        $d$: Alternate tree switching bound \\
-        $n$: Number of maximum decision nodes \\
-        $\tau$: Constant to resolve ties
-    } 
-    \Output{$HT$: is a decision tree}
-    
-    \Begin{
-        Let $HT \leftarrow$ Empty Leaf (Root)
-        \ForEach{$example(x, y_k) \in S$} {
-            Traverse the tree $HT$ from root till a leaf $l$ \\
-            
-            \eIf (\tcp*[f]{Missing class label}) {$y_k == ?$ } {
-                Classify with majority class in the leaf $l$
-            } {
-                Update sufficient statistics \\
-                \If{$ Number\;of\;examples\;in\;l > N_{min}$ }{
-                    Compute $G_l(X_i)$ for all attributes \\
-                    Let $X_a$ be the attribute with highest $G_l$ \\
-                    Let $X_b$ be the attribute with second highest $G_l$ \\
-                    Start maintaining ADWIN \\
-                    
-                    \uIf{error increased from previous step} {
-                        Start maintaining alternate tree \\
-                    }
-                    \uElseIf{oldError - alternateError > bound} {
-                        \uIf{ADWIN window sufficiently big}{
-                            Switch to alternate tree \\
-                        }
-                        \uElseIf{alternateError - oldError > bound} {
-                            Delete alternate tree \\
-                        }
-                    }
-                    
-                    Compute $\epsilon = \sqrt{\frac{R^2 \ln(2/\delta)}{2n}}$  \tcp*[f]{Hoeffding bound} \\
-                    
-                    \If{$G(X_a) - G(X_b) > \epsilon\; || \;\epsilon < \tau$} {
-                        \If{decision node count < n} {
-                            Replace $l$ with a splitting test based on attribute $X_a$ \\
-                            Add a new empty leaf for each branch of the split \\
-                        }
-                    }
-                }
-            }
-        }
-    Return $HT$
-    }
-\end{algorithm}
-
-\section{Carry-over Bagging with SRHT}
-\begin{algorithm}[htbp]
-    \caption{CoBag: Carry-Over Bagging with SRHT}
-    \label{alg:cobag}
-    \DontPrintSemicolon
-    \SetKwInOut{Input}{Input} \SetKwInOut{Output}{Output} 
-    
-    \Input{
-        $H$: Set of base learners \\
-        $n$: Ensemble size \\
-        $m$: Additional ensemble size \\
-        $b$: Tree size limit to use additional ensembles
-    } 
-    \Output{A SRHT ensemble}
-    
-    \Begin{
-        Create $n$ SRHT $H_i$ \\
-        \ForEach{$h \in H$} {
-            Set $k$ according to $Poisson(1)$ \\
-            \For{$i: 1-k$} {
-                Learn $h$ with SRHT\\
-                \uIf{$h.size > h.maxSize$ and $h.size < b$} {
-                    Reset $h$ \\
-                }
-                \uElseIf {$h.size > h.maxSize$} {
-                    Move $h$ to Alternate ensemble \\
-                    Create new SRHT with size limit of $h.maxSize$ \\
-                    
-                    \If{Size of additional ensemble > m} {
-                        Delete the oldest $h$ from additional ensemble \\
-                    }
-                }
-            }
-        }
-        
-    }
-
-\end{algorithm}
-
-\section{Summary}
-
-\chapter{Experimental Study}
-\label{chp:exp}
-\section{Test Study-case with Adult Dataset}
-\section{Structural Study of Decision Trees}
-\section{Performance Evaluation}
-\subsection{Performance Metrics}
-\subsection{Traditional Streams}
-\subsection{Social Network-like Streams}
 
 \chapter{Conclusion}
 \section{Contribution}
@@ -240,5 +121,8 @@ This adaptive Hoeffding Tree uses ADWIN to monitor performance of branches on th
 \bibliographystyle{apalike}
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliography{ref}
+
+
+\input{appendix.tex}
 
 \end{document}

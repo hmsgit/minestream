@@ -36,3 +36,14 @@ tweetdb
 *.out
 *.gz
 *.toc
+/src/Format/nbproject/private/
+/src/Format/dist/
+/src/format/build/
+/src/format/nbproject/private/
+/src/format/dist/
+/src/merge/nbproject/private/
+/src/merge/build/
+/src/merge/dist/
+/src/plotcsv/nbproject/private/
+/src/plotcsv/build/
+/src/plotcsv/dist/
