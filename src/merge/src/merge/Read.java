@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class Read {
     public ArrayList<Data> list = new ArrayList<>();
-    public boolean readall = true;
+    public boolean readall = false;
     public String dtname = "RandRBF";
     
     public void read (String filename, int type) {
@@ -150,12 +150,12 @@ public class Read {
                                 y.accuracy = vals[6]; y.kappa = vals[7]; y.tempkappa = vals[8];
 
                                 //REMOVE THIS AFTER NEW EyPERIMENTS
-                                if (type != 3 && type != 4 && type != 8 && type != 9) {
+                                //if (type != 3 && type != 4 && type != 8 && type != 9) {
                                 y.memory = vals[9]; y.depth = vals[10]; y.size = vals[11];
                                 y.decisionnode = vals[12]; y.activeleaf = vals[13]; y.inactiveleaf = vals[14];
                                 y.reset = vals[15]; y.alter = vals[16]; y.switching = vals[17]; y.prune = vals[18];
                                 y.cop1 = vals[19]; y.cop2 = vals[20]; y.cop3 = vals[21]; y.cop4 = vals[22];  
-                                }
+                                //}
                                 list.add(y);
                             }
                             break;
@@ -168,12 +168,12 @@ public class Read {
                                 x.accuracy = vals[6]; x.kappa = vals[7]; x.tempkappa = vals[8];
 
                                 //REMOVE THIS AFTER NEW ExPERIMENTS
-                                if (type != 3 && type != 4 && type != 8 && type != 9) {
+                                //if (type != 3 && type != 4 && type != 8 && type != 9) {
                                 x.memory = vals[9]; x.depth = vals[10]; x.size = vals[11];
                                 x.decisionnode = vals[12]; x.activeleaf = vals[13]; x.inactiveleaf = vals[14];
                                 x.reset = vals[15]; x.alter = vals[16]; x.switching = vals[17]; x.prune = vals[18];
                                 x.cop1 = vals[19]; x.cop2 = vals[20]; x.cop3 = vals[21]; x.cop4 = vals[22]; 
-                                }
+                                //}
                             }
                             break;
 

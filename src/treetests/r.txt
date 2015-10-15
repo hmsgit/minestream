@@ -1,0 +1,360 @@
+library(ggplot2)
+library(reshape2)
+
+
+ylim(2, 4)
+filename = "test"
+
+
+myfuncxx = function(filename, xlab, ylab, legend) {
+	orig = read.csv(paste0(filename, ".csv", sep = ""))
+	data = melt(orig, id.vars=c("X"))
+
+	data$X = as.character(data$X);
+
+	g = ggplot(data, aes(x= X, y= value, color=variable, shape=variable)) +
+	geom_point(size=3) +
+	geom_line(aes(group=variable, linetype=variable), size=.5) +
+	xlab(xlab) +
+	ylab(ylab) +
+	scale_shape_manual(name = legend, values = c(0,1)) +
+	scale_linetype_manual(name = legend, values = c(1,2)) +
+	scale_color_discrete(name = legend)
+	
+	pdf(paste0(filename, ".pdf", sep = ""), width=6, height=4)
+	print(g)
+	dev.off()
+}
+
+myfuncx = function(filename, xlab, ylab, legend) {
+	orig = read.csv(paste0(filename, ".csv", sep = ""))
+	#data = melt(orig, id.vars=c("X"))
+	data = orig
+	data$X = as.character(data$X);
+
+	g = ggplot(data, aes(x= X, y= value, color=Algorithm, shape=Algorithm)) +
+    geom_point(size=3) +
+    geom_line(aes(group=Algorithm, linetype=Algorithm), size=.5) +
+    xlab(xlab) +
+    ylab(ylab) +
+    scale_shape_manual(name = legend, values = c(0,1,2,3,4,5,0,1,2,1)) +
+    scale_linetype_manual(name = legend, values = c(rep("solid", 10), rep("dashed", 6))) +
+    scale_color_discrete(name = legend)
+	g
+	
+	pdf(paste0(filename, ".pdf", sep = ""), width=6, height=4)
+	print(g)
+	dev.off()
+	dev.off()
+}
+
+myfunc = function(filename, xlab, ylab, legend) {
+    orig = read.csv(paste0(filename, ".csv", sep = ""))
+    #data = melt(orig, id.vars=c("X"))
+    data = orig
+    data$X = as.character(data$X);
+    
+    g = ggplot(data, aes(x= X, y= value, color=Algorithm, shape=Algorithm)) +
+        geom_point(size=3) +
+        geom_line(aes(group=Algorithm, linetype=Algorithm), size=.5) +
+        xlab(xlab) +
+        ylab(ylab) +
+        scale_shape_manual(name = legend, values = c(rep(1:4, 5))) +
+        scale_linetype_manual(name = legend, values = c(rep("solid", 3), rep("dashed", 3), rep("solid", 3), rep("dashed", 6))) +
+        scale_color_discrete(name = legend)
+    g
+    
+    pdf(paste0(filename, ".pdf", sep = ""), width=6, height=4)
+    print(g)
+    dev.off()
+}
+myfunc2 = function(filename, xlab, ylab, legend) {
+    orig = read.csv(paste0(filename, ".csv", sep = ""))
+    #data = melt(orig, id.vars=c("X"))
+    data = orig
+    #data$X = as.character(data$X);
+    
+    g = ggplot(data, aes(x= X, y= value, color=Algorithm, shape=Algorithm)) +
+        geom_point(size=3) +
+        geom_line(aes(group=Algorithm, linetype=Algorithm), size=.5) +
+        xlab(xlab) +
+        ylab(ylab) +
+        scale_shape_manual(name = legend, values = c(rep(1:4, 5))) +
+        scale_linetype_manual(name = legend, values = c(rep("solid", 3), rep("dashed", 3), rep("solid", 3), rep("dashed", 6))) +
+        scale_color_discrete(name = legend)+
+		scale_x_continuous(breaks= pretty_breaks())
+    g
+    
+    pdf(paste0(filename, ".pdf", sep = ""), width=6, height=4)
+    print(g)
+    dev.off()
+}
+
+
+
+myfunc2("1-rnd-speed-accu",		"Drift coefficient",	"Accuracy",	"Algorithm")
+myfunc2("1-rnd-speed-depth",		"Drift coefficient",	"Depth",	"Algorithm")
+myfunc2("1-rnd-speed-kappa",		"Drift coefficient",	"Kappa",	"Algorithm")
+myfunc2("1-rnd-speed-memory",	"Drift coefficient",	"Memory",	"Algorithm")
+myfunc2("1-rnd-speed-time",		"Drift coefficient",	"Time",		"Algorithm")
+myfunc2("1-rnd-speed-tsize",		"Drift coefficient",	"Tree size","Algorithm")
+
+myfunc2("2-rnd-grace-accu",		"Grace period",	"Accuracy",	"Algorithm")
+myfunc2("2-rnd-grace-depth",		"Grace period",	"Depth",	"Algorithm")
+myfunc2("2-rnd-grace-kappa",		"Grace period",	"Kappa",	"Algorithm")
+myfunc2("2-rnd-grace-memory",	"Grace period",	"Memory",	"Algorithm")
+myfunc2("2-rnd-grace-time",		"Grace period",	"Time",		"Algorithm")
+myfunc2("2-rnd-grace-tsize",		"Grace period",	"Tree size","Algorithm")
+
+myfunc2("3-rnd-centroid-accu",		"No. of centroids",	"Accuracy",	"Algorithm")
+myfunc2("3-rnd-centroid-depth",		"No. of centroids",	"Depth",	"Algorithm")
+myfunc2("3-rnd-centroid-kappa",		"No. of centroids",	"Kappa",	"Algorithm")
+myfunc2("3-rnd-centroid-memory",		"No. of centroids",	"Memory",	"Algorithm")
+myfunc2("3-rnd-centroid-time",		"No. of centroids",	"Time",		"Algorithm")
+myfunc2("3-rnd-centroid-tsize",		"No. of centroids",	"Tree size","Algorithm")
+
+myfunc2("4-rnd-driftcentroid-accu",		"Percent of drift centroids",	"Accuracy",	"Algorithm")
+myfunc2("4-rnd-driftcentroid-depth",		"Percent of drift centroids",	"Depth",	"Algorithm")
+myfunc2("4-rnd-driftcentroid-kappa",		"Percent of drift centroids",	"Kappa",	"Algorithm")
+myfunc2("4-rnd-driftcentroid-memory",	"Percent of drift centroids",	"Memory",	"Algorithm")
+myfunc2("4-rnd-driftcentroid-time",		"Percent of drift centroids",	"Time",		"Algorithm")
+myfunc2("4-rnd-driftcentroid-tsize",		"Percent of drift centroids",	"Tree size","Algorithm")
+
+myfunc("5-rnd-tiethresh-accu",		"Tie threshold",	"Accuracy",	"Algorithm")
+myfunc("5-rnd-tiethresh-depth",		"Tie threshold",	"Depth",	"Algorithm")
+myfunc("5-rnd-tiethresh-kappa",		"Tie threshold",	"Kappa",	"Algorithm")
+myfunc("5-rnd-tiethresh-memory",	"Tie threshold",	"Memory",	"Algorithm")
+myfunc("5-rnd-tiethresh-time",		"Tie threshold",	"Time",		"Algorithm")
+myfunc("5-rnd-tiethresh-tsize",		"Tie threshold",	"Tree size","Algorithm")
+
+myfunc("6-rnd-binsplit-accu",		"Binary split",	"Accuracy",	"Algorithm")
+myfunc("6-rnd-binsplit-depth",		"Binary split",	"Depth",	"Algorithm")
+myfunc("6-rnd-binsplit-kappa",		"Binary split",	"Kappa",	"Algorithm")
+myfunc("6-rnd-binsplit-memory",		"Binary split",	"Memory",	"Algorithm")
+myfunc("6-rnd-binsplit-time",		"Binary split",	"Time",		"Algorithm")
+myfunc("6-rnd-binsplit-tsize",		"Binary split",	"Tree size","Algorithm")
+
+myfunc2("7-rnd-maxsize-accu",		"Maximum allowed size",	"Accuracy",	"Algorithm")
+myfunc2("7-rnd-maxsize-depth",		"Maximum allowed size",	"Depth",	"Algorithm")
+myfunc2("7-rnd-maxsize-kappa",		"Maximum allowed size",	"Kappa",	"Algorithm")
+myfunc2("7-rnd-maxsize-memory",		"Maximum allowed size",	"Memory",	"Algorithm")
+myfunc2("7-rnd-maxsize-time",		"Maximum allowed size",	"Time",		"Algorithm")
+myfunc2("7-rnd-maxsize-tsize",		"Maximum allowed size",	"Tree size","Algorithm")
+
+myfunc2("8-rnd-ensize-accu",			"Ensemble size",	"Accuracy",	"Algorithm")
+myfunc2("8-rnd-ensize-depth",		"Ensemble size",	"Depth",	"Algorithm")
+myfunc2("8-rnd-ensize-kappa",		"Ensemble size",	"Kappa",	"Algorithm")
+myfunc2("8-rnd-ensize-memory",		"Ensemble size",	"Memory",	"Algorithm")
+myfunc2("8-rnd-ensize-time",			"Ensemble size",	"Time",		"Algorithm")
+myfunc2("8-rnd-ensize-tsize",		"Ensemble size",	"Tree size","Algorithm")
+
+myfunc("9-rnd-ifreset-accu",		"Reset tree within ensemble",	"Accuracy",	"Algorithm")
+myfunc("9-rnd-ifreset-depth",		"Reset tree within ensemble",	"Depth",	"Algorithm")
+myfunc("9-rnd-ifreset-kappa",		"Reset tree within ensemble",	"Kappa",	"Algorithm")
+myfunc("9-rnd-ifreset-memory",		"Reset tree within ensemble",	"Memory",	"Algorithm")
+myfunc("9-rnd-ifreset-time",		"Reset tree within ensemble",	"Time",		"Algorithm")
+myfunc("9-rnd-ifreset-tsize",		"Reset tree within ensemble",	"Tree size","Algorithm")
+
+myfunc("10-rnd-firsttree-accu",		"Size of the first tree",	"Accuracy",	"Algorithm")
+myfunc("10-rnd-firsttree-depth",	"Size of the first tree",	"Depth",	"Algorithm")
+myfunc("10-rnd-firsttree-kappa",	"Size of the first tree",	"Kappa",	"Algorithm")
+myfunc("10-rnd-firsttree-memory",	"Size of the first tree",	"Memory",	"Algorithm")
+myfunc("10-rnd-firsttree-time",		"Size of the first tree",	"Time",		"Algorithm")
+myfunc("10-rnd-firsttree-tsize",	"Size of the first tree",	"Tree size","Algorithm")
+
+
+myfunc2("1-vs-speed-accu",		"Drift coefficient",	"Accuracy",	"Algorithm")
+myfunc2("1-vs-speed-depth",		"Drift coefficient",	"Depth",	"Algorithm")
+myfunc2("1-vs-speed-kappa",		"Drift coefficient",	"Kappa",	"Algorithm")
+myfunc2("1-vs-speed-memory",	"Drift coefficient",	"Memory",	"Algorithm")
+myfunc2("1-vs-speed-time",		"Drift coefficient",	"Time",		"Algorithm")
+myfunc2("1-vs-speed-tsize",		"Drift coefficient",	"Tree size","Algorithm")
+
+myfunc2("2-vs-grace-accu",		"Grace period",	"Accuracy",	"Algorithm")
+myfunc2("2-vs-grace-depth",		"Grace period",	"Depth",	"Algorithm")
+myfunc2("2-vs-grace-kappa",		"Grace period",	"Kappa",	"Algorithm")
+myfunc2("2-vs-grace-memory",	"Grace period",	"Memory",	"Algorithm")
+myfunc2("2-vs-grace-time",		"Grace period",	"Time",		"Algorithm")
+myfunc2("2-vs-grace-tsize",		"Grace period",	"Tree size","Algorithm")
+
+myfunc2("3-vs-centroid-accu",		"No. of centroids",	"Accuracy",	"Algorithm")
+myfunc2("3-vs-centroid-depth",		"No. of centroids",	"Depth",	"Algorithm")
+myfunc2("3-vs-centroid-kappa",		"No. of centroids",	"Kappa",	"Algorithm")
+myfunc2("3-vs-centroid-memory",		"No. of centroids",	"Memory",	"Algorithm")
+myfunc2("3-vs-centroid-time",		"No. of centroids",	"Time",		"Algorithm")
+myfunc2("3-vs-centroid-tsize",		"No. of centroids",	"Tree size","Algorithm")
+
+myfunc2("4-vs-driftcentroid-accu",		"Percent of drift centroids",	"Accuracy",	"Algorithm")
+myfunc2("4-vs-driftcentroid-depth",		"Percent of drift centroids",	"Depth",	"Algorithm")
+myfunc2("4-vs-driftcentroid-kappa",		"Percent of drift centroids",	"Kappa",	"Algorithm")
+myfunc2("4-vs-driftcentroid-memory",	"Percent of drift centroids",	"Memory",	"Algorithm")
+myfunc2("4-vs-driftcentroid-time",		"Percent of drift centroids",	"Time",		"Algorithm")
+myfunc2("4-vs-driftcentroid-tsize",		"Percent of drift centroids",	"Tree size","Algorithm")
+
+myfunc("5-vs-tiethresh-accu",		"Tie threshold",	"Accuracy",	"Algorithm")
+myfunc("5-vs-tiethresh-depth",		"Tie threshold",	"Depth",	"Algorithm")
+myfunc("5-vs-tiethresh-kappa",		"Tie threshold",	"Kappa",	"Algorithm")
+myfunc("5-vs-tiethresh-memory",	"Tie threshold",	"Memory",	"Algorithm")
+myfunc("5-vs-tiethresh-time",		"Tie threshold",	"Time",		"Algorithm")
+myfunc("5-vs-tiethresh-tsize",		"Tie threshold",	"Tree size","Algorithm")
+
+myfunc("6-vs-binsplit-accu",		"Binary split",	"Accuracy",	"Algorithm")
+myfunc("6-vs-binsplit-depth",		"Binary split",	"Depth",	"Algorithm")
+myfunc("6-vs-binsplit-kappa",		"Binary split",	"Kappa",	"Algorithm")
+myfunc("6-vs-binsplit-memory",		"Binary split",	"Memory",	"Algorithm")
+myfunc("6-vs-binsplit-time",		"Binary split",	"Time",		"Algorithm")
+myfunc("6-vs-binsplit-tsize",		"Binary split",	"Tree size","Algorithm")
+
+myfunc2("7-vs-maxsize-accu",		"Maximum allowed size",	"Accuracy",	"Algorithm")
+myfunc2("7-vs-maxsize-depth",		"Maximum allowed size",	"Depth",	"Algorithm")
+myfunc2("7-vs-maxsize-kappa",		"Maximum allowed size",	"Kappa",	"Algorithm")
+myfunc2("7-vs-maxsize-memory",		"Maximum allowed size",	"Memory",	"Algorithm")
+myfunc2("7-vs-maxsize-time",		"Maximum allowed size",	"Time",		"Algorithm")
+myfunc2("7-vs-maxsize-tsize",		"Maximum allowed size",	"Tree size","Algorithm")
+
+myfunc2("8-vs-ensize-accu",			"Ensemble size",	"Accuracy",	"Algorithm")
+myfunc2("8-vs-ensize-depth",		"Ensemble size",	"Depth",	"Algorithm")
+myfunc2("8-vs-ensize-kappa",		"Ensemble size",	"Kappa",	"Algorithm")
+myfunc2("8-vs-ensize-memory",		"Ensemble size",	"Memory",	"Algorithm")
+myfunc2("8-vs-ensize-time",			"Ensemble size",	"Time",		"Algorithm")
+myfunc2("8-vs-ensize-tsize",		"Ensemble size",	"Tree size","Algorithm")
+
+myfunc("9-vs-ifreset-accu",		"Reset tree within ensemble",	"Accuracy",	"Algorithm")
+myfunc("9-vs-ifreset-depth",		"Reset tree within ensemble",	"Depth",	"Algorithm")
+myfunc("9-vs-ifreset-kappa",		"Reset tree within ensemble",	"Kappa",	"Algorithm")
+myfunc("9-vs-ifreset-memory",		"Reset tree within ensemble",	"Memory",	"Algorithm")
+myfunc("9-vs-ifreset-time",		"Reset tree within ensemble",	"Time",		"Algorithm")
+myfunc("9-vs-ifreset-tsize",		"Reset tree within ensemble",	"Tree size","Algorithm")
+
+myfunc("10-vs-firsttree-accu",		"Size of the first tree",	"Accuracy",	"Algorithm")
+myfunc("10-vs-firsttree-depth",	"Size of the first tree",	"Depth",	"Algorithm")
+myfunc("10-vs-firsttree-kappa",	"Size of the first tree",	"Kappa",	"Algorithm")
+myfunc("10-vs-firsttree-memory",	"Size of the first tree",	"Memory",	"Algorithm")
+myfunc("10-vs-firsttree-time",		"Size of the first tree",	"Time",		"Algorithm")
+myfunc("10-vs-firsttree-tsize",	"Size of the first tree",	"Tree size","Algorithm")
+
+
+
+
+library(plotly)
+library(ggplot2)
+setwd("D:/Thesis/tex/src/treetests")
+getwd()
+read.csv2("rbf.csv")
+
+points = read.csv2("rbf.csv")
+library(ggplot2)
+View(points)
+points = read.csv("rbf.csv")
+points = read.csv("rbf.csv", FALSE)
+qplot($1, $2, data=points, color=$3)
+
+x = points$V1;
+View(points)
+[x] = points$V1
+x = {points[1]}
+
+qplot(x=colnames(points)[1], y=colnames(points)[2], data=points, color=colnames(points)[3])
+qplot(V1, V2, data=points, color=V3)
+colnames(points)
+
+g = ggplot(points, aes_string(colnames(points)[1], colnames(points)[2])) + geom_point()
+print(p)
+
+g = ggplot(points, aes_string(colnames(points)[1], colnames(points)[2]))
+g + geom_point()
+g = ggplot(points, aes_string(colnames(points)[1], colnames(points)[2]), color = colnames(points)[3])
+g + geom_point()
+g = ggplot(points, aes_string(colnames(points)[1], colnames(points)[2]))
+g + geom_point(aes(color=colnames(points)[3]))
+g + geom_point(aes(color=points[3])
+)
+g + geom_point(aes(color=V3))
+
+points = read.csv("rbf.csv")
+g = ggplot(points, aes(attr1, attr2, color=class))
+g+geom_point()
+
+
+myplot = function(filename) {
+xd = read.csv(filename);
+xd$Centroid = as.character(xd$Centroid);
+xg = ggplot(xd, aes(X, Y, color=Class, shape=Centroid));
+xg + geom_point(size=1)
+}
+
+myplot("rbf.csv")
+rbfplot = function(filename) {
+xd = read.csv(filename);
+xd$Centroid = as.character(xd$Centroid);
+xg = ggplot(xd, aes(X, Y, color=Class, shape=Centroid));
+xg + geom_point(size=2)
+}
+
+varspdplot("var.csv")
+varspdplot = function(filename) {
+xd = read.csv(filename);
+xd$Pool = as.character(xd$Pool);
+xg = ggplot(xd, aes(X, Y, color=Class, shape=Pool));
+xg + geom_point(size=2)
+}
+varspdplot("var.csv")
+varspdplot("var.csv")
+varspdplot("var.csv")
+varspdplot("var.csv")
+varspdplot("var.csv")
+varspdplot("var.csv")
+varspdplot("var.csv")
+View(myplot)
+points = read.csv("var.csv")
+qplot(points$Pool)
+x = read.csv("rbf.csv")
+qplot(x$Centroid)
+qplot(x$Centroid, xlab = "Centroid", ylab = "Count")
+qplot(points$Pool, xlab = "Centroid", ylab = "Count")
+qplot(points$Pool, xlab = "Pool", ylab = "Count")
+varspdplot("var.csv")
+
+
+rbfplot("rbf.csv")
+rbfplot("rbf.csv")
+
+qplot(x$Class, xlab = "Class", ylab = "Count")
+rbfplot("rbf.csv")
+qplot(x$Centroid, xlab = "Class", ylab = "Count")
+qplot(x$Class, xlab = "Class", ylab = "Count")
+x = read.csv("rbf.csv")
+qplot(x$Class, xlab = "Class", ylab = "Count")
+
+row.names(x)
+
+
+rbftimeline("rbf.csv")
+rbftimeline = function(filename) {
+xd = read.csv(filename);
+xd$Centroid = as.character(xd$Centroid);
+xg = ggplot(aes(x= rowid, y= Centroid, color=Class, shape=Centroid), data = xd);
+xg + geom_point(size=2)
+}
+
+
+rbftimeline("rbf.csv")
+rbftimeline = function(filename) {
+xd = read.csv(filename);
+xd$Centroid = as.character(xd$Centroid);
+xd$Instance = 1:200;
+xg = ggplot(xd, aes(Instance, Centroid, color=Class));
+xg + geom_point(size=2)
+}
+rbftimeline("rbf.csv")
+
+vartimeline = function(filename) {
+xd = read.csv(filename);
+xd$Pool = as.character(xd$Pool);
+xd$Instance = 1:200;
+xg = ggplot(xd, aes(Instance, Pool, color=Class));
+xg + geom_point(size=2)
+}
+
+vartimeline("var.csv")
+savehistory("D:/Thesis/tex/src/treetests/r.txt")
