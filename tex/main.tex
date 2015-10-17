@@ -21,6 +21,9 @@
 \newif\if@restonecol
 \makeatother
 
+\usepackage[titletoc]{appendix}
+\usepackage{rotating}
+
 %ALGORITHM
 \let\algorithm\relax
 \let\endalgorithm\relax
@@ -66,24 +69,33 @@
 \newcommand{\eat}[1]{}
 \hyphenation{}
 
-\usepackage[titletoc]{appendix}
+
+\input{misc/infocmd.tex}
+
+
 
 \begin{document}
 
-\title{Ensemble Learning in Data Streams}
+\input{misc/cover.tex}
+\clearpage
+
+\frontmatter
+\input{misc/title.tex}
+\clearpage
+\input{misc/declaration.tex}
+\clearpage
+\input{misc/acknowledgements.tex}
+\clearpage
+\input{misc/spine.tex} \clearpage
 
 
-\author{
-Hossain Mahmud \\
-Technische Universit\"at M\"unchen\\
-mahmud@in.tum.de\\
-}
 
-\date{}
-
-%\maketitle
+\setcounter{page}{1}
 \pagenumbering{roman}
 \onehalfspacing
+\input{misc/abstract.tex}
+\clearpage
+%\maketitle
 \addcontentsline{toc}{chapter}{Contents}
 \tableofcontents
 \clearpage
@@ -98,33 +110,38 @@ mahmud@in.tum.de\\
 
 \listofalgorithms
 \addcontentsline{toc}{chapter}{List of Algorithms}
-\clearpage
+\cleardoublepage
 
+
+
+\mainmatter
 %\normalsize
 \onehalfspacing
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
-
 \input{introduction.tex}
 %\input{literature.tex}
 \input{background.tex}
-\input{dataset.tex}
 \input{algorithm.tex}
+\input{dataset.tex}
 \input{exp.tex}
+\input{conclusion.tex}
+\cleardoublepage
 
-
-
-\chapter{Conclusion}
-\section{Contribution}
-\section{Future Works}
-\section{Open Issues}
 
 \bibliographystyle{apalike}
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliography{ref}
+\clearpage
 
+\begin{appendices}
+    \appendixpage
+    \noappendicestocpagenum
+    \addappheadtotoc
+    
+    \input{appendix.tex}    
+\end{appendices}
 
-\input{appendix.tex}
 
 \end{document}
