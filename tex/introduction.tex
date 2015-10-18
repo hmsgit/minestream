@@ -53,16 +53,11 @@ In reality many practical scenarios does not follow a uniform distribution for d
 
 In another example, lets consider profiling of cell phone user based on the phone usages. Typically, young people are more inclined towards using data services than voice services while the professional and elderly people mostly rely on voice services. Thus, if the profiling algorithm should consider this differences in rates in which different user groups are using the services.
 
-To get a clearer picture of the locality of data activation and rate in which data are generated, let's consider the social media statistics. As of the second quarter of 2015, Facebook had 1.49 billion monthly active users. In the third quarter of 2012, the number of active Facebook users had surpassed 1 billion. Active users are those who have logged in to Facebook during the last 30 days. It was only on the August 28, 2015 that Facebook had 1 billion user on a single day. Let assume that we want to do a sentiment analysis over the data set collected from a week of data of Facebook. Even though the class distribution (positive and negative sentiments)  may remain balanced, however, more active users will clearly overshadow the inputs given by the less active users. Similarly, about 300 million user produces 500 million tweets per day on Twitter. Figure~\ref{fig:intro:tweets} shows tweets for 5 different hashtags namely \#Trump, \#Syria, \#football, \#Volkswagen, and \#eclipse for the month of September 2015. 
+To get a clearer picture of the locality of data activation and rate in which data are generated, let's consider the social media statistics. As of the second quarter of 2015, Facebook had 1.49 billion monthly active users. In the third quarter of 2012, the number of active Facebook users had surpassed 1 billion. Active users are those who have logged in to Facebook during the last 30 days. It was only on the August 28, 2015 that Facebook had 1 billion user on a single day. Let assume that we want to do a sentiment analysis over the data set collected from a week of data of Facebook. Even though the class distribution (positive and negative sentiments)  may remain balanced, however, more active users will clearly overshadow the inputs given by the less active users. Similarly, about 300 million user produces 500 million tweets per day on Twitter. Figure~\ref{fig:intro:tweets} shows tweets for 5 different hashtags namely \#Trump, \#Syria, \#football, \#Volkswagen, and \#eclipse for the month of September 2015 (\cite{internet:topsy:tweets}). 
 \begin{figure}[htbp] 
     \begin{center}
-        \begin{tabular}{cc}
-            \resizebox{70mm}{!}{\includegraphics{figs/tweet-trump-football-syria.png}} &
-            \resizebox{70mm}{!}{\includegraphics{figs/tweet-trump-vw-eclipse.png}} \\
-            \scriptsize{(a)\vspace{2mm}} &
-            \scriptsize{(b)}    
-        \end{tabular}
-        \caption{Number of tweets for different hashtags \cite{internet:topsy:tweets}}
+            \resizebox{110mm}{!}{\includegraphics{figs/tweets.pdf}}
+        \caption{Number of tweets for different hashtags }
         \label{fig:intro:tweets}
     \end{center}
 \end{figure}
@@ -94,20 +89,9 @@ We use this setup for a modified bagging scheme introduced in~\cite{bifet09:asht
 
 \input{literature.tex}
 
-\section{Contributions}
-In summary, the main contributions of this thesis in the domain are following:
-
-\begin{itemize}
-    \item Detailed survey of the existing literature.
-    \item As extensive experimental evaluation of decision tree based stream mining and ensemble approaches.
-    \item A new look at the composition of various real-world streams e.g. social networks.
-    \item Adaptation of Adaptive Size Hoeffding Tree into Size Restricted Hoeffding Tree.
-    \item Combining the concepts of adaptation of concept by maintaining alternate tree and reseting of tree.
-    \item Adaptation of bagging method to improve performance for slower streams, as well as to overcome limitation of ASHT.
-    \item Adaptation of a data generation of approach to facilitate slow/fast, burst, recurrent behavior in a randomized data stream.
-    \item Finally, presented justification of the new approach using real-world and synthesized data set.
-\end{itemize}
+\section{Thesis Accomplishments}
+The primary objective of this thesis is to devise an algorithm realizing the intuition discussed so. In doing so, an extensive survey of existing literature is performed. The most relevant portion of which is already been presented in previous section. The rest is attached at the end of the thesis (see Appendix~\ref{appndx:erw}). This thesis presents a new way to look at the composition of various real-world streams e.g. social networks. Based on that, a new data generation of approach to facilitate slow/fast, burst, recurrent behavior in a randomized data stream is proposed here. In a effort to combine the idea of adaptive size Hoeffding tree and adaptive Hoeffding tree using ADWIN, a new ensemble methods is devised aiming to improve performance for slower streams. Lastly, a comprehensive empirical comparison of current Hoeffding tree based approaches is performed and justification of the new approach is performed using synthesized data.
 
 
 \section{Outline}
-This article is organized as follows: Chapter~\ref{chp:relworks} presents a broad survey of present literature. Chapter~\ref{chp:background} presents the base concepts required for the algorithm. In both of these chapters, we first discussed basic machine learning methods, then moved on to streaming adaptations of those methods, and finally their usages in ensemble approaches. In Chapter~\ref{chp:dataset}, we present the datasets and data generation process used in the experimentation. We discuss one stream generation method namely random RBF generator in details, and based on that, we introduced our variable speed RBF generator in this chapter. Chapter~\ref{chp:algo} presents our algorithms addressing the motivation and intuition of this chapter. ...
+The rest of the article is organized as follows: Chapter~\ref{chp:background} presents the base concepts required for the algorithm. We first discussed the basic streaming adaptations of batched methods, and later their usages in ensemble approaches. Chapter~\ref{chp:algo} precisely defines the problem and discusses the development of our algorithm addressing the motivation and intuition of this chapter. In Chapter~\ref{chp:dataset} existing datasets are discussed first and a new data generation scheme is explained that fulfills the requirements discussed in the intuition section. Finally before concluding the thesis in Chapter~\ref{chp:conclude}, in Chapter~\ref{chp:exp} we detailed the experimental evaluation process and findings. Extensive evaluation is performed to compare existing methods, as well as, method devised in Chapter~\ref{chp:algo}. 

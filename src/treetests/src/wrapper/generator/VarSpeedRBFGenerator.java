@@ -30,6 +30,7 @@ import weka.core.Instances;
 public class VarSpeedRBFGenerator extends AbstractOptionHandler implements
         InstanceStream  {
 
+    public int _curPoolIndex;
     public int _curCentroidIndex;
     
     @Override
@@ -91,7 +92,7 @@ public class VarSpeedRBFGenerator extends AbstractOptionHandler implements
     public int numInstancesToReconfig;
     public ArrayList<InstancePool> nextInstances;
     
-    public VarSpeedRBFGenerator() {init(100, 5, 10000);}
+    public VarSpeedRBFGenerator() {init(100, 5, 1000);}
     public VarSpeedRBFGenerator(int centroid, int pool, int reconflimit) {
         init(centroid, pool, reconflimit);
     }
@@ -215,7 +216,7 @@ public class VarSpeedRBFGenerator extends AbstractOptionHandler implements
         
         
         for (int p = 0; p < pools.length; p++) {
-            for (int j = 0; j < numInstancesToReconfig * (p+1) * (p+1); j++) {
+            for (int j = 0; j < numInstancesToReconfig * (p+1); j++) {
                 
                 int index = MiscUtils.chooseRandomIndexBasedOnWeights(this.centroidWeights,
                     this.instanceRandom);
@@ -245,7 +246,7 @@ public class VarSpeedRBFGenerator extends AbstractOptionHandler implements
                 inst.setDataset(getHeader());
                 inst.setClassValue(centroid.classLabel);
 
-                nextInstances.add(new InstancePool(inst, p));
+                nextInstances.add(new InstancePool(inst, p, index));
             }
         }
         long seed = System.nanoTime();
@@ -258,7 +259,8 @@ public class VarSpeedRBFGenerator extends AbstractOptionHandler implements
             xnextInstance();
             reconfig();
         }
-        _curCentroidIndex = nextInstances.get(0)._pool;
+        _curPoolIndex = nextInstances.get(0)._pool;
+        _curCentroidIndex = nextInstances.get(0)._cent;
         return nextInstances.remove(0)._inst;
     }
     
@@ -316,9 +318,10 @@ public class VarSpeedRBFGenerator extends AbstractOptionHandler implements
         }
         for (int i = 0; i < pools.length; i++) {
             Random poolrand = new Random((int) System.currentTimeMillis());
-            pools[i].activationPercent = 1.0/(i+1) * (i+1);
+            pools[i].activationPercent = 1.0- i* 0.2;//1.0/((i+1) * (i+1));
+            int active =(int) (pools[i].centroidIndices.size() * pools[i].activationPercent);
             int toDeactivate = pools[i].centroidIndices.size() 
-                    - (int) (pools[i].centroidIndices.size() * pools[i].activationPercent);
+                    - active;
             
             for (int j = 0, k = 0; k < toDeactivate; j++) {
                 int index = pools[i].centroidIndices.get(j % pools[i].centroidIndices.size());
@@ -327,8 +330,14 @@ public class VarSpeedRBFGenerator extends AbstractOptionHandler implements
                     centroids[index].isActive = false;
                     k++;
                 }
-                centroids[index].driftCoeffient = 1.0 - 1.0/(i+1);
+                centroids[index].driftCoeffient = this.speedChangeOption.getValue() * (1.0 - 1.0/(i+1));
             }
+        }
+        for (int i = 0; i < pools.length; i++) {
+            for (int j = 0; j < pools[i].centroidIndices.size(); j++) {
+                System.out.print(pools[i].centroidIndices.get(j) + " " + centroids[pools[i].centroidIndices.get(j)].isActive + "\t");
+            }
+            System.out.println();
         }
     }
 }

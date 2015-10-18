@@ -1,0 +1,15 @@
+Algorithm,Accuracy
+MLP,83.27
+C4.5,83.48
+PART,82.50
+SVM,82.80
+HT,82.92
+AdaHT,82.83
+ASHT,81.35
+BagHT,82.5
+BagAdaHT,82.6
+BagAdwin,82.86
+BagASHT,81.26
+BagSRHT,83.20
+BoostHT,82.60
+BoostAdaHT,82.20

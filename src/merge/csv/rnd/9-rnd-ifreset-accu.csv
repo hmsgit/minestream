@@ -1,0 +1,14 @@
+X,Algorithm,value
+0,AdaHT,53.48
+false,ASHT,55.63
+true,ASHT,54.85
+0,BagAdaHT,54.34
+0,BagAdwin,56.83
+false,BagASHT,56.84
+true,BagASHT,56.53
+0,BagHT,54.05
+false,BagSRHT,57.51
+true,BagSRHT,57.51
+0,BoostAdaHT,53.73
+0,BoostHT,53.22
+0,HT,53.15

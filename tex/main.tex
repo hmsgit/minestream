@@ -23,6 +23,8 @@
 
 \usepackage[titletoc]{appendix}
 \usepackage{rotating}
+\usepackage{epigraph}
+\usepackage{float}
 
 %ALGORITHM
 \let\algorithm\relax
@@ -86,7 +88,7 @@
 \clearpage
 \input{misc/acknowledgements.tex}
 \clearpage
-\input{misc/spine.tex} \clearpage
+%\input{misc/spine.tex} \clearpage
 
 
 
@@ -96,20 +98,22 @@
 \input{misc/abstract.tex}
 \clearpage
 %\maketitle
+\linespread{1.0}
 \addcontentsline{toc}{chapter}{Contents}
 \tableofcontents
 \clearpage
 
-\listoftables
+\onehalfspacing
 \addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
 \clearpage
 
-\listoffigures
 \addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
 \clearpage
 
-\listofalgorithms
 \addcontentsline{toc}{chapter}{List of Algorithms}
+\listofalgorithms
 \cleardoublepage
 
 

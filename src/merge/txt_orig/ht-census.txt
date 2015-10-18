@@ -1,0 +1,165 @@
+HT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.902,	34093,	2902,	6247,	5435,	82.92,	49.32,	53.28,	146,	3,	46,	7,	39,	0,	0,	0,	0,	0,	0,	0,	0,	0,	
+
+
+
+
+
+HT-census
+
+GracePeriod:,	400,	TieThreshold:,	0.05,	BinarySplit:,	false
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.35,	34254,	2741,	6089,	5593,	82.93,	48.82,	53.3,	146,	3,	46,	7,	39,	0,	0,	0,	0,	0,	0,	0,	0,	0,	
+
+
+
+
+
+HT-census
+
+GracePeriod:,	800,	TieThreshold:,	0.05,	BinarySplit:,	false
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.29,	34367,	2781,	6132,	5553,	82.93,	48.97,	53.32,	132,	3,	42,	5,	37,	0,	0,	0,	0,	0,	0,	0,	0,	0,	
+
+
+
+
+
+HT-census
+
+GracePeriod:,	1600,	TieThreshold:,	0.05,	BinarySplit:,	false
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.27,	34367,	2781,	6132,	5553,	82.93,	48.97,	53.32,	132,	3,	42,	5,	37,	0,	0,	0,	0,	0,	0,	0,	0,	0,	
+
+
+
+
+
+HT-census
+
+GracePeriod:,	3200,	TieThreshold:,	0.05,	BinarySplit:,	false
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.3,	34340,	2808,	6148,	5537,	82.91,	48.97,	53.25,	132,	3,	42,	5,	37,	0,	0,	0,	0,	0,	0,	0,	0,	0,	
+
+
+
+
+
+HT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.001,	BinarySplit:,	false
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.265,	34363,	2785,	6151,	5534,	82.97,	49.1,	53.4,	51,	2,	16,	2,	14,	0,	0,	0,	0,	0,	0,	0,	0,	0,	
+
+
+
+
+
+HT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.005,	BinarySplit:,	false
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.26,	34363,	2785,	6151,	5534,	82.97,	49.1,	53.4,	51,	2,	16,	2,	14,	0,	0,	0,	0,	0,	0,	0,	0,	0,	
+
+
+
+
+
+HT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.01,	BinarySplit:,	false
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.27,	34363,	2785,	6151,	5534,	82.97,	49.1,	53.4,	51,	2,	16,	2,	14,	0,	0,	0,	0,	0,	0,	0,	0,	0,	
+
+
+
+
+
+HT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.29,	34093,	2902,	6247,	5435,	82.92,	49.32,	53.28,	146,	3,	46,	7,	39,	0,	0,	0,	0,	0,	0,	0,	0,	0,	
+
+
+
+
+
+HT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.1,	BinarySplit:,	false
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.29,	32664,	3259,	6385,	5288,	82.47,	48.79,	52.06,	473,	6,	140,	52,	88,	0,	0,	0,	0,	0,	0,	0,	0,	0,	
+
+
+
+
+
+HT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	true
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.2,	34423,	2632,	5868,	5816,	82.7,	47.58,	52.67,	123,	6,	35,	17,	18,	0,	0,	0,	0,	0,	0,	0,	0,	0,	
+
+
+
+
+
+HT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	true
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.2,	34423,	2632,	5868,	5816,	82.7,	47.58,	52.67,	123,	6,	35,	17,	18,	0,	0,	0,	0,	0,	0,	0,	0,	0,	
+
+
+
+
+
+HT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	true
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.16,	34423,	2632,	5868,	5816,	82.7,	47.58,	52.67,	123,	6,	35,	17,	18,	0,	0,	0,	0,	0,	0,	0,	0,	0,	
+
+
+
+
+
+HT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	true
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.22,	34423,	2632,	5868,	5816,	82.7,	47.58,	52.67,	123,	6,	35,	17,	18,	0,	0,	0,	0,	0,	0,	0,	0,	0,	
+
+
+
+
+
+HT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	true
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.22,	34423,	2632,	5868,	5816,	82.7,	47.58,	52.67,	123,	6,	35,	17,	18,	0,	0,	0,	0,	0,	0,	0,	0,	0,	
+
+
+
+
+

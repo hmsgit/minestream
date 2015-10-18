@@ -1,0 +1,300 @@
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	1
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.29,	33953,	3044,	6234,	5402,	82.6,	48.58,	52.41,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	2
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.43,	34409,	2714,	6006,	5670,	82.81,	48.29,	52.99,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	3
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.69,	34315,	2828,	6116,	5569,	82.81,	48.64,	52.96,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	4
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.85,	34258,	2890,	6216,	5469,	82.88,	49.13,	53.18,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	1.0,	34337,	2809,	6167,	5518,	82.95,	49.12,	53.35,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	6
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	1.23,	34314,	2833,	6224,	5461,	83.02,	49.45,	53.54,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	7
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	1.46,	34382,	2766,	6152,	5533,	83.01,	49.19,	53.51,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	8
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	1.587,	34375,	2772,	6143,	5543,	82.97,	49.09,	53.42,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	9
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	1.835,	34405,	2743,	6201,	5484,	83.15,	49.68,	53.92,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	10
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	1.965,	34425,	2723,	6107,	5578,	83.0,	49.04,	53.5,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.99,	34337,	2809,	6167,	5518,	82.95,	49.12,	53.35,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	400,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.94,	34243,	2905,	6262,	5423,	82.95,	49.42,	53.35,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	800,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.93,	34339,	2809,	6207,	5478,	83.03,	49.43,	53.58,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	1600,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.923,	34420,	2728,	6098,	5587,	82.97,	48.95,	53.42,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	3200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.937,	34494,	2653,	6046,	5639,	83.02,	48.88,	53.55,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.001,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.8,	34455,	2693,	6088,	5597,	83.02,	49.03,	53.56,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.005,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.79,	34455,	2693,	6088,	5597,	83.02,	49.03,	53.56,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.01,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.79,	34455,	2693,	6088,	5597,	83.02,	49.03,	53.56,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.05,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.95,	34337,	2809,	6167,	5518,	82.95,	49.12,	53.35,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.1,	BinarySplit:,	false,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	1.38,	33571,	3197,	6505,	5176,	82.85,	49.97,	53.07,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.01,	BinarySplit:,	true,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.893,	34727,	2421,	5797,	5888,	82.99,	47.97,	53.46,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.01,	BinarySplit:,	true,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.88,	34727,	2421,	5797,	5888,	82.99,	47.97,	53.46,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.01,	BinarySplit:,	true,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.88,	34727,	2421,	5797,	5888,	82.99,	47.97,	53.46,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.01,	BinarySplit:,	true,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.875,	34727,	2421,	5797,	5888,	82.99,	47.97,	53.46,	
+
+
+
+
+
+OzaBagAdaHT-census
+
+GracePeriod:,	200,	TieThreshold:,	0.01,	BinarySplit:,	true,	BaseClassifier:,	HT,	
+EnsembleSize:,	5
+Count,	Time,	TP,	FN,	TN,	FP,	Accu,	Kappa,	Kpa_t,	Mem,	Depth,	TSize,	DcNod,	ActLf,	InacLf,	Reset,	Alter,	Switch,	Prune,	ClOp0,	ClOp1,	ClOp2,	ClOp3
+
+48840,	0.885,	34727,	2421,	5797,	5888,	82.99,	47.97,	53.46,	
+
+
+
+
+

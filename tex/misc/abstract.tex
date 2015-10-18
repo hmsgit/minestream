@@ -1,5 +1,7 @@
 \chapter{\abstractname}
-
-%TODO: Abstract
-
+To handle the enormous amount of data being produced by various application these days, stream mining algorithms have been developed where the assumption from batched approaches of data being sampled from a stationary distribution is relaxed.
+However, most of these stream mining approaches assume that sources of these data within the stream contributes evenly to the stream.
+Many of the modern applications violate this assumption. Many streams are decomposable to a number of sub-streams with mutually exclusive sources. Some of these sources produce very high volume of data in short period of time, while other produces a significant amount data over a longer period of time. Each source may produce data for all or some classes.
+As the learners try to update themselves with the most recent data, they often loose information about these slow but important sources.
+In this thesis, we investigate various aspects of such a setup for Hoeffding tree based learners. We also modify an existing algorithm to introduce our size restricted Hoeffding tree (SRHT) to used with our carry-over bagging (CoBag) which devised from online Oza bagging approach. With extensive experimental study, we show that the new approach is more stable for learning streams that can be decomposed into speed-varied sub-streams.
 

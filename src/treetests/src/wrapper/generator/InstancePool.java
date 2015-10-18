@@ -14,8 +14,9 @@ import weka.core.Instance;
 public class InstancePool {
     public Instance _inst;
     public int _pool;
+    public int _cent;
     
-    public InstancePool(Instance inst, int pool) {
-        _inst = inst; _pool = pool;
+    public InstancePool(Instance inst, int pool, int cent) {
+        _inst = inst; _pool = pool; _cent = cent;
     }
 }

@@ -5,6 +5,8 @@ library(reshape2)
 ylim(2, 4)
 filename = "test"
 
+ggplot(cia, aes(Algorithm, Accuracy)) + geom_bar(stat="identity") + coord_cartesian(ylim=c(75,85)) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+ggplot(pool, aes(Pool, Accuracy, fill=Algorithm)) + geom_bar(stat="identity", position="dodge") + coord_cartesian(ylim=c(50,95))
 
 myfuncxx = function(filename, xlab, ylab, legend) {
 	orig = read.csv(paste0(filename, ".csv", sep = ""))
@@ -48,6 +50,9 @@ myfuncx = function(filename, xlab, ylab, legend) {
 	dev.off()
 }
 
+library(ggplot2)
+library(scales)
+library(reshape2)
 myfunc = function(filename, xlab, ylab, legend) {
     orig = read.csv(paste0(filename, ".csv", sep = ""))
     #data = melt(orig, id.vars=c("X"))
@@ -92,12 +97,12 @@ myfunc2 = function(filename, xlab, ylab, legend) {
 
 
 
-myfunc2("1-rnd-speed-accu",		"Drift coefficient",	"Accuracy",	"Algorithm")
-myfunc2("1-rnd-speed-depth",		"Drift coefficient",	"Depth",	"Algorithm")
-myfunc2("1-rnd-speed-kappa",		"Drift coefficient",	"Kappa",	"Algorithm")
-myfunc2("1-rnd-speed-memory",	"Drift coefficient",	"Memory",	"Algorithm")
-myfunc2("1-rnd-speed-time",		"Drift coefficient",	"Time",		"Algorithm")
-myfunc2("1-rnd-speed-tsize",		"Drift coefficient",	"Tree size","Algorithm")
+myfunc("1-rnd-speed-accu",		"Drift coefficient",	"Accuracy",	"Algorithm")
+myfunc("1-rnd-speed-depth",		"Drift coefficient",	"Depth",	"Algorithm")
+myfunc("1-rnd-speed-kappa",		"Drift coefficient",	"Kappa",	"Algorithm")
+myfunc("1-rnd-speed-memory",	"Drift coefficient",	"Memory",	"Algorithm")
+myfunc("1-rnd-speed-time",		"Drift coefficient",	"Time",		"Algorithm")
+myfunc("1-rnd-speed-tsize",		"Drift coefficient",	"Tree size","Algorithm")
 
 myfunc2("2-rnd-grace-accu",		"Grace period",	"Accuracy",	"Algorithm")
 myfunc2("2-rnd-grace-depth",		"Grace period",	"Depth",	"Algorithm")
@@ -163,12 +168,12 @@ myfunc("10-rnd-firsttree-time",		"Size of the first tree",	"Time",		"Algorithm")
 myfunc("10-rnd-firsttree-tsize",	"Size of the first tree",	"Tree size","Algorithm")
 
 
-myfunc2("1-vs-speed-accu",		"Drift coefficient",	"Accuracy",	"Algorithm")
-myfunc2("1-vs-speed-depth",		"Drift coefficient",	"Depth",	"Algorithm")
-myfunc2("1-vs-speed-kappa",		"Drift coefficient",	"Kappa",	"Algorithm")
-myfunc2("1-vs-speed-memory",	"Drift coefficient",	"Memory",	"Algorithm")
-myfunc2("1-vs-speed-time",		"Drift coefficient",	"Time",		"Algorithm")
-myfunc2("1-vs-speed-tsize",		"Drift coefficient",	"Tree size","Algorithm")
+myfunc("1-vs-speed-accu",		"Drift coefficient",	"Accuracy",	"Algorithm")
+myfunc("1-vs-speed-depth",		"Drift coefficient",	"Depth",	"Algorithm")
+myfunc("1-vs-speed-kappa",		"Drift coefficient",	"Kappa",	"Algorithm")
+myfunc("1-vs-speed-memory",	"Drift coefficient",	"Memory",	"Algorithm")
+myfunc("1-vs-speed-time",		"Drift coefficient",	"Time",		"Algorithm")
+myfunc("1-vs-speed-tsize",		"Drift coefficient",	"Tree size","Algorithm")
 
 myfunc2("2-vs-grace-accu",		"Grace period",	"Accuracy",	"Algorithm")
 myfunc2("2-vs-grace-depth",		"Grace period",	"Depth",	"Algorithm")
@@ -232,6 +237,35 @@ myfunc("10-vs-firsttree-kappa",	"Size of the first tree",	"Kappa",	"Algorithm")
 myfunc("10-vs-firsttree-memory",	"Size of the first tree",	"Memory",	"Algorithm")
 myfunc("10-vs-firsttree-time",		"Size of the first tree",	"Time",		"Algorithm")
 myfunc("10-vs-firsttree-tsize",	"Size of the first tree",	"Tree size","Algorithm")
+
+
+
+
+myfunc2("1-rnd-count-accu",			"Instance count",	"Accuracy",		"Algorithm")
+myfunc2("1-rnd-count-kappa",			"Instance count",	"Kappa",		"Algorithm")
+myfunc2("1-rnd-count-time",			"Instance count",	"Processing time",		"Algorithm")
+myfunc2("1-rnd-count-depth",			"Instance count",	"Tree depth",		"Algorithm")
+myfunc2("1-rnd-count-tsize",			"Instance count",	"Tree size",		"Algorithm")
+myfunc2("1-rnd-count-reset",			"Instance count",	"Number of reset",		"Algorithm")
+
+
+myfunc2("1-vs-count-accu",			"Instance count",	"Accuracy",		"Algorithm")
+myfunc2("1-vs-count-depth",			"Instance count",	"Tree depth",		"Algorithm")
+myfunc2("1-vs-count-kappa",			"Instance count",	"Kappa",		"Algorithm")
+myfunc2("1-vs-count-time",			"Instance count",	"Processing time",		"Algorithm")
+myfunc2("1-vs-count-tsize",			"Instance count",	"Tree size",		"Algorithm")
+myfunc2("1-vs-count-reset",			"Instance count",	"Number of reset",		"Algorithm")
+
+var = read.csv("var.csv")
+var$Instance = 1:2000
+ggplot(var, aes(Instance, Centroid, color=Pool, shape=Class))+ geom_point(size=2)
+
+
+
+
+
+
+
 
 
 

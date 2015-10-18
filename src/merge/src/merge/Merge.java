@@ -30,20 +30,20 @@ public class Merge {
 //                                else if (type == 9) x.algo = "BoostAdaHT";
     public static void main(String[] args) {
         Read r = new Read();
-        r.read("D:/Thesis/tex/src/merge/txt/ht-randrbf.txt", 0);
-        r.read("D:/Thesis/tex/src/merge/txt/adaht-randrbf.txt", 1);
-        r.read("D:/Thesis/tex/src/merge/txt/asht-randrbf.txt", 2);
+//        r.read("D:/Thesis/tex/src/merge/txt/ht-randrbf.txt", 0);
+//        r.read("D:/Thesis/tex/src/merge/txt/adaht-randrbf.txt", 1);
+//        r.read("D:/Thesis/tex/src/merge/txt/asht-randrbf.txt", 2);
+//        
+//        r.read("D:/Thesis/tex/src/merge/txt/ozabaght-randrbf.txt", 3);
+//        r.read("D:/Thesis/tex/src/merge/txt/ozabagadaht-randrbf.txt", 4);
+//        r.read("D:/Thesis/tex/src/merge/txt/ozabagadwin-randrbf.txt", 5);
+//        r.read("D:/Thesis/tex/src/merge/txt/ozabagasht-randrbf.txt", 6);
+//        r.read("D:/Thesis/tex/src/merge/txt/ozabagsrht-randrbf.txt", 7);
+//        
+//        r.read("D:/Thesis/tex/src/merge/txt/ozaboostht-randrbf.txt", 8);
+//        r.read("D:/Thesis/tex/src/merge/txt/ozaboostadaht-randrbf.txt", 9);
         
-        r.read("D:/Thesis/tex/src/merge/txt/ozabaght-randrbf.txt", 3);
-        r.read("D:/Thesis/tex/src/merge/txt/ozabagadaht-randrbf.txt", 4);
-        r.read("D:/Thesis/tex/src/merge/txt/ozabagadwin-randrbf.txt", 5);
-        r.read("D:/Thesis/tex/src/merge/txt/ozabagasht-randrbf.txt", 6);
-        r.read("D:/Thesis/tex/src/merge/txt/ozabagsrht-randrbf.txt", 7);
-        
-        r.read("D:/Thesis/tex/src/merge/txt/ozaboostht-randrbf.txt", 8);
-        r.read("D:/Thesis/tex/src/merge/txt/ozaboostadaht-randrbf.txt", 9);
-        
-        r.dtname = "VSRBF";
+        r.dtname = "VSRBF2";
         r.read("D:/Thesis/tex/src/merge/txt/ht-processedrbf.txt", 0);
         r.read("D:/Thesis/tex/src/merge/txt/adaht-processedrbf.txt", 1);
         r.read("D:/Thesis/tex/src/merge/txt/asht-processedrbf.txt", 2);

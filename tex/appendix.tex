@@ -1,15 +1,9 @@
 \chapter{Additional Plots}
 \label{appndx:plots}
+\section*{Parameter Analysis}
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-%            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{1-rnd-speed-accu}.pdf}} &
-%            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{1-vs-speed-accu}.pdf}} \\
-%            \scriptsize{(a)} & \scriptsize{(d)} \\
-%            
-%            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{1-rnd-speed-time}.pdf}} &
-%            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{1-vs-speed-time}.pdf}} \\
-%            \scriptsize{(b)} & \scriptsize{(e)} \\
             
             \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{1-rnd-speed-kappa}.pdf}} &
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{1-vs-speed-kappa}.pdf}} \\
@@ -20,6 +14,7 @@
         \label{fig:apndeffect:speed1}
     \end{center}
 \end{figure}
+
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
@@ -27,10 +22,27 @@
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{1-vs-speed-depth}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(d)} \\
             
+        \end{tabular}
+        \caption{Effect of drift coefficient on structure (a-c) random RBF (d-f) VS RBF}
+        \label{fig:apndeffect:speed2}
+    \end{center}
+\end{figure}
+\begin{figure}[htbp] 
+    \begin{center}
+        \begin{tabular}{cc}
+            
             \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{1-rnd-speed-tsize}.pdf}} &
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{1-vs-speed-tsize}.pdf}} \\
             \scriptsize{(b)} & \scriptsize{(e)} \\
             
+        \end{tabular}
+        \caption{Effect of drift coefficient on structure (a-c) random RBF (d-f) VS RBF}
+        \label{fig:apndeffect:speed2}
+    \end{center}
+\end{figure}
+\begin{figure}[htbp] 
+    \begin{center}
+        \begin{tabular}{ccc}
             \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{1-rnd-speed-memory}.pdf}} &
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{1-vs-speed-memory}.pdf}} \\
             \scriptsize{(c)} & \scriptsize{(f)} \\
@@ -44,28 +56,6 @@
 
 
 
-
-
-\begin{figure}[htbp] 
-    \begin{center}
-        \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{2-rnd-grace-accu}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{2-vs-grace-accu}.pdf}} \\
-            \scriptsize{(a)} & \scriptsize{(d)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{2-rnd-grace-time}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{2-vs-grace-time}.pdf}} \\
-            \scriptsize{(b)} & \scriptsize{(e)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{2-rnd-grace-kappa}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{2-vs-grace-kappa}.pdf}} \\
-            \scriptsize{(c)} & \scriptsize{(f)} \\
-            
-        \end{tabular}
-        \caption{Effect of grace period on performance (a-c) random RBF (d-f) VS RBF}
-        \label{fig:apndeffect:grace1}
-    \end{center}
-\end{figure}
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
@@ -73,9 +63,16 @@
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{2-vs-grace-depth}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(d)} \\
             
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{2-rnd-grace-tsize}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{2-vs-grace-tsize}.pdf}} \\
-            \scriptsize{(b)} & \scriptsize{(e)} \\
+            
+        \end{tabular}
+        \caption{Effect of grace period on structure (a-c) random RBF (d-f) VS RBF}
+        \label{fig:apndeffect:grace2}
+    \end{center}
+\end{figure}
+
+\begin{figure}[htbp] 
+    \begin{center}
+        \begin{tabular}{cc}
             
             \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{2-rnd-grace-memory}.pdf}} &
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{2-vs-grace-memory}.pdf}} \\
@@ -87,42 +84,11 @@
     \end{center}
 \end{figure}
 
-\clearpage
-
-
-
 
 
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{3-rnd-centroid-accu}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{3-vs-centroid-accu}.pdf}} \\
-            \scriptsize{(a)} & \scriptsize{(d)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{3-rnd-centroid-time}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{3-vs-centroid-time}.pdf}} \\
-            \scriptsize{(b)} & \scriptsize{(e)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{3-rnd-centroid-kappa}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{3-vs-centroid-kappa}.pdf}} \\
-            \scriptsize{(c)} & \scriptsize{(f)} \\
-            
-        \end{tabular}
-        \caption{Effect of number of centroids on performance (a-c) random RBF (d-f) VS RBF}
-        \label{fig:apndeffect:centroid1}
-    \end{center}
-\end{figure}
-\begin{figure}[htbp] 
-    \begin{center}
-        \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{3-rnd-centroid-depth}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{3-vs-centroid-depth}.pdf}} \\
-            \scriptsize{(a)} & \scriptsize{(d)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{3-rnd-centroid-tsize}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{3-vs-centroid-tsize}.pdf}} \\
-            \scriptsize{(b)} & \scriptsize{(e)} \\
             
             \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{3-rnd-centroid-memory}.pdf}} &
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{3-vs-centroid-memory}.pdf}} \\
@@ -139,17 +105,10 @@
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{4-rnd-driftcentroid-accu}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{4-vs-driftcentroid-accu}.pdf}} \\
-            \scriptsize{(a)} & \scriptsize{(d)} \\
             
             \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{4-rnd-driftcentroid-time}.pdf}} &
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{4-vs-driftcentroid-time}.pdf}} \\
             \scriptsize{(b)} & \scriptsize{(e)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{4-rnd-driftcentroid-kappa}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{4-vs-driftcentroid-kappa}.pdf}} \\
-            \scriptsize{(c)} & \scriptsize{(f)} \\
             
         \end{tabular}
         \caption{Effect of percentage of drift centroids on performance (a-c) random RBF (d-f) VS RBF}
@@ -159,13 +118,19 @@
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{4-rnd-driftcentroid-depth}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{4-vs-driftcentroid-depth}.pdf}} \\
-            \scriptsize{(a)} & \scriptsize{(d)} \\
-            
             \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{4-rnd-driftcentroid-tsize}.pdf}} &
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{4-vs-driftcentroid-tsize}.pdf}} \\
             \scriptsize{(b)} & \scriptsize{(e)} \\
+            
+            
+        \end{tabular}
+        \caption{Effect of percentage of drift centroids on structure (a-c) random RBF (d-f) VS RBF}
+        \label{fig:apndeffect:driftcentroid2}
+    \end{center}
+\end{figure}
+\begin{figure}[htbp] 
+    \begin{center}
+        \begin{tabular}{cc}
             
             \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{4-rnd-driftcentroid-memory}.pdf}} &
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{4-vs-driftcentroid-memory}.pdf}} \\
@@ -177,29 +142,24 @@
     \end{center}
 \end{figure}
 
-\clearpage
 
 
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{5-rnd-tiethresh-accu}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{5-vs-tiethresh-accu}.pdf}} \\
-            \scriptsize{(a)} & \scriptsize{(d)} \\
             
             \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{5-rnd-tiethresh-time}.pdf}} &
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{5-vs-tiethresh-time}.pdf}} \\
             \scriptsize{(b)} & \scriptsize{(e)} \\
             
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{5-rnd-tiethresh-kappa}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{5-vs-tiethresh-kappa}.pdf}} \\
-            \scriptsize{(c)} & \scriptsize{(f)} \\
             
         \end{tabular}
         \caption{Effect of tie threshold on performance (a-c) random RBF (d-f) VS RBF}
         \label{fig:apndeffect:tiethresh1}
     \end{center}
 \end{figure}
+\clearpage
+
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
@@ -207,21 +167,11 @@
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{5-vs-tiethresh-depth}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(d)} \\
             
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{5-rnd-tiethresh-tsize}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{5-vs-tiethresh-tsize}.pdf}} \\
-            \scriptsize{(b)} & \scriptsize{(e)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{5-rnd-tiethresh-memory}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{5-vs-tiethresh-memory}.pdf}} \\
-            \scriptsize{(c)} & \scriptsize{(f)} \\
-            
         \end{tabular}
         \caption{Effect of tie threshold on structure (a-c) random RBF (d-f) VS RBF}
         \label{fig:apndeffect:tiethresh2}
     \end{center}
 \end{figure}
-
-
 
 \begin{figure}[htbp] 
     \begin{center}
@@ -230,29 +180,31 @@
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{6-vs-binsplit-accu}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(d)} \\
             
+        \end{tabular}
+        \caption{Effect of binary split centroids on performance (a-c) random RBF (d-f) VS RBF}
+        \label{fig:apndeffect:binsplit1}
+    \end{center}
+\end{figure}
+
+
+
+\begin{figure}[H]
+    \begin{center}
+        \begin{tabular}{cc}
             \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{6-rnd-binsplit-time}.pdf}} &
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{6-vs-binsplit-time}.pdf}} \\
             \scriptsize{(b)} & \scriptsize{(e)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{6-rnd-binsplit-kappa}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{6-vs-binsplit-kappa}.pdf}} \\
-            \scriptsize{(c)} & \scriptsize{(f)} \\
             
         \end{tabular}
         \caption{Effect of binary split centroids on performance (a-c) random RBF (d-f) VS RBF}
         \label{fig:apndeffect:binsplit1}
     \end{center}
 \end{figure}
+
+
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{6-rnd-binsplit-depth}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{6-vs-binsplit-depth}.pdf}} \\
-            \scriptsize{(a)} & \scriptsize{(d)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{6-rnd-binsplit-tsize}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{6-vs-binsplit-tsize}.pdf}} \\
-            \scriptsize{(b)} & \scriptsize{(e)} \\
             
             \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{6-rnd-binsplit-memory}.pdf}} &
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{6-vs-binsplit-memory}.pdf}} \\
@@ -264,8 +216,6 @@
     \end{center}
 \end{figure}
 
-\clearpage
-
 
 \begin{figure}[htbp] 
     \begin{center}
@@ -274,85 +224,39 @@
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{7-vs-maxsize-accu}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(d)} \\
             
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{7-rnd-maxsize-time}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{7-vs-maxsize-time}.pdf}} \\
-            \scriptsize{(b)} & \scriptsize{(e)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{7-rnd-maxsize-kappa}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{7-vs-maxsize-kappa}.pdf}} \\
-            \scriptsize{(c)} & \scriptsize{(f)} \\
             
         \end{tabular}
         \caption{Effect of maximum allowed size of tree on performance (a-c) random RBF (d-f) VS RBF}
         \label{fig:apndeffect:maxsize1}
     \end{center}
 \end{figure}
-\begin{figure}[htbp] 
-    \begin{center}
-        \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{7-rnd-maxsize-depth}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{7-vs-maxsize-depth}.pdf}} \\
-            \scriptsize{(a)} & \scriptsize{(d)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{7-rnd-maxsize-tsize}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{7-vs-maxsize-tsize}.pdf}} \\
-            \scriptsize{(b)} & \scriptsize{(e)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{7-rnd-maxsize-memory}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{7-vs-maxsize-memory}.pdf}} \\
-            \scriptsize{(c)} & \scriptsize{(f)} \\
-            
-        \end{tabular}
-        \caption{Effect of maximum allowed size of tree on structure (a-c) random RBF (d-f) VS RBF}
-        \label{fig:apndeffect:maxsize2}
-    \end{center}
-\end{figure}
-
-
-
-\begin{figure}[htbp] 
-    \begin{center}
-        \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{8-rnd-ensize-accu}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{8-vs-ensize-accu}.pdf}} \\
-            \scriptsize{(a)} & \scriptsize{(d)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{8-rnd-ensize-time}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{8-vs-ensize-time}.pdf}} \\
-            \scriptsize{(b)} & \scriptsize{(e)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{8-rnd-ensize-kappa}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{8-vs-ensize-kappa}.pdf}} \\
-            \scriptsize{(c)} & \scriptsize{(f)} \\
-            
-        \end{tabular}
-        \caption{Effect of ensemble size on performance (a-c) random RBF (d-f) VS RBF}
-        \label{fig:apndeffect:ensize1}
-    \end{center}
-\end{figure}
-\begin{figure}[htbp] 
+\begin{figure}[H] 
     \begin{center}
         \begin{tabular}{cc}
             \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{8-rnd-ensize-depth}.pdf}} &
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{8-vs-ensize-depth}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(d)} \\
             
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{8-rnd-ensize-tsize}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{8-vs-ensize-tsize}.pdf}} \\
-            \scriptsize{(b)} & \scriptsize{(e)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{8-rnd-ensize-memory}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{8-vs-ensize-memory}.pdf}} \\
-            \scriptsize{(c)} & \scriptsize{(f)} \\
             
         \end{tabular}
         \caption{Effect of ensemble size on structure (a-c) random RBF (d-f) VS RBF}
         \label{fig:apndeffect:ensize2}
     \end{center}
 \end{figure}
-
-\clearpage
-
+\begin{figure}[htbp] 
+    \begin{center}
+        \begin{tabular}{cc}
+            
+            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{8-rnd-ensize-tsize}.pdf}} &
+            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{8-vs-ensize-tsize}.pdf}} \\
+            \scriptsize{(b)} & \scriptsize{(e)} \\
+            
+            
+        \end{tabular}
+        \caption{Effect of ensemble size on structure (a-c) random RBF (d-f) VS RBF}
+        \label{fig:apndeffect:ensize2}
+    \end{center}
+\end{figure}
 
 \begin{figure}[htbp] 
     \begin{center}
@@ -361,40 +265,11 @@
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{9-vs-ifreset-accu}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(d)} \\
             
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{9-rnd-ifreset-time}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{9-vs-ifreset-time}.pdf}} \\
-            \scriptsize{(b)} & \scriptsize{(e)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{9-rnd-ifreset-kappa}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{9-vs-ifreset-kappa}.pdf}} \\
-            \scriptsize{(c)} & \scriptsize{(f)} \\
-            
         \end{tabular}
         \caption{Effect of tree reset (within ensemble) on performance (a-c) random RBF (d-f) VS RBF}
         \label{fig:apndeffect:ifreset1}
     \end{center}
 \end{figure}
-\begin{figure}[htbp] 
-    \begin{center}
-        \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{9-rnd-ifreset-depth}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{9-vs-ifreset-depth}.pdf}} \\
-            \scriptsize{(a)} & \scriptsize{(d)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{9-rnd-ifreset-tsize}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{9-vs-ifreset-tsize}.pdf}} \\
-            \scriptsize{(b)} & \scriptsize{(e)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{9-rnd-ifreset-memory}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{9-vs-ifreset-memory}.pdf}} \\
-            \scriptsize{(c)} & \scriptsize{(f)} \\
-            
-        \end{tabular}
-        \caption{Effect of tree reset (within ensemble) on structure (a-c) random RBF (d-f) VS RBF}
-        \label{fig:apndeffect:ifreset2}
-    \end{center}
-\end{figure}
-
 
 
 \begin{figure}[htbp] 
@@ -404,37 +279,30 @@
             \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{10-vs-firsttree-accu}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(d)} \\
             
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{10-rnd-firsttree-time}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{10-vs-firsttree-time}.pdf}} \\
-            \scriptsize{(b)} & \scriptsize{(e)} \\
-            
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{10-rnd-firsttree-kappa}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{10-vs-firsttree-kappa}.pdf}} \\
-            \scriptsize{(c)} & \scriptsize{(f)} \\
             
         \end{tabular}
         \caption{Effect of first tree size centroids on performance (a-c) random RBF (d-f) VS RBF}
         \label{fig:apndeffect:firsttree1}
     \end{center}
 \end{figure}
+
+\clearpage
+\section*{Comparative Analysis Over Timeline}
+
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{10-rnd-firsttree-depth}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{10-vs-firsttree-depth}.pdf}} \\
+            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{resw/{1-rnd-count-time}.pdf}} &
+            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{resw/{1-vs-count-time}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(d)} \\
             
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{10-rnd-firsttree-tsize}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{10-vs-firsttree-tsize}.pdf}} \\
+            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{resw/{1-rnd-count-tsize}.pdf}} &
+            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{resw/{1-vs-count-tsize}.pdf}} \\
             \scriptsize{(b)} & \scriptsize{(e)} \\
             
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{10-rnd-firsttree-memory}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{10-vs-firsttree-memory}.pdf}} \\
-            \scriptsize{(c)} & \scriptsize{(f)} \\
-            
         \end{tabular}
-        \caption{Effect of first tree size on structure (a-c) random RBF (d-f) VS RBF}
-        \label{fig:apndeffect:firsttree2}
+        \caption{(a,d) time, (b,e) tree size, (c,f) kappa values over time for (a-c) random RBF, (d-f) VS RBF}
+        \label{fig:apndeffect:wintime}
     \end{center}
 \end{figure}
 
@@ -442,14 +310,37 @@
 
 
 \chapter{Extended Related Works}
+\label{appndx:erw}
+In a recent approach, \cite{rutkowski13:vfdt} argued that using McDiarmid’s bound instead of Hoeffding bound in VFDT is more appropriate for ensuring the approximation bound i.e. the split decisions made after seeing certain number of instances will, with high probability, remain the same for infinite number of instances. The authors also presented McDiarmid’s bound for information gain of ID3 algorithm, and Gini index of CART algorithm. It is to be noted that Hoeffding bound is a special case of McDiarmid’s bound. In another paper, \cite{matuszyk:vfdt} showed usage of Hoeffding bound is mathematically flawed as (i) Hoeffding inequality only applies to arithmetic average, which information gain and Gini index are not, (ii) values obtained in sliding window methods are not independent, while Hoeffding inequality only applies to independent random variables. A revised bound showed that decision bound should be twice of the one given by Hoeffding bound, otherwise, error-likelihood should be updated accordingly.
+
+
+Another decision tree based approach based on so-called \textit{Peano Count Tree (P-tree)} has been developed by Ding et al. for spatial data streams~\cite{ding02:peanocount}. The Peano Count Tree is a spatial data structure that facilitates a lossless compressed representation of spatial data. This structure is used for fast calculation of information gain for branching in decision trees.
+
+Aggarwal et al. employs a slightly different idea in handling time-evolving data in their on demand classification approach of data streams ~\cite{aggarwal04:ondemand}. They used a modified \textit{micro-clusters concept} introduced in~\cite{aggarwal03:clustream}. Micro-clusters are created from the training data stream only. Each micro-cluster corresponds to a set of points from the training data belonging to the same class. To maintain statistics over different time horizons and avoid storage of unnecessary data points a geometric time frame is used. In the classification task, the \textit{$k$-nearest neighbor} based approach is taken, where micro-clusters are treated as node weighted by their instance counts. 
+
+In~\cite{ganti02:gemm:focus} two algorithms named GEMM and FOCUS have been introduced for streams under block evolution. GEMM is used for model maintenance and FOCUS is for change detection between two data stream models. These algorithms has been tested using decision trees and frequent item set models. FOCUS uses bootstrapping methods to compute the distribution of deviation values when data characteristics remain the same. This distribution is then used to check whether the observed deviation value indicates a significant deviation. In another approach to handle concept drift, Last~\cite{last02:olin} proposed an online classification system OLIN that would dynamically adjust the size of the training window and the number of new examples between model re-constructions to the current rate of concept drift. OLIN uses constant resources to produce models, and achieves nearly the same accuracy as the ones that would be produced by periodically re-constructing the model from all accumulated instances.
+
+
+In a different approach to handle concept drift Castillo et al.~\cite{gama03:drift} used Shewhart P-Charts in an online framework based on the idea of \textit{Statistical Quality Control}. Two alternatives of P-charts were used to monitor the stability of one or more quality characteristics in a drifting stream. The two alternatives only differed in the methods they estimate the target value to set the center. The group later introduced another drift detection scheme that monitors probability distribution of examples and maintains a online error rate to detect any concept drift~\cite{gama04:drift}. When distribution changes, error rate will increase. For stationary concept, the error rate should always gradually decrease. A new concept is said to be started if the error rate exceeds some predefined warning or threshold level. This approach has been used in \textit{Ultra Fast Forest Tree (UFFT)}~\cite{gama04:ft, gama05:ft} stream classification method. UFFT maintains naive Bayes statistics for every node. If at any node the error rate starts increasing, the node is pruned for drifting concept. UFFT uses similar approach and Hoeffding bound to control the growth of the tree. For each pair of classes a tree is maintained, hence it is called forest-of-trees.
+
+Later, Aggarwal proposed an concept drift technique based on velocity density estimation \cite{aggarwal03:condrift}. Velocity density estimation is a technique to understand, visualize, and determine trends in the evolving data. The work presented a scheme to use velocity density estimation to create temporal velocity profiles and spatial velocity profiles at periodic instants in time. These profiles are then used to predict dissolution, coagulation, and shift in data. Proposed method could detect changes in trends in a single scan with linear order of number of data points. Additionally a batch processing techniques to identify combinations of dimensions which results the greatest amount of global evolution are also introduced. In~\cite{kifer04:condrift} authors tried to formally define and quantify the change so that existing algorithms can precisely specify when and how the underlying distribution has changed. They employed a two fixed-length window model, where a current one is updated every time a new example arrives and a reference one is only updated when a change has been detected. To compare the distributions of the windows $L1$ distance has been used [confirm!read again]. Another method to compare two distribution has been presented in~\cite{dasu05:condrift} where authors used Kullback-Leibler (KL) distance to compare two distributions. KL distance is known to be related to the optimal error in determining the similarity of two distributions. In this non-parametric method no assumptions on the underlying distributions is required. 
+
+
+%ens
+
+Online bagging and boosting method do not particularly give attention to the concept drifting nature in the data. \textit{Accuracy Weighted Ensemble (AWE)}~\cite{wang03:accuweighted} is one of the earliest work on concept-drifting stream data. AWE assumes that the stream is delivered in chunks of defined size. With each incoming chunk, AWE updates its $k$ classifiers. Each classifier is associated a weight which is inversely proportional to the expected error of the respective classifier. To estimate this error, it is assumed that the distribution of test set is closest to the most recent chunks. Concept drift is adapted by effectively manipulating the number and the magnitude of the weights that are changing. An extension of AWE has been proposed in~\cite{brzezinski11:accuupdated}, namely \textit{Accuracy Updated Ensemble (AUE)}. AUE takes the weighting motivation from AWE, but improves the limitation of AWE. In AWE each classifier learns from the incoming chunks in a ``batched'' fashion. AUE employs an online scheme instead. AUE also adapts the weighting function to reduce the adverse effect in AWE of sudden drift in data. AWE weighting function is prone to suffer by rapid change in the stream and most or even all classifiers assuming they are ``risky''. This limitation has been addressed in AUE. Result shows that AUE performs marginally better than AWE, however, also requires slightly longer time and larger space.
+
+%ens in stream
+
+Another group of methods known as \textit{random forests} uses bagging of decision trees. The concept of random forest is introduced by Breiman~\cite{breiman99:randomforest}. Random forest works in a similar fashion as bootstrap aggregation. However, for each split in the tree it only selects a subset of the features to be considered for splitting criterion. This \textit{feature bagging} approach helps avoiding very strong predictors to get selected over and over. One method mentioned before, \textit{Ultra Fast Forest Tree (UFFT)}~\cite{gama04:ft, gama05:ft} uses concepts of tree bagging, however, works with all features the whole time. UFFT maintains statistical information on each node to detect drift and grows the tree in a similar  approach to VFDT. Using the statistical information stored in nodes it detects concept drift with naive Bayes error-rate. Abdulsalam et al. proposed \textit{Dynamic Streaming Random Forests (DSRF)} focusing on lowering the number of examples required to build up new model in a drifting environment~\cite{salam08:dsrf, salam11:dsrf}. Shannon entropy~\cite{shannon01:entropy} is used to detect concept drift. All these methods are empirically proven to be effective for generalized scenario and chosen data sets. 
+
+
 \clearpage
 
 \chapter{Classical Learning Algorithms}
-%\markboth{Appendix A}{Appendix A}
-%\addcontentsline{toc}{chapter}{Appendix A. Basic Learning Algorithms}
+\label{appndx:cla}
 
 \section*{Learning Algorithms}
-\label{sec:bg:learningalgos}
 The goal of data classification process is to predict an outcome based on some give data. In order to do so, data mining algorithms first processes a training set containing a set of attributes and corresponding outcome: a class or a value. Algorithms develop hypotheses that best describe the relationship among the attributes and the outcome for the total instance set.  Formally, learning problems are defined as follow: Given a data set of $m$ instances  $D \equiv \{ \{\vec{x}_1, y_1\}, \{\vec{x}_2, y_2\}, \{\vec{x}_3, y_3\}, \dots, \{\vec{x}_m, y_m\} \}$ where $ \vec{x} = \{x_1, x_2, x_3, \dots, x_n\}$, learning algorithms try to approximate $H \equiv y = f(\vec{x})$. Additional to being typical linear, polynomial, etc. functions, $H$ can also be a set of IF-THEN rules. These rules or functions are then used to predict unseen instances where outcome class is not known. These algorithms are known as learning algorithms, and in last few decades, have widely been researched in the field of machine learning. This section briefly discusses few of the basic algorithms upon which the foundation of ensemble methods and this thesis are laid. The detailed discussion of these algorithms are out of the scope of this chapter. Thus we discuss only the core concepts here.
 
 \subsection*{$k$-Nearest Neighbors}
@@ -542,3 +433,11 @@ MLP is a very expressive method. Only $1$ hidden layer is sufficient to represen
 
 \chapter{Census Income Dataset}
 \label{appndx:ci}
+
+Census income data set, also commonly known as adult data set has 48842 instances consisting of 14 attributes that maps to a binomial Income class (<=50K or >50K). Attributes are age, sex, education, occupation, work class, working hours, marital status, relationship, country, race, final weight, capital gain, and capital loss. 2809 instance have missing values for either occupation or work class or both.
+
+Occupation, education, marital status are the most important attributes. They can sufficiently classify the instance with an accuracy within 1\% of the accuracy achieved using all attributes. Education attribute has 16 values from pre-school to doctorate. 66\% of the instances belong to high-school grad, some college, and bachelor. Occupation attribute has 15 values. Instances are distributed in more balanced way. Marital status attribute consist of values from married, never married, and other status. The target income class is skewed towards <=50K class with 76\% of the instance.
+
+Five primary clusters can be found in this dataset. Cluster 1 being mostly student groups, still studying and earning <= 50K. Cluster 2 are the young professionals, just started their career, and mostly earning less than 50K. Cluster 3 are the people with white collar jobs. People with bachelor or more education here earns >50K. Cluster 4 are the people with blue collar jobs, mostly earning <=50K. Cluster 5 are females. In this group too, people with bachelor or more degree earns >50K.
+
+Most batched leaning algorithm achieves about 80-83\% accuracy with about 85-88\% F1 value.

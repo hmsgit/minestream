@@ -22,7 +22,7 @@ public class Plotcsv {
      */
     
     public DBConnection db;
-    String location = "D:/Thesis/tex/tex/res/";
+    String location = "D:/Thesis/tex/src/merge/txt/";
     
     public Plotcsv() {
         db = new DBConnection("tweetdb", "root", "");
@@ -49,33 +49,33 @@ public class Plotcsv {
     
     public static void main(String[] args) {
         
+        new Plotcsv().windowaccu();
         
-//        new Plotcsv().windowaccu();
-        
-        new Plotcsv().speed();
-        new Plotcsv().grace();
-        new Plotcsv().others("centroid", 3);
-        new Plotcsv().others("driftcentroid", 4);
-        new Plotcsv().others("tiethresh", 5);
-        new Plotcsv().others("binsplit", 6);
-        
-        
-        new Plotcsv().speedx();
-        new Plotcsv().gracex();
-        new Plotcsv().othersx("centroid", 3);
-        new Plotcsv().othersx("driftcentroid", 4);
-        new Plotcsv().othersx("tiethresh", 5);
-        new Plotcsv().othersx("binsplit", 6);
-        
-        new Plotcsv().maxsize();
-        new Plotcsv().ensize();
-        new Plotcsv().ifreset();
-        new Plotcsv().firsttree();
-        
-        new Plotcsv().maxsizex();
-        new Plotcsv().ensizex();
-        new Plotcsv().ifresetx();
-        new Plotcsv().firsttreex();
+        //new Plotcsv().census();
+//        new Plotcsv().speed();
+//        new Plotcsv().grace();
+//        new Plotcsv().others("centroid", 3);
+//        new Plotcsv().others("driftcentroid", 4);
+//        new Plotcsv().others("tiethresh", 5);
+//        new Plotcsv().others("binsplit", 6);
+//        
+//        
+//        new Plotcsv().speedx();
+//        new Plotcsv().gracex();
+//        new Plotcsv().othersx("centroid", 3);
+//        new Plotcsv().othersx("driftcentroid", 4);
+//        new Plotcsv().othersx("tiethresh", 5);
+//        new Plotcsv().othersx("binsplit", 6);
+//        
+//        new Plotcsv().maxsize();
+//        new Plotcsv().ensize();
+//        new Plotcsv().ifreset();
+//        new Plotcsv().firsttree();
+//        
+//        new Plotcsv().maxsizex();
+//        new Plotcsv().ensizex();
+//        new Plotcsv().ifresetx();
+//        new Plotcsv().firsttreex();
     }
     public void windowaccu() {
         // speed vs xyz
@@ -83,7 +83,98 @@ public class Plotcsv {
                 "X,Algorithm,value", 
                 "SELECT DISTINCT count, algo, accuracy\n" +
                 "FROM  reswin\n" +
-                "WHERE dataset = 'VSRBF' AND speed = 0.01 AND grace = 200\n" +
+                "WHERE dataset = 'RandRBF' AND speed = 0.001 AND grace = 200 AND count != 0\n" +
+                "OR dataset = 'RandRBF' AND speed = 0.01 AND grace = 200 AND count != 0 AND algo = 'ASHT'" +
+                "GROUP BY algo, count"
+        );
+        writecsv(location + "1-rnd-count-kappa.csv", 
+                "X,Algorithm,value", 
+                "SELECT DISTINCT count, algo, kappa\n" +
+                "FROM  reswin\n" +
+                "WHERE dataset = 'RandRBF' AND speed = 0.001 AND grace = 200 AND count != 0\n" +
+                "OR dataset = 'RandRBF' AND speed = 0.01 AND grace = 200 AND count != 0 AND algo = 'ASHT'" +
+                "GROUP BY algo, count"
+        );
+        writecsv(location + "1-rnd-count-time.csv", 
+                "X,Algorithm,value", 
+                "SELECT DISTINCT count, algo, time\n" +
+                "FROM  reswin\n" +
+                "WHERE dataset = 'RandRBF' AND speed = 0.001 AND grace = 200 AND count != 0\n" +
+                "OR dataset = 'RandRBF' AND speed = 0.01 AND grace = 200 AND count != 0 AND algo = 'ASHT'" +
+                "GROUP BY algo, count"
+        );
+        writecsv(location + "1-rnd-count-depth.csv", 
+                "X,Algorithm,value", 
+                "SELECT DISTINCT count, algo, depth\n" +
+                "FROM  reswin\n" +
+                "WHERE dataset = 'RandRBF' AND speed = 0.001 AND grace = 200 AND count != 0\n" +
+                "OR dataset = 'RandRBF' AND speed = 0.01 AND grace = 200 AND count != 0 AND algo = 'ASHT'" +
+                "GROUP BY algo, count"
+        );
+        writecsv(location + "1-rnd-count-tsize.csv", 
+                "X,Algorithm,value", 
+                "SELECT DISTINCT count, algo, tsize\n" +
+                "FROM  reswin\n" +
+                "WHERE dataset = 'RandRBF' AND speed = 0.001 AND grace = 200 AND count != 0\n" +
+                "OR dataset = 'RandRBF' AND speed = 0.01 AND grace = 200 AND count != 0 AND algo = 'ASHT'" +
+                "GROUP BY algo, count"
+        );
+        writecsv(location + "1-rnd-count-reset.csv", 
+                "X,Algorithm,value", 
+                "SELECT DISTINCT count, algo, reset\n" +
+                "FROM  reswin\n" +
+                "WHERE dataset = 'RandRBF' AND speed = 0.001 AND grace = 200 AND count != 0\n" +
+                "OR dataset = 'RandRBF' AND speed = 0.01 AND grace = 200 AND count != 0 AND algo = 'ASHT'" +
+                "GROUP BY algo, count"
+        );
+        
+        
+        writecsv(location + "1-vs-count-accu.csv", 
+                "X,Algorithm,value", 
+                "SELECT DISTINCT count, algo, accuracy\n" +
+                "FROM  reswin\n" +
+                "WHERE dataset = 'VSRBF2' AND speed = 0.001 AND grace = 200 AND count != 0\n" +
+                "OR dataset = 'VSRBF2' AND speed = 0.01 AND grace = 200 AND count != 0 AND algo = 'ASHT'" +
+                "GROUP BY algo, count"
+        );
+        writecsv(location + "1-vs-count-kappa.csv", 
+                "X,Algorithm,value", 
+                "SELECT DISTINCT count, algo, kappa\n" +
+                "FROM  reswin\n" +
+                "WHERE dataset = 'VSRBF2' AND speed = 0.001 AND grace = 200 AND count != 0\n" +
+                "OR dataset = 'VSRBF2' AND speed = 0.01 AND grace = 200 AND count != 0 AND algo = 'ASHT'" +
+                "GROUP BY algo, count"
+        );
+        writecsv(location + "1-vs-count-time.csv", 
+                "X,Algorithm,value", 
+                "SELECT DISTINCT count, algo, time\n" +
+                "FROM  reswin\n" +
+                "WHERE dataset = 'VSRBF2' AND speed = 0.001 AND grace = 200 AND count != 0\n" +
+                "OR dataset = 'VSRBF2' AND speed = 0.01 AND grace = 200 AND count != 0 AND algo = 'ASHT'" +
+                "GROUP BY algo, count"
+        );
+        writecsv(location + "1-vs-count-depth.csv", 
+                "X,Algorithm,value", 
+                "SELECT DISTINCT count, algo, depth\n" +
+                "FROM  reswin\n" +
+                "WHERE dataset = 'VSRBF2' AND speed = 0.001 AND grace = 200 AND count != 0\n" +
+                "OR dataset = 'VSRBF2' AND speed = 0.01 AND grace = 200 AND count != 0 AND algo = 'ASHT'" +
+                "GROUP BY algo, count"
+        );
+        writecsv(location + "1-vs-count-tsize.csv", 
+                "X,Algorithm,value", 
+                "SELECT DISTINCT count, algo, tsize\n" +
+                "FROM  reswin\n" +
+                "WHERE dataset = 'VSRBF2' AND speed = 0.001 AND grace = 200 AND count != 0\n" +
+                "OR dataset = 'VSRBF2' AND speed = 0.01 AND grace = 200 AND count != 0 AND algo = 'ASHT'" +
+                "GROUP BY algo, count"
+        );
+        writecsv(location + "1-vs-count-reset.csv", 
+                "X,Algorithm,value", 
+                "SELECT DISTINCT count, algo, reset\n" +
+                "FROM  reswin\n" +
+                "WHERE dataset = 'VSRBF2' AND speed = 0.001 AND grace = 200 AND count != 0\n" +
+                "OR dataset = 'VSRBF2' AND speed = 0.01 AND grace = 200 AND count != 0 AND algo = 'ASHT'" +
                 "GROUP BY algo, count"
         );
 
@@ -173,80 +264,80 @@ public class Plotcsv {
         // speed vs xyz
         writecsv(location + "1-vs-speed-accu.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT speed, algo, accuracy FROM ressum WHERE dataset = 'VSRBF' AND grace = 200 GROUP BY algo, speed"
+                "SELECT DISTINCT speed, algo, accuracy FROM ressum WHERE dataset = 'VSRBF2' AND grace = 200 GROUP BY algo, speed"
         );
         writecsv(location + "1-vs-speed-time.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT speed, algo, time FROM ressum WHERE dataset = 'VSRBF' AND grace = 200 GROUP BY algo, speed"
+                "SELECT DISTINCT speed, algo, time FROM ressum WHERE dataset = 'VSRBF2' AND grace = 200 GROUP BY algo, speed"
         );
         writecsv(location + "1-vs-speed-kappa.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT speed, algo, kappa FROM ressum WHERE dataset = 'VSRBF' AND grace = 200 GROUP BY algo, speed"
+                "SELECT DISTINCT speed, algo, kappa FROM ressum WHERE dataset = 'VSRBF2' AND grace = 200 GROUP BY algo, speed"
         );
         writecsv(location + "1-vs-speed-memory.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT speed, algo, memory FROM ressum WHERE dataset = 'VSRBF' AND grace = 200 GROUP BY algo, speed"
+                "SELECT DISTINCT speed, algo, memory FROM ressum WHERE dataset = 'VSRBF2' AND grace = 200 GROUP BY algo, speed"
         );
         writecsv(location + "1-vs-speed-depth.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT speed, algo, depth FROM ressum WHERE dataset = 'VSRBF' AND grace = 200 GROUP BY algo, speed"
+                "SELECT DISTINCT speed, algo, depth FROM ressum WHERE dataset = 'VSRBF2' AND grace = 200 GROUP BY algo, speed"
         );
         writecsv(location + "1-vs-speed-tsize.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT speed, algo, tsize FROM ressum WHERE dataset = 'VSRBF' AND grace = 200 GROUP BY algo, speed"
+                "SELECT DISTINCT speed, algo, tsize FROM ressum WHERE dataset = 'VSRBF2' AND grace = 200 GROUP BY algo, speed"
         );
     }
     public void gracex() {
         writecsv(location + "2-vs-grace-accu.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT grace, algo, accuracy FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, grace"
+                "SELECT DISTINCT grace, algo, accuracy FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, grace"
         );
         writecsv(location + "2-vs-grace-time.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT grace, algo, time FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, grace"
+                "SELECT DISTINCT grace, algo, time FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, grace"
         );
         writecsv(location + "2-vs-grace-kappa.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT grace, algo, kappa FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, grace"
+                "SELECT DISTINCT grace, algo, kappa FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, grace"
         );
         writecsv(location + "2-vs-grace-memory.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT grace, algo, memory FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, grace"
+                "SELECT DISTINCT grace, algo, memory FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, grace"
         );
         writecsv(location + "2-vs-grace-depth.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT grace, algo, depth FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, grace"
+                "SELECT DISTINCT grace, algo, depth FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, grace"
         );
         writecsv(location + "2-vs-grace-tsize.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT grace, algo, tsize FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, grace"
+                "SELECT DISTINCT grace, algo, tsize FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, grace"
         );
         
     }
     public void othersx(String what, int i) {
         writecsv(location + i+ "-vs-"+ what +"-accu.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT " + what + ", algo, accuracy FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, " + what + ""
+                "SELECT DISTINCT " + what + ", algo, accuracy FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, " + what + ""
         );
         writecsv(location + i+ "-vs-" + what + "-time.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT " + what + ", algo, time FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, " + what + ""
+                "SELECT DISTINCT " + what + ", algo, time FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, " + what + ""
         );
         writecsv(location + i+ "-vs-" + what + "-kappa.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT " + what + ", algo, kappa FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, " + what + ""
+                "SELECT DISTINCT " + what + ", algo, kappa FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, " + what + ""
         );
         writecsv(location + i+ "-vs-" + what + "-memory.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT " + what + ", algo, memory FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, " + what + ""
+                "SELECT DISTINCT " + what + ", algo, memory FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, " + what + ""
         );
         writecsv(location + i+ "-vs-" + what + "-depth.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT " + what + ", algo, depth FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, " + what + ""
+                "SELECT DISTINCT " + what + ", algo, depth FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, " + what + ""
         );
         writecsv(location + i+ "-vs-" + what + "-tsize.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT " + what + ", algo, tsize FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, " + what + ""
+                "SELECT DISTINCT " + what + ", algo, tsize FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, " + what + ""
         );
         
     }
@@ -360,105 +451,108 @@ public class Plotcsv {
     public void maxsizex() {        
         writecsv(location + "7-vs-maxsize-accu.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT maxsize, algo, accuracy FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, maxsize"
+                "SELECT DISTINCT maxsize, algo, accuracy FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, maxsize"
         );
         writecsv(location + "7-vs-maxsize-time.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT maxsize, algo, time FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, maxsize"
+                "SELECT DISTINCT maxsize, algo, time FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, maxsize"
         );
         writecsv(location + "7-vs-maxsize-kappa.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT maxsize, algo, kappa FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, maxsize"
+                "SELECT DISTINCT maxsize, algo, kappa FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, maxsize"
         );
         writecsv(location + "7-vs-maxsize-memory.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT maxsize, algo, memory FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, maxsize"
+                "SELECT DISTINCT maxsize, algo, memory FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, maxsize"
         );
         writecsv(location + "7-vs-maxsize-depth.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT maxsize, algo, depth FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, maxsize"
+                "SELECT DISTINCT maxsize, algo, depth FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, maxsize"
         );
         writecsv(location + "7-vs-maxsize-tsize.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT maxsize, algo, tsize FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, maxsize"
+                "SELECT DISTINCT maxsize, algo, tsize FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, maxsize"
         );
     }
     public void ensizex() {
         writecsv(location + "8-vs-ensize-accu.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT ensize, algo, accuracy FROM ressum WHERE dataset = 'VSRBF' GROUP BY algo, ensize"
+                "SELECT DISTINCT ensize, algo, accuracy FROM ressum WHERE dataset = 'VSRBF2' GROUP BY algo, ensize"
         );
         writecsv(location + "8-vs-ensize-time.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT ensize, algo, time FROM ressum WHERE dataset = 'VSRBF' GROUP BY algo, ensize"
+                "SELECT DISTINCT ensize, algo, time FROM ressum WHERE dataset = 'VSRBF2' GROUP BY algo, ensize"
         );
         writecsv(location + "8-vs-ensize-kappa.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT ensize, algo, kappa FROM ressum WHERE dataset = 'VSRBF' GROUP BY algo, ensize"
+                "SELECT DISTINCT ensize, algo, kappa FROM ressum WHERE dataset = 'VSRBF2' GROUP BY algo, ensize"
         );
         writecsv(location + "8-vs-ensize-memory.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT ensize, algo, memory FROM ressum WHERE dataset = 'VSRBF' GROUP BY algo, ensize"
+                "SELECT DISTINCT ensize, algo, memory FROM ressum WHERE dataset = 'VSRBF2' GROUP BY algo, ensize"
         );
         writecsv(location + "8-vs-ensize-depth.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT ensize, algo, depth FROM ressum WHERE dataset = 'VSRBF' GROUP BY algo, ensize"
+                "SELECT DISTINCT ensize, algo, depth FROM ressum WHERE dataset = 'VSRBF2' GROUP BY algo, ensize"
         );
         writecsv(location + "8-vs-ensize-tsize.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT ensize, algo, tsize FROM ressum WHERE dataset = 'VSRBF' GROUP BY algo, ensize"
+                "SELECT DISTINCT ensize, algo, tsize FROM ressum WHERE dataset = 'VSRBF2' GROUP BY algo, ensize"
         );
     }
     public void ifresetx() {
         writecsv(location + "9-vs-ifreset-accu.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT ifreset, algo, accuracy FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, ifreset"
+                "SELECT DISTINCT ifreset, algo, accuracy FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, ifreset"
         );
         writecsv(location + "9-vs-ifreset-time.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT ifreset, algo, time FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, ifreset"
+                "SELECT DISTINCT ifreset, algo, time FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, ifreset"
         );
         writecsv(location + "9-vs-ifreset-kappa.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT ifreset, algo, kappa FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, ifreset"
+                "SELECT DISTINCT ifreset, algo, kappa FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, ifreset"
         );
         writecsv(location + "9-vs-ifreset-memory.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT ifreset, algo, memory FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, ifreset"
+                "SELECT DISTINCT ifreset, algo, memory FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, ifreset"
         );
         writecsv(location + "9-vs-ifreset-depth.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT ifreset, algo, depth FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, ifreset"
+                "SELECT DISTINCT ifreset, algo, depth FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, ifreset"
         );
         writecsv(location + "9-vs-ifreset-tsize.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT ifreset, algo, tsize FROM ressum WHERE dataset = 'VSRBF' AND speed = 0.01 GROUP BY algo, ifreset"
+                "SELECT DISTINCT ifreset, algo, tsize FROM ressum WHERE dataset = 'VSRBF2' AND speed = 0.01 GROUP BY algo, ifreset"
         );
     }
     public void firsttreex() {
         writecsv(location + "10-vs-firsttree-accu.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT firsttree, algo, accuracy FROM ressum WHERE dataset = 'VSRBF' GROUP BY algo, firsttree"
+                "SELECT DISTINCT firsttree, algo, accuracy FROM ressum WHERE dataset = 'VSRBF2' GROUP BY algo, firsttree"
         );
         writecsv(location + "10-vs-firsttree-time.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT firsttree, algo, time FROM ressum WHERE dataset = 'VSRBF' GROUP BY algo, firsttree"
+                "SELECT DISTINCT firsttree, algo, time FROM ressum WHERE dataset = 'VSRBF2' GROUP BY algo, firsttree"
         );
         writecsv(location + "10-vs-firsttree-kappa.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT firsttree, algo, kappa FROM ressum WHERE dataset = 'VSRBF' GROUP BY algo, firsttree"
+                "SELECT DISTINCT firsttree, algo, kappa FROM ressum WHERE dataset = 'VSRBF2' GROUP BY algo, firsttree"
         );
         writecsv(location + "10-vs-firsttree-memory.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT firsttree, algo, memory FROM ressum WHERE dataset = 'VSRBF' GROUP BY algo, firsttree"
+                "SELECT DISTINCT firsttree, algo, memory FROM ressum WHERE dataset = 'VSRBF2' GROUP BY algo, firsttree"
         );
         writecsv(location + "10-vs-firsttree-depth.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT firsttree, algo, depth FROM ressum WHERE dataset = 'VSRBF' GROUP BY algo, firsttree"
+                "SELECT DISTINCT firsttree, algo, depth FROM ressum WHERE dataset = 'VSRBF2' GROUP BY algo, firsttree"
         );
         writecsv(location + "10-vs-firsttree-tsize.csv", 
                 "X,Algorithm,value", 
-                "SELECT DISTINCT firsttree, algo, tsize FROM ressum WHERE dataset = 'VSRBF' GROUP BY algo, firsttree"
+                "SELECT DISTINCT firsttree, algo, tsize FROM ressum WHERE dataset = 'VSRBF2' GROUP BY algo, firsttree"
         );
+    }
+
+    private void census() {
     }
 }

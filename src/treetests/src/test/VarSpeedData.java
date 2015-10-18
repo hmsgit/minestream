@@ -25,17 +25,20 @@ public class VarSpeedData {
         is.modelRandomSeedOption.setValue((int)System.nanoTime());
         
         is.numAttsOption.setValue(2);
-        //is.numCentroidsOption.setValue(5);
+        is.numCentroidsOption.setValue(40);
+        is.numInstancesToReconfig = 5;
         is.numDriftCentroidsOption.setValue(0);
         is.prepareForUse();
         
-        stats.append("Pool,X,Y,Class\n");
+        stats.append("T,Pool,Centroid,X,Y,Class\n");
         for (int i = 0; i < 200; i++) {
             Instance x = is.nextInstance();
             String str = x.toString();
             //str = str.replace(",", " ");
             str = str.replace("class", "Class");
-            stats.append("#" + (is._curCentroidIndex +1));
+            stats.append("T" + (i/50 +1));
+            stats.append(",#" + (is._curPoolIndex +1));
+            stats.append("," + (is._curCentroidIndex +1));
             stats.append(","+str+"\n");
             System.out.println(x.toString());
         }

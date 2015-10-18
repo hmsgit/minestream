@@ -90,13 +90,13 @@ public class OzaBagSRHT extends MyOzaBag {
                 
                 SizeRestrictedHT ens = (SizeRestrictedHT) ensemble[i];
                 if (ens.getDecisionNodeCount() >= ens.maxSize) {
-                    if (i >= this.ensembleSizeOption.getValue()/2 
+                    if (i > this.ensembleSizeOption.getValue()/2 
                             //&& dyingClassifiers.size() <= this.ensembleSizeOption.getValue()
                             )
                         dyingClassifiers.add(ens);
-                    if (dyingClassifiers.size() > this.ensembleSizeOption.getValue()) {
-                        dyingClassifiers.remove(0);
-                        resetCount++;
+                    if (dyingClassifiers.size() > 5) {//this.ensembleSizeOption.getValue()/2) {
+                        //dyingClassifiers.remove(0);
+                        //resetCount++;
                     }
                     
                     Classifier baseLearner = (Classifier) getPreparedClassOption(this.baseLearnerOption);

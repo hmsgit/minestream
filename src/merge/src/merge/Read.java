@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class Read {
     public ArrayList<Data> list = new ArrayList<>();
-    public boolean readall = false;
+    public boolean readall = true;
     public String dtname = "RandRBF";
     
     public void read (String filename, int type) {

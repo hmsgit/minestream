@@ -1,0 +1,15 @@
+Algorithm,F1-measure
+MLP,89.27
+C4.5,89.48
+PART,88.50
+SVM,88.80
+HT,88.92
+AdaHT,88.83
+ASHT,87.35
+BagHT,88.5
+BagAdaHT,88.6
+BagAdwin,88.86
+BagASHT,87.26
+BagSRHT,89.20
+BoostHT,88.60
+BoostAdaHT,88.20
