@@ -1,6 +1,6 @@
 \chapter{Background}
 \label{chp:background}
-This chapter discusses the primitives of data and stream classification. First, a brief overview of traditional data classification methods are presented. Followed by a section on data stream classification where challenges and approaches for stream classification are introduced. Finally, overview of current state-of-the-art ensemble learning methods are discussed. These discussion are lays the foundation of the approach introduced in this thesis.
+This chapter discusses the primitives of data and stream classification. First, a brief overview of traditional data classification methods are presented. Followed by a section on data stream classification where challenges and approaches for stream classification are introduced. Finally, overview of current state-of-the-art ensemble learning methods are discussed. These discussions  lay the foundation of the approach introduced in this thesis.
 
 \section{Data Stream Classification}
 Traditional data mining algorithms work in a memory bounded environment and require multiple scan of the training data. In stream environment, one of the major assumptions is that new data samples are introduced in the system with such a high rate that repetitive analysis becomes infeasible. Thus, for stream classification, algorithms should be able to look into a instance only once and decide upon that. A bounded memory buffer can be used to facilitate some level of repetition. However, which instances are to remember and which are to forget would then become a decision choice. An alternate choice is to maintain sufficient statistics to have a representation of the data. The process of deletion or summarization of instances, however, means that some information are being lost over the time.
@@ -20,7 +20,7 @@ To apply traditional batched approaches in streaming data, an unbounded memory w
 The premise of this requirement is two-fold. First, as mentioned above, data would not be available in the memory after a short period of time due to the volume of data. Secondly, even if the data remain available, running a batched-like approach for millions of data points would highly increase the running time of the algorithm. To attain faster processing time with limited storage, algorithm should access the data stream only once, or a small number of times. Mining models must posses the capability to learn the underlying nature of data in a single pass over the data.
 
 \paragraph{Lack of labeled data:}
-Unlike most data sets or settings of batched approaches, steam mining data sets are often poorly labeled. A large number of experimentations are done with generated data set where the data generation process can easily be controlled to have proper labeling. However, in data set collected from real world are often lack this. For example, to setup a supervised learning experimentation using a data set collected from social media, e.g. Twitter, data needs to be first categorized by human intervention. Manual labeling of such data is often costly, both in terms of resources and time. In practice, only a small fraction of data is labeled by human experts or automated scripts. A stream classification algorithm is thus required to be able to predict after observing a small number of instances, i.e. to be ready to predict anytime.
+Unlike most data sets or settings of batched approaches, steam mining data sets are often poorly labeled. A large number of experimentations are done with generated data set where the data generation process can easily be controlled to have proper labeling. However, in data set collected from real world are often lack this. For example, to set up a supervised learning experimentation using a data set collected from social media, e.g. Twitter, data needs to be first categorized by human intervention. Manual labeling of such data is often costly, both in terms of resources and time. In practice, only a small fraction of data is labeled by human experts or automated scripts. A stream classification algorithm is thus required to be able to predict after observing a small number of instances, i.e. to be ready to predict anytime.
 
 \begin{figure}[htbp] 
     \begin{center}
@@ -34,7 +34,7 @@ Unlike most data sets or settings of batched approaches, steam mining data sets 
     \end{center}
 \end{figure}
 \paragraph{Concept drift:}
-Concept drift is a statistical property of data streams where the target variable drifts away from the model that is trying to predict it. In other words the underlying data distribution is changing over time. As a result accuracy of the classifier model decreases over time. For example, buying pattern of the customers in a store changes over time, mostly due to the seasonality. Electrical and mechanical devices wear off over time, producing shifted result which would cause drift in the observing data. Learning models should adapt to these changes quickly and accurately. Let us consider the example in Figure~\ref{fig:bg:condrift}. As a new chunk arrives (Figure~\ref{fig:bg:condrift}a), a new classifier is learned. The decision boundary is denoted by the straight line. The positive examples are represented by pluses while the negative examples are represented by minuses. With time the concept of some of the examples may change. As shown in Figure~\ref{fig:bg:condrift}b, due to concept drift newer positive examples may drift towards decision boundary and into negative concept's region. So, the previous decision boundary has become outdated and a new model has to be learned. Formally, concept drift is the change in the joint probability \(P(X, y) = P(y|X) \times P(X)\). Thus, observing the change in $y$ for given $X$, i.e. $P(y|X)$ is the key for detection.
+Concept drift is a statistical property of data streams where the target variable drifts away from the model that is trying to predict it. In other words the underlying data distribution is changing over time. As a result, accuracy of the classifier model decreases over time. For example, buying pattern of the customers in a store changes over time, mostly due to the seasonality. Electrical and mechanical devices wear off over time, producing shifted result which would cause drift in the observing data. Learning models should adapt to these changes quickly and accurately. Let us consider the example in Figure~\ref{fig:bg:condrift}. As a new chunk arrives (Figure~\ref{fig:bg:condrift}a), a new classifier is learned. The decision boundary is denoted by the straight line. The positive examples are represented by pluses while the negative examples are represented by minuses. With time the concept of some of the examples may change. As shown in Figure~\ref{fig:bg:condrift}b, due to concept drift newer positive examples may drift towards decision boundary and into negative concept's region. So, the previous decision boundary has become outdated and a new model has to be learned. Formally, concept drift is the change in the joint probability \(P(X, y) = P(y|X) \times P(X)\). Thus, observing the change in $y$ for given $X$, i.e. $P(y|X)$ is the key for detection.
 
 One challenge posed here is to differentiate the noise in data and the actual shift of the concept. Often in streaming environment data contains the both. Rate of drift is also a factor in detection. Sudden drift, known as {\it concept shift}, is easier to detect than concept drift, which is considered to be gradual.
 
@@ -55,7 +55,7 @@ Concept evolution is referred to the emergence of a new class or a set of classe
 Concept evolution is also prone to noise. Furthermore, clear distinction between drift and evolution might not always be possible, partially due the lack of unlabeled data.
 
 \paragraph{Class recurrence:}
-Class recurrence is a special case of concept drift and evolution. A this case, the model forgets a class due the drift, however, later the class reappears (evolution) from the stream. Seasonality could be one cause of this situation. A intrusion in network traffic may reappear after a long time. Forgetting the earlier intrusions are not desired in such case. A fast recognition of the previously seen classes are desired in mining streams.
+Class recurrence is a special case of concept drift and evolution. In this case, the model forgets a class due the drift, however, later the class reappears (evolution) from the stream. Seasonality could be one cause of this situation. A intrusion in network traffic may reappear after a long time. Forgetting the earlier intrusions are not desired in such case. A fast recognition of the previously seen classes are desired in mining streams.
 
 Following sections discuss the potential solutions to these challenges. First, how to address the limited resources and then the change detection schemes.
 
@@ -75,12 +75,10 @@ In statistical evaluation, a statistic is sufficient for a family of probability
 A random variable is a variable that can take a set or range of values, each with an associated probability, and are subjected to change due to the alteration or randomness of the data. Random variables are of two types: (i) discrete, and (ii) continuous. Discrete random variable take a set of possible values (e.g. outcome of coin flipping), but a continuous random variable can take any value within a range (e.g. age of people in a randomly sampled group).
 
 A function that is used to estimating a random variable is called an estimator. Estimator function is dependent on the observable sample data, and used for estimating unknown population within an interval with certain degree of confidence. For an interval of the true value of the parameter associates with a confidence of $1 - \delta$, interval can be defined as follows:
-
 \begin{itemize}    
     \item Absolute approximation: $\bar{X} - \epsilon \le \mu \le \bar{X} + \epsilon$, where $\epsilon$ is the absolute error.
     \item Relative approximation: $(1 - \delta)\bar{X} \le \mu \le (1 + \delta)\bar{X}$, where  is the relative error.
 \end{itemize}
-
 where $\mu$ and $\bar{X}$ represent actual and estimated mean. There are a number of theorems that provide bounds on the estimation, Chebyshev, Chernoff, Hoeffding bounds~\cite{hoeffding63:bound}, etc. are few of them.
 
 \begin{theorem}[Chebyshev Bound]
@@ -151,9 +149,9 @@ Windowing is the process of selecting a subset of the observed instances that wo
 
 In sequence based windowing, sequence is based on the number of observations seen; in time-stamp based approach, it is elapsed time. Landmark windowing and sliding windowing are two most used sequence based windowing system.
 
-\paragraph{Landmark Windowing:} All observations after certain start point are remembered. Batched approaches can be thought of as examples of landmark windowing where every instance is remembered from the very first one. As new observations are seen, size of window increases. Landmark needs updating time to time to ensure recency of the statistics.
+\paragraph{Landmark Windowing:} All observations after certain start point are remembered. Batched approaches can be thought of as examples of landmark windowing where every instance is remembered from the very first one. As new observations are seen, size of window increases. Landmark needs updating time to ensure recency of the statistics.
 
-\paragraph{Sliding Windowing:} A fixed length window is moved through the observation set. As a new observation is seen, oldest observation is forgotten, i.e., when $j$-th instance is pushed into the window, $(j-w)$-th instance is forgotten, where $w$ is the size of the window. A limitation of sliding windowing is that it requires all elements within the window to be remembered, as it is needed to forget the oldest observation.
+\paragraph{Sliding Windowing:} A fixed length window is moved through the observation set. As a new observation is seen, the oldest observation is forgotten, i.e., when $j$-th instance is pushed into the window, $(j-w)$-th instance is forgotten, where $w$ is the size of the window. A limitation of sliding windowing is that it requires all elements within the window to be remembered, as it is needed to forget the oldest observation.
 
 Often it is more useful to learn about most recent updates with fine granularity and older ones in a summarized fashion. With this motivation concept of tilted-time windowing was introduced~\cite{chen02:tiltedtime}.
 
@@ -180,7 +178,7 @@ Often it is more useful to learn about most recent updates with fine granularity
 \label{sec:bg:changedetection}
 An assumption of most machine learning methods is that data is generated from a stationary distribution. As discussed in the previous section, this assumption does not hold for streaming scenario. Thus stream mining requires algorithms to facilitate drift detection methods. Differentiating between {\it noise} and {\it change} makes the problem challenging. The difference between a new distribution and noise is {\it persistence}, where new examples consistently follows new distribution rather than old. This section discusses several methods to detect and adapt learning algorithms in presence of concept drift.
 
-Detection methods can generally be classified into two categories. First approach is to monitoring the evolution of various performance indicators as done in~\cite{klinkenberg98:changedetection, zeira04:changedetection}. Another approach is to maintaining two (or more) distributions varying the window length. Typically one window would summarize past history while the other would summarize most recent information~\cite{kifer04:condrift}.
+Detection methods can generally be classified into two categories. First approach is to monitoring the evolution of various performance indicators as done in~\cite{klinkenberg98:changedetection, zeira04:changedetection}. Another approach is to maintaining two (or more) distributions varying the window length. Typically, one window would summarize past history while the other would summarize most recent information~\cite{kifer04:condrift}.
 
 Most methods follows the first approach. \cite{klinkenberg98:changedetection} monitors three performance indicators (accuracy, recall, and precision) over time, and uses their posterior comparison to a confident interval of standard sample errors for a moving average value for each indicator.
 
@@ -341,7 +339,7 @@ There are some property of VFDT that are different than C4.5. In contrast to the
     }
 \end{algorithm}
 \subsection{Concept-adapting Very Fast Decision Tree}
-Concept-adapting Very Fast Decision Tree (CVFDT) is the extension of CFDT that adds the ability to adapt the model by detecting the changes in the underlying distribution that generates the examples. CVFDT does not require the model to be recomputed, instead it updates the sufficient statistics stored in each node that the new instances affects by maintaining a sliding window. It increases the counter of new instances and decreases count of oldest examples which now need to be forgotten. If the underlying distribution is stationary, this would not have any effect. But in case of a concept drifting distribution, some decision nodes that previously had passed the Hoeffding bound test will no longer pass, rather an alternate attribute would now have higher or similar gain. CVFDT keeps stats to detect such situation and starts maintaining an alternate subtree with the new best attribute as its root. When this alternate subtree becomes more accurate on new data then the old subtree is replaced by the new one. Pseudo-code of CVFDT has be shown in Algorithm~\ref{alg:cvfdt}. The sub-routine $GROW$ is essentially the Hoeffding Tree algorithm where instead of only keeping stats in the leave, every node keeps track of the instances it has seen. Two other sub-routines $FORGET$ and $VALIDATE\_SPLIT$ have been shown separately.
+Concept-adapting Very Fast Decision Tree (CVFDT) is the extension of CFDT that adds the ability to adapt the model by detecting the changes in the underlying distribution that generates the examples. CVFDT does not require the model to be recomputed, instead it updates the sufficient statistics stored in each node that the new instances affects by maintaining a sliding window. It increases the counter of new instances and decreases count of the oldest examples which now need to be forgotten. If the underlying distribution is stationary, this would not have any effect. But in case of a concept drifting distribution, some decision nodes that previously had passed the Hoeffding bound test will no longer pass, rather an alternate attribute would now have higher or similar gain. CVFDT keeps stats to detect such situation and starts maintaining an alternate subtree with the new best attribute as its root. When this alternate subtree becomes more accurate on new data, then the old subtree is replaced by the new one. Pseudo-code of CVFDT has been shown in Algorithm~\ref{alg:cvfdt}. The sub-routine $GROW$ is essentially the Hoeffding Tree algorithm where instead of only keeping stats in the leave, every node keeps track of the instances it has seen. Two other sub-routines $FORGET$ and $VALIDATE\_SPLIT$ have been shown separately.
 
 \begin{algorithm}[htbp]
     \ContinuedFloat
@@ -431,7 +429,7 @@ Now that related concept of basic learning algorithms and stream mining are disc
 \section{Ensemble Learning}
 Ensemble learning, due to its intrinsic merits, focuses to get the best out of a collection of base learners. Ensemble learning can be thought of as a divide-and-conquer approach. However, it may not necessarily divide the tasks rather might do more tasks. The motivation behind was presented in the previous chapter. In short, ensemble methods are interesting because of following possibilities:
 \begin{itemize}
-    \item Avoiding worst classifier by averaging several classifier.
+    \item Avoiding the worst classifier by averaging several classifiers.
     \item Fusing multiple classifier to improve performance of the best classifier.
     \item Arranging the better classifiers (might include the best one) in a way to outperform the best one.
     \item Dividing streams into chunks, learn separate models from each and then combine their results (divide and conquer).
@@ -439,7 +437,7 @@ Ensemble learning, due to its intrinsic merits, focuses to get the best out of a
 
 A number of methods have been developed in past couple of decades focusing on these motivations. They employ different approaches to improve the final classifier. Following is a summary of different approaches of generating ensembles of classifiers.
 \begin{itemize}
-    \item Creating multiple training sets by resampling the original set and feeding those into different learners.
+    \item Creating multiple training sets by re-sampling the original set and feeding those into different learners.
     \item Using different combination of features to learn multiple classifiers.
     \item Manipulating class labels. For example, transforming the classes into binary classification problem by partitioning the class labels into disjoint subsets.
     \item Manipulating the learning algorithms such that they result different outcomes for the same training set. For example, introducing certain randomness into tree growing algorithm.
@@ -467,7 +465,7 @@ Boosting is another supervised learning algorithm to iteratively improve learnin
     \begin{center}
         \includegraphics[width=12.0cm]{figs/boosting.pdf}
         \caption{Boosting method example}
-        \label{fig:bg:bagging}
+        \label{fig:bg:bosting}
     \end{center}
 \end{figure}
 
@@ -512,7 +510,7 @@ There are two different choices for the deletion of nodes for the second point. 
     \end{center}
 \end{figure}
 
-Based on this modified Hoeffding tree, a bagging method is developed in~\cite{bifet09:asht}. The intuition of the methods is as follows: smaller trees adapts to changes faster than the larger trees. However, larger trees perform better where data has only small changes or drifts because of the fact the it is built with more data. A tree of size $s$ would expected to be reset twice as often as a tree with size $2s$. Using an ensemble of different sizes would thus give a set of trees with different reset speeds. Smaller trees would be updated for smalls changes in the streams, while larger ones will maintain a history for longer period. Polling over this set of classifier would thus expected to result in a classifier with finer granularity. It is to be noted that reset will occur even for stationary data, however, this should not have any negative influence on the ensemble's predictive performance for stationary cases.
+Based on this modified Hoeffding tree, a bagging method is developed in~\cite{bifet09:asht}. The intuition of the methods is as follows: smaller trees adapts to changes faster than the larger trees. However, larger trees perform better where data has only small changes or drifts because  it is built with more data. A tree of size $s$ would expect to be reset twice as often as a tree with size $2s$. Using an ensemble of different sizes would thus give a set of trees with different reset speeds. Smaller trees would be updated for smalls changes in the streams, while larger ones will maintain a history for longer period. Polling over this set of classifier would thus expected to result in a classifier with finer granularity. It is to be noted that reset will occur even for stationary data, however, this should not have any negative influence on the ensemble's predictive performance for stationary cases.
 
 The proposed bagging method in~\cite{bifet09:asht} uses $n$ adaptive-size Hoeffding trees. The $n$-th ASHT has twice the maximum size of $(n-1)$-th tree. Size of the smallest tree is 2. For the polling, each tree is associate with a weight, which is selected to be the inverse of squared error.
 
