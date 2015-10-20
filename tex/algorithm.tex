@@ -231,7 +231,28 @@ Carry-over bagging methods is similar to the one used in ASHT bagging, which imp
 
 
 \section{Summary}
-Before we start presenting the data set preparation and the experimental evaluation results, here is a brief summary of the investigated methods.
+Before we start presenting the data set preparation and the experimental evaluation results, here is a brief summary of the investigated methods:
+
+\textbf{Hoeffding Tree (HT)} With enough instances on an impure node checks for best two attributes. If their information gain difference satisfies Hoeffding bound, splits the node with best attribute.
+
+\textbf{Adaptive Hoeffding Tree (AdaHT)} It uses ADWIN monitor to replace sub-trees if the performance starts degrading.
+
+\textbf{Adaptive Size Hoeffding Tree (ASHT)} Reimplementation of Hoeffding tree with complete resetting or just root deleting capability.
+
+\textbf{Bagging with Hoeffding Tree (BagHT)} Oza online bagging with Hoeffding tree. All the trees grows with time.
+
+\textbf{Bagging with Adaptive Hoeffding Tree (BagHT)} Oza online bagging with adaptive Hoeffding tree. Trees grow indefinitely unless are replaced by ADWIN monitoring scheme.
+
+\textbf{Bagging with Adaptive Size Hoeffding Tree (BagASHT)} Oza online bagging with ASHTs with different size limits.
+
+\textbf{Bagging with Size Restricted Hoeffding Tree (BagSRHT/CoBagSRHT)} Carry-over bagging with SRHT with different size limits.
+
+\textbf{Boosting with Hoeffding Tree (BoostHT)}  Oza online boosting with Hoeffding Tree.
+
+\textbf{Boosting with Adaptive Hoeffding Tree (BoostAdaHT)} Oza online boosting with adaptive Hoeffding Tree.
+
+\textbf{Boosting with ADWIN with Hoeffding Tree (BoostAdwin)} Oza online boosting where ensemble maintains ADWIN for classifiers (Hoeffding tree). Similar to BoostAdaHT.
+
 
 \begin{table}[htbp]
     \caption{Comparison among various learners}
