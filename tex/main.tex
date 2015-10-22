@@ -54,6 +54,34 @@
 \renewcommand{\MakeUppercase}[1]{#1} % Get rid of CONTENTS BIBLIOGRAPHY upper cases
 
 
+%LISTING
+\usepackage[T1]{fontenc}
+\usepackage{inconsolata}
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.26,0.25,0.25}
+
+\usepackage{listings}
+\renewcommand{\lstlistlistingname}{List of Code Listings}
+\renewcommand{\lstlistingname}{Code Snippet}
+\lstset{language=Java,
+    showspaces=false,
+    showtabs=false,
+    breaklines=true,
+    showstringspaces=false,
+    breakatwhitespace=true,
+    commentstyle=\color{pgreen},
+    keywordstyle=\color{pblue},
+    stringstyle=\color{pred},
+    basicstyle=\ttfamily,
+    moredelim=[il][\textcolor{pgrey}]{_!_},
+    moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
+}
+
+
+
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -95,26 +123,36 @@
 %\pagenumbering{roman}
 \onehalfspacing
 \input{misc/abstract.tex}
-\clearpage
+\cleardoublepage
 %\maketitle
-\linespread{1.0}
-\tableofcontents
+%\linespread{0.8}
+\phantomsection \label{xcontents}
 \addcontentsline{toc}{chapter}{Contents}
-\clearpage
+\tableofcontents
+\cleardoublepage
 
 \onehalfspacing
 
+\phantomsection \label{xfigs}
 \addcontentsline{toc}{chapter}{List of Figures}
 \listoffigures
-\clearpage
-
-\listofalgorithms
-\addcontentsline{toc}{chapter}{List of Algorithms}
 \cleardoublepage
 
-\listoftables
+\phantomsection \label{xalgos}
+\addcontentsline{toc}{chapter}{List of Algorithms}
+\listofalgorithms
+\cleardoublepage
+
+\phantomsection \label{xtables}
 \addcontentsline{toc}{chapter}{List of Tables}
-\clearpage
+\listoftables
+\cleardoublepage
+
+
+\phantomsection \label{xlistings}
+\addcontentsline{toc}{chapter}{\lstlistlistingname}
+\lstlistoflistings
+\cleardoublepage
 
 
 \mainmatter
@@ -134,8 +172,9 @@
 
 
 \bibliographystyle{apalike}
-\bibliography{ref}
+\phantomsection \label{xbib}
 \addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{ref}
 \clearpage
 
 \begin{appendices}

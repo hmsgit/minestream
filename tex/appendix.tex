@@ -442,3 +442,41 @@ Occupation, education, marital status are the most important attributes. They ca
 Five primary clusters can be found in this dataset. Cluster 1 being mostly student groups, still studying and earning <= 50K. Cluster 2 are the young professionals, just started their career, and mostly earning less than 50K. Cluster 3 are the people with white collar jobs. People with bachelor or more education here earn >50K. Cluster 4 are the people with blue collar jobs, mostly earning <=50K. Cluster 5 are females. In this group too, people with bachelor or more degree earn >50K.
 
 Most batched leaning algorithm achieves about 80-83\% accuracy with about 85-88\% F1 value.
+
+\chapter{Implementation Details}
+
+\begin{lstlisting}[
+    backgroundcolor={\color[rgb]{0.95,0.95,0.95}},
+    numbers=left,
+    numberstyle=\tiny\color{black},
+    caption= {Some code}
+]
+/**
+* This is a doc comment.
+*/
+package com.ociweb.jnb.lombok;
+
+import java.util.Date;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+
+_!_@Data 
+_!_@EqualsAndHashCode(exclude={"address","city","state","zip"})
+public class Person {
+        enum Gender { Male, Female }
+
+    // another comment
+
+    %%@NonNull%% private String firstName;
+    %%@NonNull%% private String lastName;
+    %%@NonNull%% private final Gender gender;
+    %%@NonNull%% private final Date dateOfBirth;
+    
+    private String ssn;
+    private String address;
+    private String city;
+    private String state;
+    private String zip;
+}
+\end{lstlisting}
