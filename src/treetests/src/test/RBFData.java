@@ -41,6 +41,6 @@ public class RBFData {
             System.out.println(x.toString());
         }
         
-        new Main().writeStatsInFile(file, stats);
+        new MainRandRBF().writeStatsInFile(file, stats);
     }
 }

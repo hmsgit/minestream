@@ -1285,7 +1285,7 @@ public class MainProcessedRBF2 {
                 .append(",\tDriftCentroid:\t").append(inStream.numDriftCentroidsOption.getValue())
                 .append("\n");
         
-        OzaBagSRHT classifier = new OzaBagSRHT();
+        CoBagSRHT classifier = new CoBagSRHT();
         SizeRestrictedHT base = new SizeRestrictedHT();
         base.gracePeriodOption.setValue(gracePeriod);
         base.tieThresholdOption.setValue(tieThreshold);
@@ -1311,7 +1311,7 @@ public class MainProcessedRBF2 {
                     stats
             );
         } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainRandRBF.class.getName()).log(Level.SEVERE, null, ex);
         }
         stats.append("\n\n\n\n");
         return stats.toString();

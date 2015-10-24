@@ -206,8 +206,8 @@ public class RunTest {
             stats.append(0+ ",\t");
             stats.append(0+ ",\t");
 
-        } else if (classifier instanceof OzaBagSRHT) {
-            OzaBagSRHT _xht = (OzaBagSRHT) classifier;
+        } else if (classifier instanceof CoBagSRHT) {
+            CoBagSRHT _xht = (CoBagSRHT) classifier;
             stats.append(-_xht.calcByteSize()+ ",\t");
 
             stats.append(_xht.measureTreeDepth()+ ",\t"); // Average depth

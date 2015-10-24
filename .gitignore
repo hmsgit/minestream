@@ -33,6 +33,7 @@ tweetdb
 *.lof
 *.log
 *.lot
+*.lol
 *.out
 *.gz
 *.toc

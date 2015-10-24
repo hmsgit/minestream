@@ -949,7 +949,7 @@ public class MainCensus {
         stats.append("OzaBagSRHT-census\n")
                 .append("\n");
         
-        OzaBagSRHT classifier = new OzaBagSRHT();
+        CoBagSRHT classifier = new CoBagSRHT();
         SizeRestrictedHT base = new SizeRestrictedHT();
         base.gracePeriodOption.setValue(gracePeriod);
         base.tieThresholdOption.setValue(tieThreshold);
