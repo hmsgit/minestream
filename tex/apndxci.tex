@@ -1,0 +1,10 @@
+\chapter{Census Income Dataset}
+\label{appndx:ci}
+
+Census income data set, also commonly known as adult data set has 48842 instances consisting of 14 attributes that map to a binomial Income class (<=50K or >50K). Attributes are age, sex, education, occupation, work class, working hours, marital status, relationship, country, race, final weight, capital gain, and capital loss. 2809 instance have missing values for either occupation or work class or both.
+
+Occupation, education, marital status are the most important attributes. They can sufficiently classify the instance with an accuracy within 1\% of the accuracy achieved using all attributes. Education attribute has 16 values from pre-school to doctorate. 66\% of the instances belong to high-school grad, some college, and bachelor. Occupation attribute has 15 values. Instances are  more balanced for this attribute. Marital status consists of values from married, never married, and other status. The target income class is skewed towards <=50K class with 76\% of the instance.
+
+Five primary clusters can be found in this dataset. Cluster 1 being mostly student groups, still studying and earning <= 50K. Cluster 2 are the young professionals, just started their career, and mostly earning less than 50K. Cluster 3 are the people with white collar jobs. People with bachelor or more education here earn >50K. Cluster 4 are the people with blue collar jobs, mostly earning <=50K. Cluster 5 are females. In this group too, people with bachelor or more degree earn >50K.
+
+Most batched leaning algorithm achieves about 80-83\% accuracy with about 85-88\% F1 value.

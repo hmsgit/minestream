@@ -80,7 +80,25 @@
     moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
 }
 
+%BUNDLE FIGURES AND TABLES TOGATHER
+\makeatletter
+\providecommand\phantomsection{}% for hyperref
 
+\newcommand\listofillustrations{%
+    \chapter*{List of Illustrations}%
+    \phantomsection
+    \addcontentsline{toc}{chapter}{List of Illustrations}%
+    \section*{Figures}%
+    \phantomsection
+    %\addcontentsline{toc}{section}{\protect\numberline{} Figures}%
+    \@starttoc{lof}%
+    \bigskip
+    \section*{Tables}%
+    \phantomsection
+    %\addcontentsline{toc}{section}{\protect\numberline{} Tables}%
+    \@starttoc{lot}
+}
+\makeatother
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}{Corollary}[theorem]
@@ -135,6 +153,7 @@
 
 \phantomsection \label{xfigs}
 \addcontentsline{toc}{chapter}{List of Figures}
+%\listofillustrations
 \listoffigures
 \cleardoublepage
 
@@ -182,7 +201,7 @@
     \noappendicestocpagenum
     \addappheadtotoc
     
-    \input{appendix.tex}    
+    \input{appendices.tex}    
 \end{appendices}
 
 

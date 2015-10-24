@@ -1,0 +1,387 @@
+\chapter{Implementation Details}
+
+This appendix contains the general information about the implementation details. The implementation is primarily based on MOA implementation in Java.
+
+\section*{Packages, Sources, and Libraries}
+\begin{lstlisting}[
+    backgroundcolor={\color[rgb]{0.98,0.98,0.98}},
+    basicstyle=\tiny
+]
+Packages:
+src.test
+src.wrapper
+src.wrapper.generators
+
+Sources:
+/src/test/MainRandRBF.java		// contains tests for random RBF generator
+/src/test/MainVSRBF.java		// contains tests for VSRBF generator
+/src/test/MainCensus.java		// contains tests for census income data set
+/src/test/RunTest.java			// provides test functionality
+/src/test/TestParameters.java		// universal test parameters
+
+/src/wrapper/My*.java			// wrapper for MOA implementation of * class
+/src/wrapper/SizeRestrictedHT.java	// new Hoeffding tree variant
+/src/wrapper/CoBagSRHT.java		// new ensemble method introduced in this thesis
+
+/src/wrapper/generator/InstancePool.java		// instance information within pools
+/src/wrapper/generator/My*.java				// wrapper for MOA implementation
+/src/wrapper/generator/VarSpeedRBFGenerator.java	// new generator
+
+Libraries:
+weka
+moa
+\end{lstlisting}
+
+\section*{Data Generation}
+Three different data sets are being used for the experimentations. Firstly, for census income data set original ``arff'' data file is read using MOA's ArffFileStream.
+
+\begin{lstlisting}[
+    backgroundcolor={\color[rgb]{0.98,0.98,0.98}},
+    numbers=left,
+    numberstyle=\tiny\color{black},
+    basicstyle=\tiny,
+    caption= {Arff file reader}
+]
+public class ArffFileStream extends AbstractOptionHandler
+        implements InstanceStream {
+    ...
+    /*
+     * @param arffFileName file to read
+     * @param classIndex index of the class attribute, 0 for none, -1 for last
+     */
+    public ArffFileStream(String arffFileName, int classIndex) {
+        this.arffFileOption.setValue(arffFileName);
+        this.classIndexOption.setValue(classIndex);
+        restart();
+    }
+    ...
+}
+\end{lstlisting}
+
+Other generators are placed in src.wrapper.generators package.  To have the flexibility of experimenting with various options available, original MOA implementation of RandomRBFGeneratorDrift is copied into a wrapper class (MyRandomRBFGeneratorDrift). In this class, required number of centroids are first generated at random with a user given values as the seed.
+\begin{lstlisting}[
+    backgroundcolor={\color[rgb]{0.98,0.98,0.98}},
+    numbers=left,
+    numberstyle=\tiny\color{black},
+    basicstyle=\tiny,
+    caption= {Generating initial centroids}
+]
+public class MyRandomRBFGenerator extends AbstractOptionHandler 
+        implements InstanceStream {
+    protected void generateCentroids() {
+        Random modelRand = new Random(this.modelRandomSeedOption.getValue());
+        this.centroids = new Centroid[this.numCentroidsOption.getValue()];
+        this.centroidWeights = new double[this.centroids.length];
+        for (int i = 0; i < this.centroids.length; i++) {
+            this.centroids[i] = new Centroid();
+            double[] randCentre = new double[this.numAttsOption.getValue()];
+            for (int j = 0; j < randCentre.length; j++) {
+                randCentre[j] = modelRand.nextDouble();
+            }
+            this.centroids[i].centre = randCentre;
+            this.centroids[i].classLabel = modelRand.nextInt(this.numClassesOption.getValue());
+            this.centroids[i].stdDev = modelRand.nextDouble();
+            this.centroidWeights[i] = modelRand.nextDouble();
+        }
+    }
+}
+\end{lstlisting}
+Then, a random drift amount is associated with each centroid.
+\begin{lstlisting}[
+    backgroundcolor={\color[rgb]{0.98,0.98,0.98}},
+    numbers=left,
+    numberstyle=\tiny\color{black},
+    basicstyle=\tiny,
+    caption= {Associating drift with centroids}
+]
+public class MyRandomRBFGeneratorDrift extends MyRandomRBFGenerator {
+    protected void generateCentroids() {
+        super.generateCentroids();		// first generate all centroids
+        Random modelRand = new Random(this.modelRandomSeedOption.getValue());
+        int len = this.numDriftCentroidsOption.getValue();
+        if (len > this.centroids.length) {
+            len = this.centroids.length;
+        }
+        this.speedCentroids = new double[len][this.numAttsOption.getValue()];
+        for (int i = 0; i < len; i++) {
+            double[] randSpeed = new double[this.numAttsOption.getValue()];
+            double normSpeed = 0.0;
+            for (int j = 0; j < randSpeed.length; j++) {
+                randSpeed[j] = modelRand.nextDouble();
+                normSpeed += randSpeed[j] * randSpeed[j];
+            }
+            normSpeed = Math.sqrt(normSpeed);
+            for (int j = 0; j < randSpeed.length; j++) {
+                randSpeed[j] /= normSpeed;
+            }
+            this.speedCentroids[i] = randSpeed;
+        }
+    }
+}
+\end{lstlisting}
+This drift amount is used to update the centroids' center every time a new instance is requested. 
+\begin{lstlisting}[
+    backgroundcolor={\color[rgb]{0.98,0.98,0.98}},
+    numbers=left,
+    numberstyle=\tiny\color{black},
+    basicstyle=\tiny,
+    caption= {Update centroid locations before getting a new instance}
+]
+public class MyRandomRBFGeneratorDrift extends MyRandomRBFGenerator {
+    public Instance nextInstance() {
+        int len = this.numDriftCentroidsOption.getValue();
+        if (len > this.centroids.length) {
+            len = this.centroids.length;
+        }
+        for (int j = 0; j < len; j++) {
+            for (int i = 0; i < this.numAttsOption.getValue(); i++) {
+                this.centroids[j].centre[i] += this.speedCentroids[j][i] * this.speedChangeOption.getValue();
+                if (this.centroids[j].centre[i] > 1) {
+                    this.centroids[j].centre[i] = 1;
+                    this.speedCentroids[j][i] = -this.speedCentroids[j][i];
+                }
+                if (this.centroids[j].centre[i] < 0) {
+                    this.centroids[j].centre[i] = 0;
+                    this.speedCentroids[j][i] = -this.speedCentroids[j][i];
+                }
+            }
+        }
+        return super.nextInstance();
+    }
+}
+\end{lstlisting}
+Finally, the instance is generated using specified values as parameters of normal distribution.
+\begin{lstlisting}[
+backgroundcolor={\color[rgb]{0.98,0.98,0.98}},
+numbers=left,
+numberstyle=\tiny\color{black},
+basicstyle=\tiny,
+caption= {Get new instance from the generator}
+]
+public class MyRandomRBFGenerator extends AbstractOptionHandler 
+        implements InstanceStream {
+    public Instance nextInstance() {
+        _curCentroidIndex = MiscUtils.chooseRandomIndexBasedOnWeights(this.centroidWeights,
+        this.instanceRandom);
+        Centroid centroid = this.centroids[_curCentroidIndex];
+        int numAtts = this.numAttsOption.getValue();
+        double[] attVals = new double[numAtts + 1];
+        for (int i = 0; i < numAtts; i++) {
+            attVals[i] = (this.instanceRandom.nextDouble() * 2.0) - 1.0;
+        }
+        double magnitude = 0.0;
+        for (int i = 0; i < numAtts; i++) {
+            magnitude += attVals[i] * attVals[i];
+        }
+        magnitude = Math.sqrt(magnitude);
+        double desiredMag = this.instanceRandom.nextGaussian() * centroid.stdDev;
+        double scale = desiredMag / magnitude;
+        for (int i = 0; i < numAtts; i++) {
+            attVals[i] = centroid.centre[i] + attVals[i] * scale;
+        }
+        Instance inst = new DenseInstance(1.0, attVals);
+        inst.setDataset(getHeader());
+        inst.setClassValue(centroid.classLabel);
+        return inst;
+    }
+}
+\end{lstlisting}
+
+Variable speed RBF generator is implemented into VarSpeedRBFGenerator class. Centroids are generated using the same methods as random RBF generator. Then they are assigned to selected number of pools. A configuration step then assigns desired drift speed and activation percentage to the centroids among pools.
+\begin{lstlisting}[
+    backgroundcolor={\color[rgb]{0.98,0.98,0.98}},
+    numbers=left,
+    numberstyle=\tiny\color{black},
+    basicstyle=\tiny,
+    caption= {Assign centroids to pools for variable speed RBF generator}
+]
+public class VarSpeedRBFGeneratorDrift  extends AbstractOptionHandler 
+        implements InstanceStream {
+    protected void generateCentroids() {
+        ...		// follow generation process of random RBF generator
+        Random poolrand = new Random((int) System.currentTimeMillis());
+        for (int i = 0; i < centroids.length; i++) {
+            pools[poolrand.nextInt(pools.length)].centroidIndices.add(i);
+        }
+        reconfig();
+    }
+}
+\end{lstlisting}
+For sake of simplicity, instances are produced in batches. Within each batch they maintain their designated weights. Before each batch is generated, a reconfiguration step is performed. This step rearranges active centroids and their drift coefficients. For slower streams most of the centroids remain active, while for faster streams, chances of new centroids to be activated are very high.
+\begin{lstlisting}[
+    backgroundcolor={\color[rgb]{0.98,0.98,0.98}},
+    numbers=left,
+    numberstyle=\tiny\color{black},
+    basicstyle=\tiny,
+    caption= {Reconfiguration step for new batch}
+]
+public class VarSpeedRBFGeneratorDrift  extends AbstractOptionHandler 
+        implements InstanceStream {
+    public void reconfig() {
+        for (int i = 0; i < centroids.length; i++) {
+            centroids[i].isActive = true;
+        }
+        for (int i = 0; i < pools.length; i++) {
+            Random poolrand = new Random((int) System.currentTimeMillis());
+            pools[i].activationPercent = 1.0- i * 0.2;
+            int active =(int) (pools[i].centroidIndices.size() * pools[i].activationPercent);
+            int toDeactivate = pools[i].centroidIndices.size() - active;
+            
+            for (int j = 0, k = 0; k < toDeactivate; j++) {
+                int index = pools[i].centroidIndices.get(j % pools[i].centroidIndices.size());
+                if (poolrand.nextInt(100) % 2 == 0 && centroids[index].isActive != false) { 
+                    centroids[index].isActive = false;
+                    k++;
+                }
+                centroids[index].driftCoeffient = this.speedChangeOption.getValue() 
+                    * (1.0 - 1.0/(i+1));
+            }
+        }
+    }
+}
+\end{lstlisting}
+
+\section*{Algorithm Implementations}
+Algorithms are placed in src.wrapper package. All the algorithms to be analyzed are wrapped or extended to facilitate capturing of various statistics during the learning process. Implementation of new algorithms introduced in the thesis are also placed in this package. Size restricted Hoeffding tree is implemented in SizeRestrictedHT class and carry-over bagging is placed in CoBagSRHT class. 
+
+SizeRestrictedHT is extended from MyHoeffdingAdaptiveTree, the ADWIN variant of Hoeffding tree. Learning process of SizeRestrictedHT is similar to MyASHoeffdingTree except for direct reseting.
+\begin{lstlisting}[
+    backgroundcolor={\color[rgb]{0.98,0.98,0.98}},
+    numbers=left,
+    numberstyle=\tiny\color{black},
+    basicstyle=\tiny,
+    caption= {Training method of Size Restricted Hoeffding Tree}
+]
+public class SizeRestrictedHT extends MyHoeffdingAdaptiveTree {
+    public void trainOnInstanceImpl(Instance inst) {
+        ... // if root is null, create new node
+        MyHoeffdingTree.FoundNode foundNode = this.treeRoot.filterInstanceToLeaf(inst, null, -1);
+        MyHoeffdingTree.Node leafNode = foundNode.node;
+        ... // if leaf is null, create new leaf
+        if (leafNode instanceof MyHoeffdingTree.LearningNode) {
+            MyHoeffdingTree.LearningNode learningNode = (MyHoeffdingTree.LearningNode) leafNode;
+            learningNode.learnFromInstance(inst, this);
+            if (this.growthAllowed && (learningNode instanceof MyHoeffdingTree.ActiveLearningNode)) {
+                MyHoeffdingTree.ActiveLearningNode activeLearningNode = (MyHoeffdingTree.ActiveLearningNode) learningNode;
+                double weightSeen = activeLearningNode.getWeightSeen();
+                if (weightSeen - activeLearningNode.getWeightSeenAtLastSplitEvaluation() >= this.gracePeriodOption.getValue()) {
+                    int currentDNcount = this.decisionNodeCount;
+                    if (this.decisionNodeCount < this.maxSize) {
+                        attemptToSplit(activeLearningNode, foundNode.parent, foundNode.parentBranch);
+                    } else {
+                        ... // try to learn from isntance if tree size is not increased
+                    }
+                    if (numSizeLimitCrossed >= shouldResetAfter) {
+                        ... // reset or prune
+                    }
+                    activeLearningNode.setWeightSeenAtLastSplitEvaluation(weightSeen);
+                }
+            }
+        }
+    }
+}
+\end{lstlisting}
+This training method of SizeRestrictedHT is eventually called by the training method of CoBagSRHT. CobagSRHT is derived from MyOzabag, the very primitive implementation of Oza online bagging method. Both training and voting methods are shown in the fowling code snippet.
+\begin{lstlisting}[
+    backgroundcolor={\color[rgb]{0.98,0.98,0.98}},
+    numbers=left,
+    numberstyle=\tiny\color{black},
+    basicstyle=\tiny,
+    caption= {Learning and voting with CoBagSRHT}
+]
+public class CoBagSRHT extends MyOzaBag {
+    public void trainOnInstanceImpl(Instance inst) {
+        int trueClass = (int) inst.classValue();
+        for (Classifier cl : extraClassifiers) {
+            SizeRestrictedHT cx = (SizeRestrictedHT) cl;
+            cx.trainOnInstance(inst);
+            if (cx.getToleranceRemain() == 0)
+            extraClassifiers.remove(cl);
+        }
+        for (int i = 0; i < this.ensemble.length; i++) {
+            int k = MiscUtils.poisson(1.0, this.classifierRandom);
+            if (k > 0) {
+                Instance weightedInst = (Instance) inst.copy();
+                ... // update error estimation
+                this.ensemble[i].trainOnInstance(weightedInst);
+                
+                SizeRestrictedHT ens = (SizeRestrictedHT) ensemble[i];
+                if (ens.getDecisionNodeCount() >= ens.maxSize) {
+                    if (i > this.ensembleSizeOption.getValue()/2 
+                    && extraClassifiers.size() <= this.ensembleSizeOption.getValue() )
+                    extraClassifiers.add(ens);
+                    if (extraClassifiers.size() > this.ensembleSizeOption.getValue()/2) {
+                        extraClassifiers.remove(0);
+                    }
+                    ... // create a new classifier with capasity of ens.maxSize
+                }
+            }
+        }
+    }
+    
+    public double[] getVotesForInstance(Instance inst) {
+        DoubleVector combinedVote = new DoubleVector();
+        for (Classifier cl : extraClassifiers) {
+            ... // get votes
+        }
+        for (int i = 0; i < this.ensemble.length; i++) {
+            ... // get votes
+        }
+        return combinedVote.getArrayRef();
+    }
+}
+\end{lstlisting}
+
+\section*{Run Experiments}
+For testing, a generalized class with classifier, stream, and output buffer as parameters is implemented (class RunTest). It initializes the basic configuration for passed parameters, and performs test-then-train method for predefined (in TestParameters class) number of instances.
+\begin{lstlisting}[
+    backgroundcolor={\color[rgb]{0.98,0.98,0.98}},
+    numbers=left,
+    numberstyle=\tiny\color{black},
+    basicstyle=\tiny,
+    caption= {Universal test function}
+]
+public class RunTest {
+    public void test(InstanceStream inStream, Classifier inclassifier, StringBuilder outstats) 
+    throws Exception {
+        ... // intialization
+        while (trainingStream.hasMoreInstances()
+        && numberInstance++ < TestParameters.NUMBER_OF_INSTANCES) {
+            
+            double[] votes = classifier.getVotesForInstance(trainInst);
+            windowEval.addResult(trainInst, votes);
+            basicEval.addResult(trainInst, votes);
+            ... // update stats
+            
+            classifier.trainOnInstance(trainInst);
+        }
+        ... // record stats
+    }
+}
+\end{lstlisting}
+The usage of test function is simple. Output buffer, stream, and classifier are instantiated; and set with required parameter values. Then, these are passed to the test function. The function takes the responsibility of preparing the stream and classifier for use, and result is returned into the output buffer. %\scriptsize,
+\begin{lstlisting}[
+    backgroundcolor={\color[rgb]{0.98,0.98,0.98}},
+    numbers=left,
+    numberstyle=\tiny\color{black},
+    basicstyle=\tiny,
+    caption= {Using the test function}
+]
+public String test_OzaBagASHT_RandRBF () {	
+    StringBuilder stats = new StringBuilder();	// stats recorder	
+    RandomRBFGeneratorDrift inStream = new RandomRBFGeneratorDrift();
+    ...	// set stream properties
+    inStream.prepareForUse();	
+    MyOzaBagASHT classifier = new MyOzaBagASHT();
+    MyASHoeffdingTree base = new MyASHoeffdingTree();
+    ...	// set base classifier properties
+    ...	// set ensemble classifier properties
+    
+    try {
+        new RunTest().test(inStream, classifier, stats);
+    } catch (Exception ex) {
+        ...	// handle exception
+    }
+    return stats.toString();
+}
+\end{lstlisting}
