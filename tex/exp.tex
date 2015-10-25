@@ -37,7 +37,7 @@ Lastly, we simulated a concept evolving scenario by controlled sampling of data 
 The evaluated algorithms depends on a number of parameters. Grace period, tie threshold, and binary tree or not are the most important parameters for HT, adaptive HT, and ASHT. For bagging and boosting methods ensemble size is important. Additionally, for ASHT and SRHT, we have first classifier size, choice of reset or pruning are also important. Similarly, there are parameters on which the data generation processes (Chapter~\ref{chp:dataset}) rely on. In this section, we analyze the effect of each of these parameters starting with parameters for data generation. For the discussion here, we used most relevant metrics related to the each parameters. A comprehensive list of plots are given in the Appendix~\ref{appndx:plots} detailing all related metrics.
 
 \subsection{Effect of Drift Coefficient}
-Figure~\ref{fig:exp:speedxaccu}a suggests that maximum deviation occurs within a values 0.01 and 0.1. This is implementation specific value, depending on current MOA implementation. This is a indication that drift coefficient changes the generation process periodically. That is after a threshold close to 0.05 drift reaches an amount that it starts forming clusters again. This agrees with previously seen case. In Figure~\ref{fig:ds:rbfdrift} it was shown that how generated data is distributed on a 2D space. Compared to Figure~\ref{fig:ds:rbfdrift}c, Figure~\ref{fig:ds:rbfdrift}d is more dense.
+Figure~\ref{fig:exp:speedxaccu}a suggests that maximum deviation occurs within a value between 0.01 and 0.1. This is implementation specific value, depending on current MOA implementation. This is an indication that drift coefficient changes the generation process periodically. That is after a threshold close to 0.05 drift reaches an amount that it starts forming clusters again. This agrees with previously seen case. In Figure~\ref{fig:ds:rbfdrift} it was shown that how generated data is distributed on a 2D space. Compared to Figure~\ref{fig:ds:rbfdrift}c, Figure~\ref{fig:ds:rbfdrift}d is denser.
 
 \begin{figure}[htbp] 
     \begin{center}
@@ -72,7 +72,7 @@ Next, on Figure~\ref{fig:exp:speedxtime} comparison of processing time for diffe
 
 
 \subsection{Effect of Number of Centroids}
-Number of generating centroids is another parameter for data generation. Each centroid in some way simulates concepts. We varied this number form 50 to 200 with step of 50. No changes in terms of performance metrics is observed for random RBF data sets (Figure~\ref{fig:exp:centxaccu}a,~\ref{fig:exp:centxsize}a). For VS RBF streams a slight variation is observed, as depicted in Figure~\ref{fig:exp:centxaccu}b,~\ref{fig:exp:centxsize}b.
+Number of generating centroids is another parameter for data generation. Each centroid in some way simulates concepts. We varied this number from 50 to 200 with step of 50. No changes in terms of performance metrics is observed for random RBF data sets (Figure~\ref{fig:exp:centxaccu}a,~\ref{fig:exp:centxsize}a). For VS RBF streams a slight variation is observed, as depicted in Figure~\ref{fig:exp:centxaccu}b,~\ref{fig:exp:centxsize}b.
 
 \begin{figure}[htbp] 
     \begin{center}
@@ -251,10 +251,10 @@ However, with a small drift coefficient of 0.001, algorithms demonstrate  higher
 \end{figure}
 
 \subsection{Other Parameters}
-Experiments are also performed for maximum allowed size, size of the first tree in a ensemble (other are multiples of first one), and reset vs pruning approaches. Their effect in our settings is found to be negligible. Evaluation plots are given in Appendix~\ref{appndx:plots}.
+Experiments are also performed for maximum allowed size, size of the first tree in an ensemble (other are multiples of first one), and reset vs pruning approaches. Their effect in our settings is found to be negligible. Evaluation plots are given in Appendix~\ref{appndx:plots}.
 
 
-\section{Comparative Analysis Over Timeline}
+\section{Comparative Analysis of Timeline}
 In last section, we have presented performance metrics of the algorithms in terms of their parameters, and compared the algorithms based on the overall performance. However, with final output of performances, we do not get the idea of how tree reset or pruning affect the classifiers. Moreover, it is unclear that how bagging with SRHT is an improvement over bagging with ASHT. Thus, in this section, we present the analysis based on windowed evaluation in a timeline manner. For this, we have used windowed evaluation approach with 50,000 as the size of the window. Performances are sampled at each 50,000 instances. For this set of experiments, used parameter values are: drift coefficient 0.001, grace period 200, tie threshold 0.05, percentage of drifting coefficient 100, ensemble size 5, binary split, and resettable. 
 
 \subsection{Performance Over Time}
