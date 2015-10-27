@@ -230,7 +230,7 @@ To improve accuracy of a decision model under concept drifting environment, deci
 It could be a good idea to use periodic methods where duration of the seasonality is known beforehand. Otherwise, chosen duration could be too large or too small to response to the changes. In such cases, an informed decision is more desired. However, informed methods requires more resources (than blind methods) to be able to make such decision.
 
 \subsection{Na\"ive Bayes Adaptation}
-Naive Bayes algorithm is essentially a stream classification algorithm. One of the advantages of this classifier in the context of data stream is its low complexity for deployment. It only depends on the number of explanatory variables. Its memory consumption is also low since it requires only one conditional probability density estimation per variable.
+Na\"ive Bayes algorithm is essentially a stream classification algorithm. One of the advantages of this classifier in the context of data stream is its low complexity for deployment. It only depends on the number of explanatory variables. Its memory consumption is also low since it requires only one conditional probability density estimation per variable.
 
 \begin{algorithm}[htbp]
     \caption{VFDT: The Hoeffding Tree Algorithm}
@@ -488,7 +488,7 @@ For each iteration $t= 1, 2, \dots, T$:
 \end{itemize}
 Finally, the output is calculated with the Equation~\ref{eqn:adaboostHypo} given above.
 
-An online variant of AdaBoost uses a similar approach as online bagging method, simulating sampling with replacement using Poisson distribution. However, here the Poisson parameter $\lambda$ (Equation~\ref{eqn:poisson}) associated with an example is increased if that particular example is misclassified. In case of correct classification $\lambda$ is decreased. Similar to the AdaBoost, online boosting approach assigns total weights equally to the correctly and misclassified instances, i.e. half of the total weights each. Unlike AdaBoost, in online boosting weights are updated based on only the examples seen thus far rather than the complete training set. This is intuitively problematic as initial hypotheses are built on too few examples. Even with this limitation, online boosting shows good performance. Online boosting with naive Bayes base learner converges to the model achieved with AdaBoost as the number of training instances tends to infinity.
+An online variant of AdaBoost uses a similar approach as online bagging method, simulating sampling with replacement using Poisson distribution. However, here the Poisson parameter $\lambda$ (Equation~\ref{eqn:poisson}) associated with an example is increased if that particular example is misclassified. In case of correct classification $\lambda$ is decreased. Similar to the AdaBoost, online boosting approach assigns total weights equally to the correctly and misclassified instances, i.e. half of the total weights each. Unlike AdaBoost, in online boosting weights are updated based on only the examples seen thus far rather than the complete training set. This is intuitively problematic as initial hypotheses are built on too few examples. Even with this limitation, online boosting shows good performance. Online boosting with na\"ive Bayes base learner converges to the model achieved with AdaBoost as the number of training instances tends to infinity.
 
 \subsection{Adaptive-Size Hoeffding Tree (ASHT) Bagging}
 \label{sec:bg:asht}

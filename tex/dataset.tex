@@ -24,7 +24,7 @@ where $x_i$ is the $i$th coordinate of $x$. Hyperplane works as the boundary bet
 Wavefront generator is a data set available at UCI machine learning repository~\cite{internet:ucirepo}. Two or three base waves are used to generate a data set of three different classes of waveforms. The prediction task is to predict the classes of waveforms. The optimal Bayes classification rate is known to be $86\%$. There are two variations of this generator. Wave21 uses 21 numeric noisy attributes, and wave40 uses 19 more irrelevant attributes along with original 21.
 
 \subsection*{LED Generator}
-LED generator is also available at UCI machine learning repository~\cite{internet:ucirepo}. The prediction task for this data set is to predict the digit displayed on a seven segment LED display. Each segment has $10\%$ chance of being inverted. The optimal classification using naive Bayes on this data set is  $74\%$. 
+LED generator is also available at UCI machine learning repository~\cite{internet:ucirepo}. The prediction task for this data set is to predict the digit displayed on a seven segment LED display. Each segment has $10\%$ chance of being inverted. The optimal classification using na\"ive Bayes on this data set is  $74\%$. 
 
 \subsection*{Random Radial Basis Function Generator}
 All the generators mentioned above are relatively simple and easy to use. However, it is harder to model a complex scenario with those generators. Hypothesis space for these generators are not very large, except for rotating hyperplane generator. But with rotating hyperplane generator it is harder to produce overlapping space and outliers. Random radial basis function (RBF) generator is therefore introduced to generate complex concept type that is not straight forward to approximate, especially with decision tree model.
@@ -135,7 +135,7 @@ Figure~\ref{fig:ds:varspd} presents a generated data set with 5 pools. As the hi
             \resizebox{130mm}{!}{\includegraphics{figs/var-ivp.pdf}} \\
             \scriptsize{(b)}    
         \end{tabular}
-        \caption{Time frame of instances (a) random RBF generator (b) variable-speed RBF generator}
+        \caption{Timeline of instances (a) random RBF generator (b) variable-speed RBF generator}
         \label{fig:ds:ivcp}
     \end{center}
 \end{figure}

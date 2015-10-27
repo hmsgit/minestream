@@ -22,7 +22,7 @@ To begin with, we check the performance of the stream algorithms in comparison t
             \scriptsize{(a)\vspace{2mm}} &
             \scriptsize{(b)}    
         \end{tabular}
-        \caption{Comparison of classical and stream learning algorithms with census income data set (a) accuracy and (b) F1-measure }
+        \caption{Comparison of classical and stream learning algorithms on census income data set with (a) accuracy and (b) F1-measure }
         \label{fig:exp:ci}
     \end{center}
 \end{figure}
@@ -33,7 +33,7 @@ In terms of the tree structure, final classifier tree from stream learner are si
 Lastly, we simulated a concept evolving scenario by controlled sampling of data from different clusters within the census income data. Five clusters were found using batched learning methods. While it had no significant effect on the performance of HT, however, methods that uses ADWIN is found to  get reset often depending on the sampling sequence. When each clusters were used sequentially, they reset all 4 times when concepts were changed.
 
 
-\section{Parameter Analysis}
+\section{Impact of Parameters}
 The evaluated algorithms depends on a number of parameters. Grace period, tie threshold, and binary tree or not are the most important parameters for HT, adaptive HT, and ASHT. For bagging and boosting methods ensemble size is important. Additionally, for ASHT and SRHT, we have first classifier size, choice of reset or pruning are also important. Similarly, there are parameters on which the data generation processes (Chapter~\ref{chp:dataset}) rely on. In this section, we analyze the effect of each of these parameters starting with parameters for data generation. For the discussion here, we used most relevant metrics related to the each parameters. A comprehensive list of plots are given in the Appendix~\ref{appndx:plots} detailing all related metrics.
 
 \subsection{Effect of Drift Coefficient}
@@ -47,7 +47,7 @@ Figure~\ref{fig:exp:speedxaccu}a suggests that maximum deviation occurs within a
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of drift coefficient on accuracy (a) random RBF (b) VS RBF}
+        \caption{Effect of drift coefficient on accuracy using (a) random RBF (b) VS RBF}
         \label{fig:exp:speedxaccu}
     \end{center}
 \end{figure}
@@ -61,7 +61,7 @@ For random RBF stream, accuracy drops significantly for all algorithms with the 
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of drift coefficient on processing (a) random RBF (b) VS RBF}
+        \caption{Effect of drift coefficient on processing time using (a) random RBF (b) VS RBF}
         \label{fig:exp:speedxtime}
     \end{center}
 \end{figure}
@@ -82,7 +82,7 @@ Number of generating centroids is another parameter for data generation. Each ce
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of number of centroid on accuracy (a) random RBF (b) VS RBF}
+        \caption{Effect of number of centroids on accuracy using (a) random RBF (b) VS RBF}
         \label{fig:exp:centxaccu}
     \end{center}
 \end{figure}
@@ -95,7 +95,7 @@ Number of generating centroids is another parameter for data generation. Each ce
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of number of centroid on tree size (a) random RBF (b) VS RBF}
+        \caption{Effect of number of centroids on tree size using (a) random RBF (b) VS RBF}
         \label{fig:exp:centxsize}
     \end{center}
 \end{figure}
@@ -110,7 +110,7 @@ Tree sizes for all these algorithms are divided into 3 general groups. Classifie
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of percentage of drift centroid on accuracy (a) random RBF (b) VS RBF}
+        \caption{Effect of percentage of drift centroid on accuracy using (a) random RBF (b) VS RBF}
         \label{fig:exp:driftxaccu}
     \end{center}
 \end{figure}
@@ -132,7 +132,7 @@ Grace period is the number of instances each node must receive before starting t
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of grace period on accuracy (a) random RBF (b) VS RBF}
+        \caption{Effect of grace period on accuracy using (a) random RBF (b) VS RBF}
         \label{fig:exp:gracexaccu}
     \end{center}
 \end{figure}
@@ -147,7 +147,7 @@ Grace period is the number of instances each node must receive before starting t
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of grace period on processing time (a) random RBF (b) VS RBF}
+        \caption{Effect of grace period on processing time using (a) random RBF (b) VS RBF}
         \label{fig:exp:gracextime}
     \end{center}
 \end{figure}
@@ -162,7 +162,7 @@ Grace period is the number of instances each node must receive before starting t
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of grace period on tree size (a) random RBF (b) VS RBF}
+        \caption{Effect of grace period on tree size using (a) random RBF (b) VS RBF}
         \label{fig:exp:gracexsize}
     \end{center}
 \end{figure}
@@ -181,7 +181,7 @@ Tie threshold is used to break ties between two similarly good attributes for a 
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of tie threshold on accuracy (a) random RBF (b) VS RBF}
+        \caption{Effect of tie threshold on accuracy using (a) random RBF (b) VS RBF}
         \label{fig:exp:tiexaccu}
     \end{center}
 \end{figure}
@@ -196,7 +196,7 @@ A larger value for tie threshold ensures that the margin between the best two at
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of tie threshold on tree size (a) random RBF (b) VS RBF}
+        \caption{Effect of tie threshold on tree size using (a) random RBF (b) VS RBF}
         \label{fig:exp:tiexsize}
     \end{center}
 \end{figure}
@@ -294,7 +294,7 @@ This is essentially the goal of our new approach: to have a more stable ensemble
     \begin{center}
             \resizebox{130mm}{!}{\includegraphics{resw/{0-vs-pool-accu}.pdf}}
             
-        \caption{Accuracy within pool}
+        \caption{Accuracy within each data generating pool}
         \label{fig:exp:pool}
     \end{center}
 \end{figure}
@@ -322,7 +322,7 @@ Among other metrics, number of reset count found to be linearly increasing with 
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Processing time for (a) Random RBF (b) VS RBF}
+        \caption{Processing time over time for (a) Random RBF (b) VS RBF}
         \label{fig:exp:ttime}
     \end{center}
 \end{figure}
@@ -336,14 +336,14 @@ Among other metrics, number of reset count found to be linearly increasing with 
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Kappa for (a) Random RBF (b) VS RBF}
+        \caption{Kappa over time for (a) Random RBF (b) VS RBF}
         \label{fig:exp:tkappa}
     \end{center}
 \end{figure}
 \clearpage
 
 
-\section{Discussion}
+\section{Discussion of Experimental Evaluation}
 We started this chapter by comparing stream learners with state-of-the-art batched learners. We showed that for census income data set of about 49 thousand instances stream learners performs close to the best accuracies obtained by batched learners. This, however, cannot be used to conclude that stream learners would always show such performances for other data sets.
 
 Next, we have analyzed each of the algorithms including our new approach by varying the parameters within a wide range. We also have presented findings on effect of different parameters of data generation processes. It was found that drift coefficient is inversely related with accuracy for 0 to 0.01, after which accuracy starts increasing again. Hence, indicating that its effect on data generation process is periodic. Performances of the learners are found to be nearly independent of the number of centroids used for fairly high drift of 0.01. On the other hand, percentage of drift centroids is inversely related to performance, and can bring accuracy down to the 50\% for binary class problem with only 50\% drifting centroids. After that, increasing number of drifting centroids cannot not affect classifier performance. 
