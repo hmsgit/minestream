@@ -14,6 +14,7 @@ src/*.txt
 */build/
 */dist/
 */test/
+*/nbproject/
 tweetdb
 
 
@@ -37,6 +38,8 @@ tweetdb
 *.out
 *.gz
 *.toc
+
+# Specific files or folders
 /src/Format/nbproject/private/
 /src/Format/dist/
 /src/format/build/
