@@ -9,6 +9,8 @@ There are two different approaches in evaluating algorithms in a streaming envir
 \subsection{Performance Metrics}
 A number of metrics has been used for the evaluation criteria. Accuracy, processing time, memory usage, and kappa statistics are primarily used for the evaluation along with various tree structure related parameters such as tree depth, tree size, number of decision nodes, etc. Moreover, we observed algorithm specific properties e.g. number of tree reset, number of pruned trees, number of maintained alternate trees, number of times of partial tree replacement, etc. These algorithm specific parameters are not always directly comparable. Parameters are comparable among HT, adaptive HT, and ASHT. Bagging and boosting approaches have a different setting. Thus, we used weighted averages for these methods when calculating the number of resets or pruning type of statistics. For example, in bagging methods, smaller trees reset more often, thus while calculating the number of resets, a lower relative weight is given to the smaller trees. In our experiments, weights are proportional to the maximum size limits, or equal where there is no size restriction.
 
+\subsection{Generalization Error Bound}
+In batched leaning methods, the generalization error is a measurement that indicates how well a learning method generalizes to unseen data. It is the distance between the error on the training set and the test set, and is averaged over the entire set of possible training data for all iterations. In our stream mining environment, as we will be using prequential evaluation method, all samples would be first used as a test sample and then be used as a training sample. Moreover, as this will be performed only once, thus there would be no iteration over the training set, and the evaluation performance would be strongly tied with the sequence of  the incoming data. Thus, the notion of generalization error does not apply here. Rather, we focus on the confidence of the model being build. For Hoeffding tree based approaches, $\delta$ (Algorithm~\ref{alg:vfdt}, Algorithm~\ref{alg:srht}) is used to indicate an allowable error in each split decision. For our experiments, we kept this value to $0.0000001$. This is the maximum error to be accepted in a split decision. This is used to compute the Hoeffding bound, depending on which split decisions are taken.
 
 \section{Study case: Census Income Dataset}
 In the beginning, we check the performance of the stream algorithms in comparison to the classical batched data mining algorithms. For this evaluation, the census income data set~\cite{ron:adultds} is  used. This data set contains 48,842 instances of 14 attributes (6 continuous, 8 categorical) mapping to a binary ``income'' class (details in Appendix~\ref{appndx:ci}). With experimental evaluation, it is found that most batched learning methods such as C4.5, SVM, MLP achieve an accuracy around 82-83\% with 10 fold cross validation for the income class prediction task. As it can be seen from Figure~\ref{fig:exp:ci}, stream learning methods also achieve an accuracy within 1-2\% percent difference than the batched learners. Measured F1 values also presents similar scores. Though differences are insignificant, however, ASHT and bagging with ASHT seem to perform relatively worse than other algorithms. It is because of the resetting of the trees. After each reset, a few instances will suffer because the new trees are still very small. On the other hand, with our proposed modifications, bagging with SRHT overcomes this problem, and performs nearly the same as C4.5.
@@ -42,8 +44,8 @@ Figure~\ref{fig:exp:speedxaccu}a suggests that the maximum deviation occurs with
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{1-rnd-speed-accu}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{1-vs-speed-accu}.pdf}} \\
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{1-rnd-speed-accu}.pdf}} &
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{1-vs-speed-accu}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
@@ -56,8 +58,8 @@ For the random RBF stream, accuracy drops significantly for all algorithms with 
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{1-rnd-speed-time}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{1-vs-speed-time}.pdf}} \\
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{1-rnd-speed-time}.pdf}} &
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{1-vs-speed-time}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
@@ -77,8 +79,8 @@ The umber of generating centroids is another parameter for data generation. Each
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{3-rnd-centroid-accu}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{3-vs-centroid-accu}.pdf}} \\
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{3-rnd-centroid-accu}.pdf}} &
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{3-vs-centroid-accu}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
@@ -90,8 +92,8 @@ The umber of generating centroids is another parameter for data generation. Each
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{3-rnd-centroid-tsize}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{3-vs-centroid-tsize}.pdf}} \\
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{3-rnd-centroid-tsize}.pdf}} &
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{3-vs-centroid-tsize}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
@@ -105,8 +107,8 @@ Tree sizes for all these algorithms fall into 3 general categories. Classifiers 
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{4-rnd-driftcentroid-accu}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{4-vs-driftcentroid-accu}.pdf}} \\
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{4-rnd-driftcentroid-accu}.pdf}} &
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{4-vs-driftcentroid-accu}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
@@ -117,7 +119,7 @@ Tree sizes for all these algorithms fall into 3 general categories. Classifiers 
 \subsection{Effect of Percentage of Drifting Centroids}
 
 
-In this set of experiments, we checked the effect of number of drifting centroids. Previously, we have shown the performance for different drifting amounts, and have found that with a relatively higher drifting rate (e.g. 0.01), performances of the algorithms drops substantially.  (Figure~\ref{fig:exp:speedxaccu}). For these experiments, we therefore, kept the drifting coefficient to 0.01 and varied percentage or drifting centroids from 20 to 100. As expected, accuracy and other metrics are found to be highly correlated with the percentage of drifting centroids till it reaches the random guess accuracy of 50\% (binary class problem). With 50\% of the centroids drifting with a coefficient of 0.01, performance reaches the minimum. (Figure~\ref{fig:exp:driftxaccu}).
+In this set of experiments, we checked the effect of number of drifting centroids. Previously, we have shown the performance for different drifting amounts, and have found that with a relatively higher drifting rate (e.g. 0.01), performances of the algorithms drops substantially.  (Figure~\ref{fig:exp:speedxaccu}). For these experiments, we therefore, kept the drifting coefficient to 0.01 and varied percentage or drifting centroids from 20 to 100. As expected, accuracy and other metrics are found to be highly correlated with the percentage of drifting centroids till it reaches the random guess accuracy of 50\% (binary class problem). With 50\% of the centroids drifting with a coefficient of 0.01, performance reaches the minimum as shown in the Figure~\ref{fig:exp:driftxaccu}.
 
 
 \subsection{Effect of Grace Period}
@@ -127,8 +129,8 @@ The grace period is the number of instances each node must receive before starti
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{2-rnd-grace-accu}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{2-vs-grace-accu}.pdf}} \\
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{2-rnd-grace-accu}.pdf}} &
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{2-vs-grace-accu}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
@@ -142,8 +144,8 @@ The grace period is the number of instances each node must receive before starti
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{2-rnd-grace-time}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{2-vs-grace-time}.pdf}} \\
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{2-rnd-grace-time}.pdf}} &
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{2-vs-grace-time}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
@@ -157,8 +159,8 @@ The grace period is the number of instances each node must receive before starti
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{2-rnd-grace-tsize}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{2-vs-grace-tsize}.pdf}} \\
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{2-rnd-grace-tsize}.pdf}} &
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{2-vs-grace-tsize}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
@@ -176,8 +178,8 @@ The tie threshold is used to break ties between two similarly good attributes fo
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{5-rnd-tiethresh-accu}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{5-vs-tiethresh-accu}.pdf}} \\
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{5-rnd-tiethresh-accu}.pdf}} &
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{5-vs-tiethresh-accu}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
@@ -191,8 +193,8 @@ A larger value for the tie threshold ensures that the margin between the best tw
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{5-rnd-tiethresh-tsize}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{5-vs-tiethresh-tsize}.pdf}} \\
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{5-rnd-tiethresh-tsize}.pdf}} &
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{5-vs-tiethresh-tsize}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
@@ -207,8 +209,8 @@ This set of experiments explores the effect of a binary split. This attribute ha
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{6-rnd-binsplit-depth}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{6-rnd-binsplit-tsize}.pdf}} \\
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{6-rnd-binsplit-depth}.pdf}} &
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{6-rnd-binsplit-tsize}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
@@ -224,8 +226,8 @@ The ensemble method has very little influence on static concepts. Figure~\ref{fi
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{8-rnd-ensize-accu}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{8-vs-ensize-time}.pdf}} \\
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{8-rnd-ensize-accu}.pdf}} &
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{8-vs-ensize-time}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
@@ -240,8 +242,8 @@ However, with a small drift coefficient of 0.001, algorithms demonstrate  higher
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{res/{8-rnd-ensize-accu-copy}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{res/{8-rnd-ensize-time}.pdf}} \\
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{8-rnd-ensize-accu-copy}.pdf}} &
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{res/{8-rnd-ensize-time}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
@@ -262,8 +264,8 @@ In the last section, we have presented performance metrics of the algorithms in 
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{resw/{1-rnd-count-accu}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{resw/{1-vs-count-accu}.pdf}} \\
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{resw/{1-rnd-count-accu}.pdf}} &
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{resw/{1-vs-count-accu}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
@@ -276,8 +278,8 @@ In the last section, we have presented performance metrics of the algorithms in 
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{resw/{1-rnd-count-depth}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{resw/{1-vs-count-depth}.pdf}} \\
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{resw/{1-rnd-count-depth}.pdf}} &
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{resw/{1-vs-count-depth}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
@@ -304,8 +306,8 @@ Among other metrics, the number of reset count found to be linearly increasing w
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{resw/{1-rnd-count-reset}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{resw/{1-vs-count-reset}.pdf}} \\
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{resw/{1-rnd-count-reset}.pdf}} &
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{resw/{1-vs-count-reset}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
@@ -317,8 +319,8 @@ Among other metrics, the number of reset count found to be linearly increasing w
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{resw/{1-rnd-count-time}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{resw/{1-vs-count-time}.pdf}} \\
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{resw/{1-rnd-count-time}.pdf}} &
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{resw/{1-vs-count-time}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
@@ -331,16 +333,16 @@ Among other metrics, the number of reset count found to be linearly increasing w
 \begin{figure}[htbp] 
     \begin{center}
         \begin{tabular}{cc}
-            \hspace{-5mm} \resizebox{80mm}{!}{\includegraphics{resw/{1-rnd-count-kappa}.pdf}} &
-            \hspace{-10mm} \resizebox{80mm}{!}{\includegraphics{resw/{1-vs-count-kappa}.pdf}} \\
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{resw/{1-rnd-count-kappa}.pdf}} &
+            \hspace{-10mm} \resizebox{85mm}{!}{\includegraphics{resw/{1-vs-count-kappa}.pdf}} \\
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
         \caption{Kappa over time for (a) Random RBF (b) VS RBF}
         \label{fig:exp:tkappa}
     \end{center}
+    %\vspace{-5mm}
 \end{figure}
-\clearpage
 
 
 \section{Discussion on the Experimental Evaluation}
