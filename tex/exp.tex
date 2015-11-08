@@ -24,7 +24,7 @@ In the beginning, we check the performance of the stream algorithms in compariso
             \scriptsize{(a)\vspace{2mm}} &
             \scriptsize{(b)}    
         \end{tabular}
-        \caption{Comparison of classical and stream learning algorithms on census income data set with (a) accuracy and (b) F1-measure }
+        \caption{Comparison of batch and stream learning algorithms on census income data set with (a) accuracy and (b) F1-measure }
         \label{fig:exp:ci}
     \end{center}
 \end{figure}
@@ -49,7 +49,7 @@ Figure~\ref{fig:exp:speedxaccu}a suggests that the maximum deviation occurs with
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of drift coefficient on accuracy using (a) random RBF (b) VS RBF}
+        \caption{Effect of drift coefficient on accuracy using (a) random RBF (b) VSRBF}
         \label{fig:exp:speedxaccu}
     \end{center}
 \end{figure}
@@ -63,7 +63,7 @@ For the random RBF stream, accuracy drops significantly for all algorithms with 
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of drift coefficient on processing time using (a) random RBF (b) VS RBF}
+        \caption{Effect of drift coefficient on processing time using (a) random RBF (b) VSRBF}
         \label{fig:exp:speedxtime}
     \end{center}
 \end{figure}
@@ -74,7 +74,7 @@ Next, on Figure~\ref{fig:exp:speedxtime} comparison of processing time for diffe
 
 
 \subsection{Effect of Number of Centroids}
-The umber of generating centroids is another parameter for data generation. Each centroid in some way simulates concepts. We varied this number from 50 to 200 with steps of 50. No changes in terms of performance metrics is observed for random RBF data sets (Figure~\ref{fig:exp:centxaccu}a,~\ref{fig:exp:centxsize}a). For VS RBF streams a slight variation is observed, as depicted in Figure~\ref{fig:exp:centxaccu}b,~\ref{fig:exp:centxsize}b.
+The umber of generating centroids is another parameter for data generation. Each centroid in some way simulates concepts. We varied this number from 50 to 200 with steps of 50. No changes in terms of performance metrics is observed for random RBF data sets (Figure~\ref{fig:exp:centxaccu}a,~\ref{fig:exp:centxsize}a). For VSRBF streams a slight variation is observed, as depicted in Figure~\ref{fig:exp:centxaccu}b,~\ref{fig:exp:centxsize}b.
 
 \begin{figure}[htbp] 
     \begin{center}
@@ -84,7 +84,7 @@ The umber of generating centroids is another parameter for data generation. Each
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of number of centroids on accuracy using (a) random RBF (b) VS RBF}
+        \caption{Effect of number of centroids on accuracy using (a) random RBF (b) VSRBF}
         \label{fig:exp:centxaccu}
     \end{center}
 \end{figure}
@@ -97,7 +97,7 @@ The umber of generating centroids is another parameter for data generation. Each
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of number of centroids on tree size using (a) random RBF (b) VS RBF}
+        \caption{Effect of number of centroids on tree size using (a) random RBF (b) VSRBF}
         \label{fig:exp:centxsize}
     \end{center}
 \end{figure}
@@ -112,7 +112,7 @@ Tree sizes for all these algorithms fall into 3 general categories. Classifiers 
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of percentage of drift centroid on accuracy using (a) random RBF (b) VS RBF}
+        \caption{Effect of percentage of drift centroid on accuracy using (a) random RBF (b) VSRBF}
         \label{fig:exp:driftxaccu}
     \end{center}
 \end{figure}
@@ -134,7 +134,7 @@ The grace period is the number of instances each node must receive before starti
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of grace period on accuracy using (a) random RBF (b) VS RBF}
+        \caption{Effect of grace period on accuracy using (a) random RBF (b) VSRBF}
         \label{fig:exp:gracexaccu}
     \end{center}
 \end{figure}
@@ -149,7 +149,7 @@ The grace period is the number of instances each node must receive before starti
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of grace period on processing time using (a) random RBF (b) VS RBF}
+        \caption{Effect of grace period on processing time using (a) random RBF (b) VSRBF}
         \label{fig:exp:gracextime}
     \end{center}
 \end{figure}
@@ -164,7 +164,7 @@ The grace period is the number of instances each node must receive before starti
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of grace period on tree size using (a) random RBF (b) VS RBF}
+        \caption{Effect of grace period on tree size using (a) random RBF (b) VSRBF}
         \label{fig:exp:gracexsize}
     \end{center}
 \end{figure}
@@ -183,12 +183,12 @@ The tie threshold is used to break ties between two similarly good attributes fo
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of tie threshold on accuracy using (a) random RBF (b) VS RBF}
+        \caption{Effect of tie threshold on accuracy using (a) random RBF (b) VSRBF}
         \label{fig:exp:tiexaccu}
     \end{center}
 \end{figure}
 
-A larger value for the tie threshold ensures that the margin between the best two attributes is higher. As Figure~\ref{fig:exp:tiexaccu} shows that the larger values yields better accuracy when we varied tie threshold from 0.001 to 0.1 with discrete intervals. However, in Figure~\ref{fig:exp:tiexsize}, it can be seen that this also increases the tree size substantially for adaptive HT based methods. Both random RBF and VS RBF show similar trends, but classifiers perform better on VS RBF. The reason is explained in the section above about effect of the drift coefficient. We used 0.01 as drift coefficients for these experiments.
+A larger value for the tie threshold ensures that the margin between the best two attributes is higher. As Figure~\ref{fig:exp:tiexaccu} shows that the larger values yields better accuracy when we varied tie threshold from 0.001 to 0.1 with discrete intervals. However, in Figure~\ref{fig:exp:tiexsize}, it can be seen that this also increases the tree size substantially for adaptive HT based methods. Both random RBF and VSRBF show similar trends, but classifiers perform better on VSRBF. The reason is explained in the section above about effect of the drift coefficient. We used 0.01 as drift coefficients for these experiments.
 
 \begin{figure}[htbp] 
     \begin{center}
@@ -198,7 +198,7 @@ A larger value for the tie threshold ensures that the margin between the best tw
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Effect of tie threshold on tree size using (a) random RBF (b) VS RBF}
+        \caption{Effect of tie threshold on tree size using (a) random RBF (b) VSRBF}
         \label{fig:exp:tiexsize}
     \end{center}
 \end{figure}
@@ -221,7 +221,7 @@ This set of experiments explores the effect of a binary split. This attribute ha
 
 
 \subsection{Effect of Ensemble Size}
-The ensemble method has very little influence on static concepts. Figure~\ref{fig:exp:ensizexstatic} shows that for both random RBF and VS RBF generators increasing ensemble size achieves no better accuracy. But processing time increases linearly with increasing size.
+The ensemble method has very little influence on static concepts. Figure~\ref{fig:exp:ensizexstatic} shows that for both random RBF and VSRBF generators increasing ensemble size achieves no better accuracy. But processing time increases linearly with increasing size.
 
 \begin{figure}[htbp] 
     \begin{center}
@@ -269,7 +269,7 @@ In the last section, we have presented performance metrics of the algorithms in 
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Accuracy over time for (a) Random RBF (b) VS RBF}
+        \caption{Accuracy over time for (a) Random RBF (b) VSRBF}
         \label{fig:exp:taccu}
     \end{center}
 \end{figure}
@@ -283,12 +283,12 @@ In the last section, we have presented performance metrics of the algorithms in 
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Tree depth over time for (a) Random RBF (b) VS RBF}
+        \caption{Tree depth over time for (a) Random RBF (b) VSRBF}
         \label{fig:exp:tdeth}
     \end{center}
 \end{figure}
 
-Figure~\ref{fig:exp:taccu} shows the accuracy of the algorithms in different time of the window. Figure~\ref{fig:exp:tdeth} presents the depths of the trees at those corresponding times. For the random RBF generator, a lot of fluctuations in both accuracy (Figure~\ref{fig:exp:taccu}a) and tree depth (Figure~\ref{fig:exp:tdeth}a) can be seen. For the VS RBF generator, these fluctuations are bigger. The reason is presumably the high number of instances being generated from small number of concepts in VS RBF, and those concepts are constantly disappearing. However, an important thing to note here is the relationship between the drop in the depth and the drop in the accuracy for the random RBF generator, especially the bagging with a ASHT classifier. On the other hand, bagging with SRHT achieves a bit higher accuracy with a more stable classification rate. For VS RBF generator, bagging with ASHT seems to perform a little better than SRHT bagging but SRHT bagging is more stable. Some other classifiers are performing better (Figure~\ref{fig:exp:taccu}b), however, lead to an over-fitting scenario as the tree depth is constantly rising (Figure~\ref{fig:exp:tdeth}b).
+Figure~\ref{fig:exp:taccu} shows the accuracy of the algorithms in different time of the window. Figure~\ref{fig:exp:tdeth} presents the depths of the trees at those corresponding times. For the random RBF generator, a lot of fluctuations in both accuracy (Figure~\ref{fig:exp:taccu}a) and tree depth (Figure~\ref{fig:exp:tdeth}a) can be seen. For the VSRBF generator, these fluctuations are bigger. The reason is presumably the high number of instances being generated from small number of concepts in VSRBF, and those concepts are constantly disappearing. However, an important thing to note here is the relationship between the drop in the depth and the drop in the accuracy for the random RBF generator, especially the bagging with a ASHT classifier. On the other hand, bagging with SRHT achieves a bit higher accuracy with a more stable classification rate. For VSRBF generator, bagging with ASHT seems to perform a little better than SRHT bagging but SRHT bagging is more stable. Some other classifiers are performing better (Figure~\ref{fig:exp:taccu}b), however, lead to an over-fitting scenario as the tree depth is constantly rising (Figure~\ref{fig:exp:tdeth}b).
 
 This is essentially the goal of our new approach: to have a more stable ensemble such that deleting a classifier will not significantly affect accuracy for a certain period of time. Moreover,  Figure~\ref{fig:exp:pool} shows that bagging with SRHT improves performances for slower concepts (see Figure~\ref{fig:ds:varspd}).
 
@@ -301,7 +301,7 @@ This is essentially the goal of our new approach: to have a more stable ensemble
     \end{center}
 \end{figure}
 
-Among other metrics, the number of reset count found to be linearly increasing with time for both generators (Figure~\ref{fig:exp:treset}). Similarly, the processing time shows a linearly increasing trend over time (Figure~\ref{fig:exp:ttime}). Kappa statistics shows higher variations for VS RBF than for random RBF (Figure~\ref{fig:exp:tkappa}). 
+Among other metrics, the number of reset count found to be linearly increasing with time for both generators (Figure~\ref{fig:exp:treset}). Similarly, the processing time shows a linearly increasing trend over time (Figure~\ref{fig:exp:ttime}). Kappa statistics shows higher variations for VSRBF than for random RBF (Figure~\ref{fig:exp:tkappa}). 
 
 \begin{figure}[htbp] 
     \begin{center}
@@ -311,7 +311,7 @@ Among other metrics, the number of reset count found to be linearly increasing w
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Number of tree being reset over time for (a) Random RBF (b) VS RBF}
+        \caption{Number of tree being reset over time for (a) Random RBF (b) VSRBF}
         \label{fig:exp:treset}
     \end{center}
 \end{figure}
@@ -324,7 +324,7 @@ Among other metrics, the number of reset count found to be linearly increasing w
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Processing time over time for (a) Random RBF (b) VS RBF}
+        \caption{Processing time over time for (a) Random RBF (b) VSRBF}
         \label{fig:exp:ttime}
     \end{center}
 \end{figure}
@@ -338,7 +338,7 @@ Among other metrics, the number of reset count found to be linearly increasing w
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Kappa over time for (a) Random RBF (b) VS RBF}
+        \caption{Kappa over time for (a) Random RBF (b) VSRBF}
         \label{fig:exp:tkappa}
     \end{center}
     %\vspace{-5mm}

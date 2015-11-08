@@ -92,7 +92,7 @@ Then, a random drift amount is associated with each centroid.
     numbers=left,
     numberstyle=\tiny\color{black},
     basicstyle=\tiny,
-    caption= {Associating drift with centroids}
+    caption= {Associating centroids with drifts}
 ]
 public class MyRandomRBFGeneratorDrift extends MyRandomRBFGenerator {
     protected void generateCentroids() {
@@ -193,7 +193,7 @@ Variable speed RBF generator is implemented into VarSpeedRBFGenerator class. Cen
     numbers=left,
     numberstyle=\tiny\color{black},
     basicstyle=\tiny,
-    caption= {Assign centroids to pools for variable speed RBF generator}
+    caption= {Assign centroids to pools for the varying speed RBF generator}
 ]
 public class VarSpeedRBFGeneratorDrift  extends AbstractOptionHandler 
         implements InstanceStream {
@@ -213,7 +213,7 @@ For sake of simplicity, instances are produced in batches. Within each batch the
     numbers=left,
     numberstyle=\tiny\color{black},
     basicstyle=\tiny,
-    caption= {Reconfiguration step for new batch}
+    caption= {Reconfiguration of the generating sources}
 ]
 public class VarSpeedRBFGeneratorDrift  extends AbstractOptionHandler 
         implements InstanceStream {
@@ -250,7 +250,7 @@ SizeRestrictedHT is extended from MyHoeffdingAdaptiveTree, the ADWIN variant of 
     numbers=left,
     numberstyle=\tiny\color{black},
     basicstyle=\tiny,
-    caption= {Training method of Size Restricted Hoeffding Tree}
+    caption= {Size Restricted Hoeffding Tree training}
 ]
 public class SizeRestrictedHT extends MyHoeffdingAdaptiveTree {
     public void trainOnInstanceImpl(Instance inst) {
@@ -339,7 +339,7 @@ For testing, a generalized class with classifier, stream, and output buffer as p
     numbers=left,
     numberstyle=\tiny\color{black},
     basicstyle=\tiny,
-    caption= {Universal test function}
+    caption= {Generalized test function}
 ]
 public class RunTest {
     public void test(InstanceStream inStream, Classifier inclassifier, StringBuilder outstats) 

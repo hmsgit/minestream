@@ -56,7 +56,7 @@ Figure~\ref{fig:ds:rbf} illustrates a generated data set on two dimensional spac
             \resizebox{75mm}{!}{\includegraphics{figs/{drift-0.1}.pdf}} \\
             \scriptsize{(c)} & \scriptsize{(d)}
         \end{tabular}
-        \caption{RBF data generation with concept drift. Drift coefficient: (a) 0, (b) 0.01, (c) 0.1, and (d) 1}
+        \caption{RBF data generation with concept drift. Drift coefficient: (a) 0.0, (b) 0.01, (c) 0.1, and (d) 1.0}
         \label{fig:ds:rbfdrift}
     \end{center}
 \end{figure}
@@ -64,11 +64,11 @@ Next, in Figure~\ref{fig:ds:rbfdrift} we present 4 generated data sets with only
 
 We retain most of these properties of a RBF generator in creating our Variable Speed RBF Stream. We manipulate the generation process to achieve our desired properties in the data set. We want the data set to be balanced in terms of the binary class distribution. We also want some centroids to produce more data, possibly with higher drift while some centroids with very little drift produce fewer data in a certain time frame. With these goals, we present the data generation process for variable speed RBF Stream in the next chapter.
 
-\section{A New Approach to Generate Variable Speed RBF Streams}
+\section{A New Approach to Generate Varying Speed Data Streams}
 To generate a variable speed RBF stream, we replace the concept of centroids with pools of centroids. At the start of the generation process a sufficient number of centroids is generated and assigned randomly to a user specified number of pools. The generation process of centroids remain exactly the same as the RBF generator: a randomly chosen point in the hyper-space with a randomly assigned class label. Instances generating from each centroid have this point as the mean of the normal distribution with a randomly selected standard deviation. After assigning these centroids into pools, the pools are assigned relative weights. We have used linearly increasing and quadratically increasing weights for experiments. Drift coefficients associated with all the centroids within a pool are the same and also follow  a quadratic rate among the pools. As we mentioned before, slower pools i.e. pools with lower weights have lower drift coefficients than the pools with higher weights.
 
 \begin{algorithm}[htbp]
-    \caption{Variable Speed RBF Generator}
+    \caption{Varying Speed RBF Generator}
     \label{alg:vsrbf}
     \DontPrintSemicolon
     \SetKwInOut{Input}{Input} \SetKwInOut{Output}{Output} 
@@ -118,7 +118,7 @@ To mimic concept evolution and recurrence, we associate each pool with an activa
             \scriptsize{(a)\vspace{2mm}} &
             \scriptsize{(b)}    
         \end{tabular}
-        \caption{Variable speed data generation in 2D space (a) distribution (b) histogram}
+        \caption{Varying speed data generation in 2D space (a) distribution (b) histogram}
         \label{fig:ds:varspd}
     \end{center}
 \end{figure}

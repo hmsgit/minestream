@@ -262,6 +262,8 @@ ggplot(var, aes(Instance, Centroid, color=Pool, shape=Class))+ geom_point(size=2
 
 
 
+myfunc2("x-rnd-count-accu",			"Instance count",	"Accuracy",		"Algorithm")
+myfunc2("x-vs-count-accu",			"Instance count",	"Accuracy",		"Algorithm")
 
 
 
