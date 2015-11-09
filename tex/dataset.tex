@@ -75,34 +75,34 @@ To generate a variable speed RBF stream, we replace the concept of centroids wit
     \DontPrintSemicolon
     \SetKwInOut{Input}{Input} \SetKwInOut{Output}{Output} 
     
-    \Input{$c$: Number of classes \\
-        $d$: Number of attributes \\
-        $p$: Number of pools \\
-        $b$: Number of batch size \\
-        $n$: Size of the stream
+    \Input{$p$: Number of pools \\
+        $b$: Batch size \\
+        $m$: Number of centroids \\
     } 
     \Output{$D$: A data stream}
     
     \Begin{
-        Create $P$ pools \\
-        Generate $m$ centroids		  	\tcp*[f]{Sufficiently high number, $n>>p$} \\
-        Distribute $m$ centroids to $p$ pools randomly \\
-        Let $w_i$ is the weight of $i$th pool \\
-        $w_i = a * i^2$		  			\tcp*[f]{Associate each pool with a quadratic weight} \\
-        Let $a_i$ is the activation percentage of $i$th pool \\
+        Create $p$ pools: $pools$ \\
+        Generate $m$ centroids: $centroids$		  	\tcp*[f]{Sufficiently large number, $m>>p$} \\
+        Distribute $centroids$ to $pools$ randomly \\
         
-        \While{n > 0} {
-            \ForEach{$P_i \in pools$} {
-                Randomly select $a_i$ fraction of centroids in $P_i$ \\
+        \ForEach{$p_i \in pools$} {
+            Assign weights, activation percentage, drift coefficient to the $pools$ \\
+            $w_i = f_1(i)$		  			\tcp*[f]{$f_1()$ is linearly/quadratically increasing} \\
+            $a_i = f_2(i)$		  			\tcp*[f]{$f_2()$ is linearly/quadratically decreasing} \\
+            $d_i = f_3(i)$		  			\tcp*[f]{$f_3()$ is linearly/quadratically increasing} \\
+        }
+        \While{$true$} {
+            \ForEach{$p_i \in pools$} {
+                Randomly activate $a_i$ fraction of centroids in $p_i$ \\
             }
             
-            \ForEach{$P_i \in pools$} {
-                $n_i = w_i * b / w$ where $w = \sum w_i$ \\
+            \ForEach{$p_i \in pools$} {
+                $n_i = b*w_i/ w$ where $w = \sum w_i$ \\
                 Generate $n_i$ instances \\
             }
             Randomly shuffle all generated instances \\
             Add instances to $D$ \\
-            $n = n - b$ \\
         }
         Return $D$
     }
