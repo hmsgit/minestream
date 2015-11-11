@@ -75,7 +75,7 @@ Next, on Figure~\ref{fig:exp:speedxtime} comparison of processing time for diffe
 
 
 \subsection{Effect of Number of Centroids}
-The umber of generating centroids is another parameter for data generation. Each centroid in some way simulates concepts in the data. We varied this number from 50 to 200 with steps of 50. No changes in terms of performance metrics is observed for random RBF data sets (Figure~\ref{fig:exp:centxaccu}a,~\ref{fig:exp:centxsize}a). For VSRBF streams a slight variation is observed, as depicted in Figure~\ref{fig:exp:centxaccu}b,~\ref{fig:exp:centxsize}b.
+The number of generating centroids is another parameter for data generation. Each centroid in some way simulates concepts in the data. We varied this number from 50 to 200 with steps of 50. No changes in terms of performance metrics is observed for random RBF data sets (Figure~\ref{fig:exp:centxaccu}a,~\ref{fig:exp:centxsize}a). For VSRBF streams a slight variation is observed, as depicted in Figure~\ref{fig:exp:centxaccu}b,~\ref{fig:exp:centxsize}b.
 
 \begin{figure}[htbp] 
     \begin{center}
@@ -284,12 +284,12 @@ In the last section, we have presented performance metrics of the algorithms in 
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Tree depth over time for (a) Random RBF (b) VSRBF}
+        \caption{Tree depth over time for (a) random RBF (b) VSRBF}
         \label{fig:exp:tdeth}
     \end{center}
 \end{figure}
 
-Figure~\ref{fig:exp:taccu} shows the accuracy of the algorithms in different time of the window. Figure~\ref{fig:exp:tdeth} presents the depths of the trees at those corresponding times. For the random RBF generator, a lot of fluctuations in both accuracy (Figure~\ref{fig:exp:taccu}a) and tree depth (Figure~\ref{fig:exp:tdeth}a) can be seen. For the VSRBF generator, these fluctuations are bigger. The reason is presumably the high number of instances being generated from small number of concepts in VSRBF, and those concepts are constantly disappearing. However, an important thing to note here is the relationship between the drop in the depth and the drop in the accuracy for the random RBF generator, especially the bagging with a ASHT classifier. On the other hand, bagging with SRHT achieves a bit higher accuracy with a more stable classification rate. For VSRBF generator, bagging with ASHT seems to perform a little better than SRHT bagging but SRHT bagging is more stable. Some other classifiers are performing better (Figure~\ref{fig:exp:taccu}b), however, lead to an over-fitting scenario as the tree depth is constantly rising (Figure~\ref{fig:exp:tdeth}b).
+Figure~\ref{fig:exp:taccu} shows the accuracy of the algorithms in different time of the window. Figure~\ref{fig:exp:tdeth} presents the depths of the trees at those corresponding times. For the random RBF generator, a lot of fluctuations in both accuracy (Figure~\ref{fig:exp:taccu}a) and tree depth (Figure~\ref{fig:exp:tdeth}a) can be seen. For the VSRBF generator, these fluctuations are bigger. The reason is presumably the high number of instances being generated from small number of concepts in VSRBF, and those concepts are constantly disappearing. However, an important thing to note here is the relationship between the drop in the depth and the drop in the accuracy for the random RBF generator, especially the bagging with an ASHT classifier. On the other hand, bagging with SRHT achieves a bit higher accuracy with a more stable classification rate. For VSRBF generator, bagging with ASHT seems to perform a little better than SRHT bagging but SRHT bagging is more stable. Some other classifiers are performing better (Figure~\ref{fig:exp:taccu}b), however, lead to an over-fitting scenario as the tree depth is constantly rising (Figure~\ref{fig:exp:tdeth}b).
 
 This is essentially the goal of our new approach: to have a more stable ensemble such that deleting a classifier will not significantly affect accuracy for a certain period of time. Moreover,  Figure~\ref{fig:exp:pool} shows that bagging with SRHT improves performances for slower concepts (see Figure~\ref{fig:ds:varspd}).
 
@@ -312,7 +312,7 @@ Among other metrics, the number of reset count found to be linearly increasing w
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Number of tree being reset over time for (a) Random RBF (b) VSRBF}
+        \caption{Number of tree being reset over time for (a) random RBF (b) VSRBF}
         \label{fig:exp:treset}
     \end{center}
 \end{figure}
@@ -325,7 +325,7 @@ Among other metrics, the number of reset count found to be linearly increasing w
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Processing time over time for (a) Random RBF (b) VSRBF}
+        \caption{Processing time over time for (a) random RBF (b) VSRBF}
         \label{fig:exp:ttime}
     \end{center}
 \end{figure}
@@ -339,7 +339,7 @@ Among other metrics, the number of reset count found to be linearly increasing w
             \scriptsize{(a)} & \scriptsize{(b)} \\
             
         \end{tabular}
-        \caption{Kappa over time for (a) Random RBF (b) VSRBF}
+        \caption{Kappa over time for (a) random RBF (b) VSRBF}
         \label{fig:exp:tkappa}
     \end{center}
     %\vspace{-5mm}

@@ -18,7 +18,7 @@ With these motivations, we define our problem statement as follows:
     \textbf{Online classification of data streams, which are decomposable into varying speed sub-streams, with decision tree based approaches.}
 \end{quotation}
 
-\noindent Formally, given an infinite stream $S$, having a set of $m$ nominal or continuous attributes $X$, where each instance has a class label from a set $Y = \{y_1, y_2, \dots, y_k\}$; we want to build a classifier that is able to predict the class of new incoming instances. Note that, this definition is very general, and can be used for any of the current learners. The uniqueness lies in the nature of the stream $S$. We want to improve the performance when $S$ is a composite stream of a set of sub-streams with huge contribution differences, i.e, $S = \{S_1, S_2, \dots, S_n\}$, where $speed(S_i) \gg speed(S_j)$ for all $i > j$.
+\noindent Formally, given an infinite stream $S$, having a set of $m$ nominal or continuous attributes $X$, where each instance has a class label from a set $Y = \{y_1, y_2, \dots, y_k\}$; we want to build a classifier that is able to predict the class of new incoming instances. Note that, this definition is very general, and can be used for any of the current learners. The uniqueness lies in the nature of the stream $S$. We want to improve the performance when $S$ is a composite stream of a set of sub-streams with huge contribution differences, i.e., $S = \{S_1, S_2, \dots, S_n\}$, where $speed(S_i) \gg speed(S_j)$ for all $i > j$.
 
 
 \section{Solution Overview}
