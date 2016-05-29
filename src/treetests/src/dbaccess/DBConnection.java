@@ -34,7 +34,7 @@ public class DBConnection {
 
         stmt = connection.prepareStatement("SELECT sentiment, minimalText, STR_TO_DATE(date, '%W %M %d %T PDT %Y') AS stamp "
                 + "FROM tweets ORDER BY stamp ASC "
-                + "LIMIT 0, 20000"
+                + "LIMIT 0, 1600000"
         );
         rs = stmt.executeQuery();
         System.out.println("Executed SQL query");

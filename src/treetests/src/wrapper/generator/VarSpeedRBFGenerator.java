@@ -183,7 +183,7 @@ public class VarSpeedRBFGenerator extends AbstractOptionHandler implements
             this.centroids[i] = new Centroid();
             double[] randCentre = new double[this.numAttsOption.getValue()];
             for (int j = 0; j < randCentre.length; j++) {
-                randCentre[j] = modelRand.nextDouble();
+                randCentre[j] = modelRand.nextDouble()*100;
             }
             this.centroids[i].centre = randCentre;            
             this.centroids[i].classLabel = modelRand.nextInt(this.numClassesOption.getValue());

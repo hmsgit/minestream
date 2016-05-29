@@ -83,8 +83,18 @@ public class RunTest {
         } else {
             trainInst = trainingStream.nextInstance();
         }
+        
+//        while (trainingStream.hasMoreInstances()
+//                && numberInstance++ < TestParameters.NUMBER_OF_INSTANCES
+//                ) {
+//            
+//            System.out.println(trainInst.toStringNoWeight());
+//            trainInst = trainingStream.nextInstance();
+//        }
+        
         while (trainingStream.hasMoreInstances()
-                && numberInstance++ < TestParameters.NUMBER_OF_INSTANCES) {
+                && numberInstance++ < TestParameters.NUMBER_OF_INSTANCES
+                ) {
             
             double[] votes = classifier.getVotesForInstance(trainInst);
             windowEval.addResult(trainInst, votes);
@@ -119,7 +129,9 @@ public class RunTest {
             } else {
                 trainInst = trainingStream.nextInstance();
             }
-            
+            if (numberInstance % 1000 == 0) {
+                System.out.println(numberInstance);
+            }
             if (--windowCount == 0) {
                 windowCount = TestParameters.WIDTH;
                 
@@ -127,7 +139,7 @@ public class RunTest {
                 xtp = tp - xtp; xtn = tn - xtn; xfp = fp - xfp; xfn = fn - xfn;
                 
                 StringBuilder stepStats;
-                stepStats = printSteps == true ? stats: new StringBuilder();
+                stepStats = new StringBuilder();
                 
                 stepStats.append(numberInstance     + ",\t");
                 stepStats.append((double)elapsedTime/1000        + ",\t");
@@ -144,7 +156,9 @@ public class RunTest {
                 //printClassifierInfos();
                 //printTree();
                 stepStats.append("\n");
+                System.out.println(stepStats.toString());
                 
+                if (printSteps == true) stats.append(stepStats.toString());
                 startTime = System.currentTimeMillis();
             }
         }

@@ -131,7 +131,7 @@ public class BayesianStream implements InstanceStream {
             unfilteredTrainingSet.add(inst);
 
         }
-        System.out.println("Finished the loop of all tweets");
+        System.out.println("Finished the loop of all tweets! DOING WHAT!");
         vector = new StringToWordVector();
         //attenzione here please
         String[] options = new String[2];
@@ -147,8 +147,8 @@ public class BayesianStream implements InstanceStream {
 
         trainingSet = Filter.useFilter(unfilteredTrainingSet, vector);
         
-        System.out.println(vector.getAttributeIndices());
-        System.out.println("This point is never reached");
+        //System.out.println(vector.getAttributeIndices());
+        System.out.println("Bayesian stream building finished");
     }
 
     @Override

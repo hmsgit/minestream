@@ -630,39 +630,40 @@ public class MainVSRBF {
 //            int gracePeriod,
 //            double tieThreshold,
 //            boolean binarySplit
-        stats.append(test_OzaBagASHT_RandRBF(1, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(2, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(3, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(4, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(6, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(7, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(8, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(9, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(10, 2, true, 0, 100, 100, 200, .05, false));
         
-        stats.append(test_OzaBagASHT_RandRBF(5, 1, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 3, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 4, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 5, true, 0, 100, 100, 200, .05, false));
-        
-        stats.append(test_OzaBagASHT_RandRBF(1, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(2, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(3, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(4, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(6, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(7, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(8, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(9, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(10, 2, false, 0, 100, 100, 200, .05, false));
-        
-        stats.append(test_OzaBagASHT_RandRBF(5, 1, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 3, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 4, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 5, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(1, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(2, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(3, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(4, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(6, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(7, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(8, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(9, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(10, 2, true, 0, 100, 100, 200, .05, false));
+//        
+//        stats.append(test_OzaBagASHT_RandRBF(5, 1, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 3, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 4, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 5, true, 0, 100, 100, 200, .05, false));
+//        
+//        stats.append(test_OzaBagASHT_RandRBF(1, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(2, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(3, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(4, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(6, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(7, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(8, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(9, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(10, 2, false, 0, 100, 100, 200, .05, false));
+//        
+//        stats.append(test_OzaBagASHT_RandRBF(5, 1, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 3, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 4, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 5, false, 0, 100, 100, 200, .05, false));
         
         
         
@@ -673,84 +674,84 @@ public class MainVSRBF {
         stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 1,         100, 100, 200, .05, false));
         
         
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  50,   50, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  150, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  200, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  250, 100, 200, .05, false));
-        
-        
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100,  20, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100,  40, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100,  60, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100,  80, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .05, false));
-        
-        
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 400, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 800, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 1600, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 3200, .05, false));
-        
-        
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .001, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .005, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .1, false));
-        
-        
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
-        
-        
-        
-        
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0,         100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.001,     100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,      100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.1,       100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 1,         100, 100, 200, .05, false));
-        
-        
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  50,   50, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  150, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  200, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  250, 100, 200, .05, false));
-        
-        
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100,  20, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100,  40, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100,  60, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100,  80, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .05, false));
-        
-        
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 400, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 800, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 1600, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 3200, .05, false));
-        
-        
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .001, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .005, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .05, false));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .1, false));
-        
-        
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
-        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
-        
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  50,   50, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  150, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  200, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  250, 100, 200, .05, false));
+//        
+//        
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100,  20, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100,  40, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100,  60, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100,  80, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .05, false));
+//        
+//        
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 400, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 800, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 1600, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 3200, .05, false));
+//        
+//        
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .001, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .005, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .1, false));
+//        
+//        
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
+//        
+//        
+//        
+//        
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0,         100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.001,     100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,      100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.1,       100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 1,         100, 100, 200, .05, false));
+//        
+//        
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  50,   50, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  150, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  200, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  250, 100, 200, .05, false));
+//        
+//        
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100,  20, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100,  40, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100,  60, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100,  80, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .05, false));
+//        
+//        
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 400, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 800, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 1600, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 3200, .05, false));
+//        
+//        
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .001, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .005, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .05, false));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .1, false));
+//        
+//        
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
+//        stats.append(test_OzaBagASHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
+//        
         writeStatsInFile(file, stats);
     }
     
@@ -1330,39 +1331,40 @@ public class MainVSRBF {
 //            int gracePeriod,
 //            double tieThreshold,
 //            boolean binarySplit
-        stats.append(test_OzaBagSRHT_RandRBF(1, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(2, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(3, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(4, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(6, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(7, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(8, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(9, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(10, 2, true, 0, 100, 100, 200, .05, false));
         
-        stats.append(test_OzaBagSRHT_RandRBF(5, 1, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 3, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 4, true, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 5, true, 0, 100, 100, 200, .05, false));
-        
-        stats.append(test_OzaBagSRHT_RandRBF(1, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(2, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(3, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(4, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(6, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(7, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(8, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(9, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(10, 2, false, 0, 100, 100, 200, .05, false));
-        
-        stats.append(test_OzaBagSRHT_RandRBF(5, 1, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 3, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 4, false, 0, 100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 5, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(1, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(2, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(3, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(4, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(6, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(7, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(8, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(9, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(10, 2, true, 0, 100, 100, 200, .05, false));
+//        
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 1, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 3, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 4, true, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 5, true, 0, 100, 100, 200, .05, false));
+//        
+//        stats.append(test_OzaBagSRHT_RandRBF(1, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(2, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(3, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(4, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(6, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(7, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(8, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(9, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(10, 2, false, 0, 100, 100, 200, .05, false));
+//        
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 1, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 3, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 4, false, 0, 100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 5, false, 0, 100, 100, 200, .05, false));
         
         
         
@@ -1373,83 +1375,83 @@ public class MainVSRBF {
         stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 1,         100, 100, 200, .05, false));
         
         
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  50,   50, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  150, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  200, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  250, 100, 200, .05, false));
-        
-        
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100,  20, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100,  40, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100,  60, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100,  80, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .05, false));
-        
-        
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 400, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 800, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 1600, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 3200, .05, false));
-        
-        
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .001, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .005, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .1, false));
-        
-        
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
-        
-        
-        
-        
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0,         100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.001,     100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,      100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.1,       100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 1,         100, 100, 200, .05, false));
-        
-        
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  50,   50, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  150, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  200, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  250, 100, 200, .05, false));
-        
-        
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100,  20, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100,  40, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100,  60, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100,  80, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .05, false));
-        
-        
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 400, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 800, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 1600, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 3200, .05, false));
-        
-        
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .001, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .005, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .05, false));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .1, false));
-        
-        
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
-        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  50,   50, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  150, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  200, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  250, 100, 200, .05, false));
+//        
+//        
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100,  20, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100,  40, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100,  60, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100,  80, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .05, false));
+//        
+//        
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 400, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 800, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 1600, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 3200, .05, false));
+//        
+//        
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .001, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .005, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .1, false));
+//        
+//        
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, true, 0.01,  100, 100, 200, .01, true));
+//        
+//        
+//        
+//        
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0,         100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.001,     100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,      100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.1,       100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 1,         100, 100, 200, .05, false));
+//        
+//        
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  50,   50, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  150, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  200, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  250, 100, 200, .05, false));
+//        
+//        
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100,  20, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100,  40, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100,  60, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100,  80, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .05, false));
+//        
+//        
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 400, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 800, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 1600, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 3200, .05, false));
+//        
+//        
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .001, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .005, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .05, false));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .1, false));
+//        
+//        
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
+//        stats.append(test_OzaBagSRHT_RandRBF(5, 2, false, 0.01,  100, 100, 200, .01, true));
         
         writeStatsInFile(file, stats);
     }
@@ -1465,13 +1467,13 @@ public class MainVSRBF {
 //        new MainProcessedRBF().test_AdaHT_RandRBF();
 //        new MainProcessedRBF().test_ASHT_RandRBF();
 //        
-        new MainVSRBF().test_OzaBagHT_RandRBF();
-        new MainVSRBF().test_OzaBagAdaHT_RandRBF();
+//        new MainVSRBF().test_OzaBagHT_RandRBF();
+//        new MainVSRBF().test_OzaBagAdaHT_RandRBF();
         new MainVSRBF().test_OzaBagASHT_RandRBF();
-        new MainVSRBF().test_OzaBagAdwin_RandRBF();
+//        new MainVSRBF().test_OzaBagAdwin_RandRBF();
 //        
-        new MainVSRBF().test_OzaBoostHT_RandRBF();
-        new MainVSRBF().test_OzaBoostAdaHT_RandRBF();
+//        new MainVSRBF().test_OzaBoostHT_RandRBF();
+//        new MainVSRBF().test_OzaBoostAdaHT_RandRBF();
         //new MainProcessedRBF().test_OzaBoostAdwin_RandRBF();
         
         
