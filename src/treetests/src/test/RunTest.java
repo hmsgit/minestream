@@ -22,7 +22,7 @@ import wrapper.generator.VarSpeedRBFGenerator;
  * @author mahmud
  */
 
-public class RunTest {
+public class RunTest extends Thread {
     private  Classifier classifier;
     static InstanceStream trainingStream;
     private StringBuilder stats;
@@ -101,25 +101,27 @@ public class RunTest {
             basicEval.addResult(trainInst, votes);
             
             // manual counting
-            if (votes.length != 0 && votes.length != 1) {
+            //if (votes.length != 0 && votes.length != 1) {
                 if (classifier.correctlyClassifies(trainInst)) {
-                    if (votes[0] >= votes[1]) {
-                        tp++;
-                        if (ptp != null) ptp[instPool._pool]++;
-                    } else {
-                        tn++;
-                        if (ptn != null) ptn[instPool._pool]++;
-                    }
+                    tp++;
+//                    if (votes[0] >= votes[1]) {
+//                        tp++;
+//                        if (ptp != null) ptp[instPool._pool]++;
+//                    } else {
+//                        tn++;
+//                        if (ptn != null) ptn[instPool._pool]++;
+//                    }
                 } else {
-                    if (votes[0] >= votes[1]) {
-                        fp++;
-                        if (pfp != null) pfp[instPool._pool]++;
-                    } else {
-                        fn++;
-                        if (pfn != null) pfn[instPool._pool]++;
-                    }
+                    fp++;
+//                    if (votes[0] >= votes[1]) {
+//                        fp++;
+//                        if (pfp != null) pfp[instPool._pool]++;
+//                    } else {
+//                        fn++;
+//                        if (pfn != null) pfn[instPool._pool]++;
+//                    }
                 }
-            }
+            //}
             
             classifier.trainOnInstance(trainInst);
             //trainInst = trainingStream.nextInstance();
@@ -129,8 +131,8 @@ public class RunTest {
             } else {
                 trainInst = trainingStream.nextInstance();
             }
-            if (numberInstance % 1000 == 0) {
-                System.out.println(numberInstance);
+            if (numberInstance % 5000 == 0) {
+                //System.out.println(numberInstance);
             }
             if (--windowCount == 0) {
                 windowCount = TestParameters.WIDTH;
